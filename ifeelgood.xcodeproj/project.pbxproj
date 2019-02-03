@@ -7,21 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA1F71302205981F0094A12A /* EntryPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F712F2205981F0094A12A /* EntryPageView.swift */; };
+		CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F713122059A1A0094A12A /* MainViewController.swift */; };
 		CA4E437722041885002C329F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4E437622041885002C329F /* AppDelegate.swift */; };
-		CA4E437922041885002C329F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4E437822041885002C329F /* ViewController.swift */; };
 		CA4E437C22041885002C329F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437A22041885002C329F /* Main.storyboard */; };
 		CA4E437E22041886002C329F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437D22041886002C329F /* Assets.xcassets */; };
 		CA4E438122041886002C329F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437F22041886002C329F /* LaunchScreen.storyboard */; };
+		CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9702204EF04008625C4 /* ifeelgood.xcdatamodeld */; };
+		CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9732204F16D008625C4 /* CoreDataStack.swift */; };
+		CAE3F9762204F1B1008625C4 /* Factor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9752204F1B1008625C4 /* Factor+Convenience.swift */; };
+		CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */; };
+		CAE3F97B2204F373008625C4 /* EntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F97A2204F373008625C4 /* EntryController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA1F712F2205981F0094A12A /* EntryPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPageView.swift; sourceTree = "<group>"; };
+		CA1F713122059A1A0094A12A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CA4E437322041885002C329F /* ifeelgood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ifeelgood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4E437622041885002C329F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CA4E437822041885002C329F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CA4E437B22041885002C329F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CA4E437D22041886002C329F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA4E438022041886002C329F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA4E438222041886002C329F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAE3F9712204EF04008625C4 /* ifeelgood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ifeelgood.xcdatamodel; sourceTree = "<group>"; };
+		CAE3F9732204F16D008625C4 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		CAE3F9752204F1B1008625C4 /* Factor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factor+Convenience.swift"; sourceTree = "<group>"; };
+		CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+Convenience.swift"; sourceTree = "<group>"; };
+		CAE3F97A2204F373008625C4 /* EntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +66,60 @@
 		CA4E437522041885002C329F /* ifeelgood */ = {
 			isa = PBXGroup;
 			children = (
+				CA4E438822041894002C329F /* Resources */,
+				CAE3F9792204F1C6008625C4 /* Models */,
+				CAE3F97C2204F37E008625C4 /* ModelController */,
+				CAE3F96D2204E926008625C4 /* Views */,
+				CAE3F96E2204E92D008625C4 /* ViewControllers */,
+			);
+			path = ifeelgood;
+			sourceTree = "<group>";
+		};
+		CA4E438822041894002C329F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CAE3F9702204EF04008625C4 /* ifeelgood.xcdatamodeld */,
+				CAE3F9732204F16D008625C4 /* CoreDataStack.swift */,
 				CA4E437622041885002C329F /* AppDelegate.swift */,
-				CA4E437822041885002C329F /* ViewController.swift */,
-				CA4E437A22041885002C329F /* Main.storyboard */,
 				CA4E437D22041886002C329F /* Assets.xcassets */,
 				CA4E437F22041886002C329F /* LaunchScreen.storyboard */,
 				CA4E438222041886002C329F /* Info.plist */,
 			);
-			path = ifeelgood;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CAE3F96D2204E926008625C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CA4E437A22041885002C329F /* Main.storyboard */,
+				CA1F712F2205981F0094A12A /* EntryPageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CAE3F96E2204E92D008625C4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CA1F713122059A1A0094A12A /* MainViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CAE3F9792204F1C6008625C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CAE3F9752204F1B1008625C4 /* Factor+Convenience.swift */,
+				CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CAE3F97C2204F37E008625C4 /* ModelController */ = {
+			isa = PBXGroup;
+			children = (
+				CAE3F97A2204F373008625C4 /* EntryController.swift */,
+			);
+			path = ModelController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +193,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA4E437922041885002C329F /* ViewController.swift in Sources */,
+				CA1F71302205981F0094A12A /* EntryPageView.swift in Sources */,
+				CAE3F9762204F1B1008625C4 /* Factor+Convenience.swift in Sources */,
 				CA4E437722041885002C329F /* AppDelegate.swift in Sources */,
+				CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */,
+				CAE3F97B2204F373008625C4 /* EntryController.swift in Sources */,
+				CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */,
+				CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */,
+				CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +348,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8Z88H6B28;
-				INFOPLIST_FILE = ifeelgood/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ifeelgood/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,7 +366,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8Z88H6B28;
-				INFOPLIST_FILE = ifeelgood/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ifeelgood/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -336,6 +400,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CAE3F9702204EF04008625C4 /* ifeelgood.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CAE3F9712204EF04008625C4 /* ifeelgood.xcdatamodel */,
+			);
+			currentVersion = CAE3F9712204EF04008625C4 /* ifeelgood.xcdatamodel */;
+			path = ifeelgood.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CA4E436B22041885002C329F /* Project object */;
 }
