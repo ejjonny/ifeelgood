@@ -11,9 +11,10 @@ import CoreData
 
 extension Entry {
 	@discardableResult
-	convenience init(mindRating: Double, bodyRating: Double, date: Date = Date(), uuid: UUID = UUID(), moc: NSManagedObjectContext = CoreDataStack.context) {
+	convenience init(mindRating: Double, date: Date = Date(), uuid: UUID = UUID(), moc: NSManagedObjectContext = CoreDataStack.context) {
 		self.init(context: moc)
 		self.mindRating = mindRating
-		self.bodyRating = bodyRating
+		self.date = Date()
+		self.uuid = UUID()
 	}
 }

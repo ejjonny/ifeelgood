@@ -74,7 +74,7 @@ class EntryPageView: UIView {
 		updateViews()
 	}
 	@IBAction func submitButtonTapped(sender: UIButton) {
-		print("Saving an Entry should happen here")
+		delegate?.saveButtonTapped()
 	}
 	
 	// TODO: - submit entry button that will tell delegate which will evaluate button statuses and create an Entry.
@@ -83,6 +83,13 @@ class EntryPageView: UIView {
 		mindBadButton.setImage(mindBadButtonActive ? UIImage(named: "BA") : UIImage(named: "BI"), for: .normal)
 		mindNeutralButton.setImage(mindNeutralButtonActive ? UIImage(named: "NA") : UIImage(named: "NI"), for: .normal)
 		mindGoodButton.setImage(mindGoodButtonActive ? UIImage(named: "GA") : UIImage(named: "GI"), for: .normal)
+	}
+	
+	func resetUI() {
+		mindBadButtonActive = false
+		mindNeutralButtonActive = false
+		mindGoodButtonActive = false
+		updateViews()
 	}
 	
 	/*
@@ -95,5 +102,5 @@ class EntryPageView: UIView {
 }
 
 protocol EntryPageViewDelegate: class {
-	func ratingButtonTapped()
+	func saveButtonTapped()
 }
