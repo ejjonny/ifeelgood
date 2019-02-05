@@ -10,12 +10,14 @@ import UIKit
 
 class EntryPageView: UIView {
 
+
 	@IBOutlet weak var ratingCardTitle: UILabel!
 	@IBOutlet weak var mindBadButton: UIButton!
 	@IBOutlet weak var mindNeutralButton: UIButton!
 	@IBOutlet weak var mindGoodButton: UIButton!
 	@IBOutlet weak var ratingCardView: UIView!
 	@IBOutlet weak var submitButton: UIButton!
+	@IBOutlet weak var welcomePhraseView: UIView!
 
 	var ratingButtons: [UIButton: Bool] = [:]
 	
@@ -24,6 +26,10 @@ class EntryPageView: UIView {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		ratingButtons = [mindBadButton: false, mindNeutralButton: false, mindGoodButton: false]
+		initializeUI()
+	}
+	
+	func initializeUI() {
 		ratingCardView.layer.cornerRadius = 10
 		ratingCardView.layer.shadowColor = UIColor.black.cgColor
 		ratingCardView.layer.shadowOpacity = 0.1
@@ -32,7 +38,8 @@ class EntryPageView: UIView {
 		submitButton.layer.cornerRadius = 10
 		ratingCardTitle.layer.masksToBounds = true
 		ratingCardTitle.layer.cornerRadius = 10
-//		ratingCardView.layer.shadowPath = UIBezierPath(rect: ratingCardView.bounds).cgPath
+		welcomePhraseView.layer.cornerRadius = 10
+		//		ratingCardView.layer.shadowPath = UIBezierPath(rect: ratingCardView.bounds).cgPath
 	}
 	
 	func updateButtonStatuses(for button: UIButton) {
@@ -72,6 +79,10 @@ class EntryPageView: UIView {
 		delegate?.saveButtonTapped()
 		resetUI()
 	}
+	@IBAction func addFactorButtonTapped(sender: UIButton) {
+		animateTapFor(sender)
+		delegate?.addFactorButtonTapped()
+	}
 	
 	func updateViews() {
 		mindBadButton.setImage(ratingButtons[mindBadButton]! ? UIImage(named: "BA") : UIImage(named: "BI"), for: .normal)
@@ -96,6 +107,7 @@ class EntryPageView: UIView {
 
 protocol EntryPageViewDelegate: class {
 	func saveButtonTapped()
+	func addFactorButtonTapped()
 }
 
 extension UIView {
