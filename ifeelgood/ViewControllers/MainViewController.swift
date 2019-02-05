@@ -22,12 +22,15 @@ class MainViewController: UIViewController {
 // MARK: - Entry page delegate
 extension MainViewController: EntryPageViewDelegate {
 	func saveButtonTapped() {
-		var rating = 0.0
-		rating = entryPage.mindBadButtonActive ? -1.0 : 0.0
-		rating = entryPage.mindGoodButtonActive ? 1.0 : 0.0
-		EntryController.shared.createEntryWith(mindRating: rating)
-		print(EntryController.shared.entries, EntryController.shared.entries.count)
-		print(EntryController.shared.entries[EntryController.shared.entries.count-1].date!)
-		entryPage.resetUI()
+		
+		if entryPage.ratingButtons.contains(where: { $0.1 == true }) {
+			var rating = 0.0
+			rating = entryPage.ratingButtons[entryPage.mindBadButton]! ? -1.0 : 0.0
+			rating = entryPage.ratingButtons[entryPage.mindGoodButton]! ? 1.0 : 0.0
+			EntryController.shared.createEntryWith(mindRating: rating)
+			entryPage.resetUI()
+		} else {
+			entryPage.ratingCardView.shake()
+		}
 	}
 }

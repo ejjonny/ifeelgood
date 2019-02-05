@@ -17,14 +17,13 @@ class EntryPageView: UIView {
 	@IBOutlet weak var ratingCardView: UIView!
 	@IBOutlet weak var submitButton: UIButton!
 
-	var mindBadButtonActive = false
-	var mindNeutralButtonActive = false
-	var mindGoodButtonActive = false
+	var ratingButtons: [UIButton: Bool] = [:]
 	
 	weak var delegate: EntryPageViewDelegate?
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		ratingButtons = [mindBadButton: false, mindNeutralButton: false, mindGoodButton: false]
 		ratingCardView.layer.cornerRadius = 10
 		ratingCardView.layer.shadowColor = UIColor.black.cgColor
 		ratingCardView.layer.shadowOpacity = 0.1
@@ -36,71 +35,75 @@ class EntryPageView: UIView {
 //		ratingCardView.layer.shadowPath = UIBezierPath(rect: ratingCardView.bounds).cgPath
 	}
 	
-	@IBAction func mindBadButtonTapped(sender: UIButton) {
-		if mindBadButtonActive {
-			mindBadButtonActive = false
-			mindNeutralButtonActive = false
-			mindGoodButtonActive = false
+	func updateButtonStatuses(for button: UIButton) {
+		
+		if self.ratingButtons[button]! {
+			// If an active rating is tapped all should be set to false
+			self.ratingButtons[button] = false
 		} else {
-			mindBadButtonActive = true
-			mindNeutralButtonActive = false
-			mindGoodButtonActive = false
+			// If an inactive rating is tapped all will be set to false except for the tapped button
+			for (key, _) in self.ratingButtons {
+				if key != button {
+					self.ratingButtons[key] = false
+				} else {
+					self.ratingButtons[key] = true
+				}
+			}
 		}
+	}
+	
+	@IBAction func mindBadButtonTapped(sender: UIButton) {
+		animateTapFor(sender)
+		updateButtonStatuses(for: sender)
 		updateViews()
 	}
 	@IBAction func mindNeutralButtonTapped(sender: UIButton) {
-		if mindNeutralButtonActive {
-			mindBadButtonActive = false
-			mindNeutralButtonActive = false
-			mindGoodButtonActive = false
-		} else {
-			mindBadButtonActive = false
-			mindNeutralButtonActive = true
-			mindGoodButtonActive = false
-		}
-
+		animateTapFor(sender)
+		updateButtonStatuses(for: sender)
 		updateViews()
 	}
 	@IBAction func mindGoodButtonTapped(sender: UIButton) {
-		if mindGoodButtonActive {
-			mindBadButtonActive = false
-			mindNeutralButtonActive = false
-			mindGoodButtonActive = false
-		} else {
-			mindBadButtonActive = false
-			mindNeutralButtonActive = false
-			mindGoodButtonActive = true
-		}
+		animateTapFor(sender)
+		updateButtonStatuses(for: sender)
 		updateViews()
 	}
-	@IBAction func submitButtonTapped(sender: UIButton) {
+	@IBAction func saveButtonTapped(sender: UIButton) {
+		animateTapFor(sender)
 		delegate?.saveButtonTapped()
+		resetUI()
 	}
 	
-	// TODO: - submit entry button that will tell delegate which will evaluate button statuses and create an Entry.
-	
 	func updateViews() {
-		mindBadButton.setImage(mindBadButtonActive ? UIImage(named: "BA") : UIImage(named: "BI"), for: .normal)
-		mindNeutralButton.setImage(mindNeutralButtonActive ? UIImage(named: "NA") : UIImage(named: "NI"), for: .normal)
-		mindGoodButton.setImage(mindGoodButtonActive ? UIImage(named: "GA") : UIImage(named: "GI"), for: .normal)
+		mindBadButton.setImage(ratingButtons[mindBadButton]! ? UIImage(named: "BA") : UIImage(named: "BI"), for: .normal)
+		mindNeutralButton.setImage(ratingButtons[mindNeutralButton]! ? UIImage(named: "NA") : UIImage(named: "NI"), for: .normal)
+		mindGoodButton.setImage(ratingButtons[mindGoodButton]! ? UIImage(named: "GA") : UIImage(named: "GI"), for: .normal)
 	}
 	
 	func resetUI() {
-		mindBadButtonActive = false
-		mindNeutralButtonActive = false
-		mindGoodButtonActive = false
+		
+		// Iterate through all the values and set them to false
+		for (key, _) in self.ratingButtons {
+			self.ratingButtons[key] = false
+		}
 		updateViews()
 	}
 	
-	/*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+	func animateTapFor(_ button: UIButton) {
+		// Depress animation for buttons
+		EntryPageView.animate( withDuration: 0.002, animations: { button.transform = CGAffineTransform(scaleX: 0.9, y: 0.9) }, completion: { _ in UIView.animate(withDuration: 0.1) { button.transform = CGAffineTransform.identity}})
+	}
 }
 
 protocol EntryPageViewDelegate: class {
 	func saveButtonTapped()
+}
+
+extension UIView {
+	func shake() {
+		let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+		animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+		animation.duration = 0.6
+		animation.values = [-10.0, 10.0, -10.0, 10.0, -5.0, 5.0, -2.5, 2.5, 0.0 ]
+		layer.add(animation, forKey: "shake")
+	}
 }

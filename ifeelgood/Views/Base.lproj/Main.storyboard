@@ -165,7 +165,7 @@
                                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <action selector="submitButtonTappedWithSender:" destination="CuP-3z-utu" eventType="touchUpInside" id="4H3-lS-56c"/>
+                                                                            <action selector="saveButtonTappedWithSender:" destination="CuP-3z-utu" eventType="touchUpInside" id="meH-bK-qAf"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
