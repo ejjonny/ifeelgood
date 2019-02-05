@@ -27,6 +27,24 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CuP-3z-utu" userLabel="EntryPage" customClass="EntryPageView" customModule="ifeelgood" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="734"/>
                                                 <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5En-Mg-TWO">
+                                                        <rect key="frame" x="20" y="0.0" width="335" height="36.666666666666664"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Welcome phrase)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUE-RJ-0P1">
+                                                                <rect key="frame" x="10" y="0.0" width="315" height="36.666666666666664"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.91492070999999997" green="0.94261030980000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="DUE-RJ-0P1" secondAttribute="bottom" id="KfK-we-R9C"/>
+                                                            <constraint firstItem="DUE-RJ-0P1" firstAttribute="leading" secondItem="5En-Mg-TWO" secondAttribute="leading" constant="10" id="Wba-1z-Gwl"/>
+                                                            <constraint firstAttribute="trailing" secondItem="DUE-RJ-0P1" secondAttribute="trailing" constant="10" id="akH-yb-9gz"/>
+                                                            <constraint firstItem="DUE-RJ-0P1" firstAttribute="top" secondItem="5En-Mg-TWO" secondAttribute="top" id="e3D-Q7-AvM"/>
+                                                        </constraints>
+                                                    </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXo-26-WM6">
                                                         <rect key="frame" x="9.3333333333333428" y="367" width="356.33333333333326" height="367"/>
                                                         <subviews>
@@ -39,17 +57,39 @@
                                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zzb-mM-lpt">
                                                                                 <rect key="frame" x="10" y="0.0" width="316.33333333333331" height="36.666666666666664"/>
                                                                                 <subviews>
-                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Welcome phrase)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUE-RJ-0P1">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="280.66666666666669" height="36.666666666666664"/>
-                                                                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(TrackTitle)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SuD-h5-UbY">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="244" height="36.666666666666664"/>
+                                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
+                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2r-8h-p3d">
+                                                                                        <rect key="frame" x="243.99999999999997" y="0.0" width="36.666666666666657" height="36.666666666666664"/>
+                                                                                        <subviews>
+                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6F-pF-1xE">
+                                                                                                <rect key="frame" x="5.0000000000000018" y="5.0000000000000018" width="26.666666666666671" height="26.666666666666671"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="width" secondItem="u6F-pF-1xE" secondAttribute="height" multiplier="1:1" id="pya-2D-T18"/>
+                                                                                                </constraints>
+                                                                                                <state key="normal" image="Detail"/>
+                                                                                                <connections>
+                                                                                                    <action selector="editCardButtonTappedWithSender:" destination="CuP-3z-utu" eventType="touchUpInside" id="ylK-th-nfv"/>
+                                                                                                </connections>
+                                                                                            </button>
+                                                                                        </subviews>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="bottom" secondItem="u6F-pF-1xE" secondAttribute="bottom" constant="5" id="35q-sl-7Ok"/>
+                                                                                            <constraint firstItem="u6F-pF-1xE" firstAttribute="leading" secondItem="N2r-8h-p3d" secondAttribute="leading" constant="5" id="kju-UB-yL8"/>
+                                                                                            <constraint firstItem="u6F-pF-1xE" firstAttribute="top" secondItem="N2r-8h-p3d" secondAttribute="top" constant="5" id="klY-Mv-I44"/>
+                                                                                            <constraint firstAttribute="width" secondItem="N2r-8h-p3d" secondAttribute="height" multiplier="1:1" id="qlU-aj-zaj"/>
+                                                                                            <constraint firstAttribute="trailing" secondItem="u6F-pF-1xE" secondAttribute="trailing" constant="5" id="qvK-Ug-e8M"/>
+                                                                                        </constraints>
+                                                                                    </view>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n2l-cS-byG">
                                                                                         <rect key="frame" x="280.66666666666669" y="0.0" width="35.666666666666686" height="36.666666666666664"/>
                                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <connections>
-                                                                                            <action selector="addFactorButtonTappedWithSender:" destination="CuP-3z-utu" eventType="touchUpInside" id="yHN-7g-bVc"/>
+                                                                                            <action selector="addCardButtonTappedWithSender:" destination="CuP-3z-utu" eventType="touchUpInside" id="xR1-yv-fLh"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -203,8 +243,12 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="5En-Mg-TWO" firstAttribute="top" secondItem="CuP-3z-utu" secondAttribute="top" id="K2N-u2-B45"/>
+                                                    <constraint firstAttribute="trailing" secondItem="5En-Mg-TWO" secondAttribute="trailing" constant="20" id="LJC-Kk-ovV"/>
                                                     <constraint firstAttribute="bottom" secondItem="qXo-26-WM6" secondAttribute="bottom" id="OIR-lW-UGu"/>
                                                     <constraint firstItem="qXo-26-WM6" firstAttribute="height" secondItem="CuP-3z-utu" secondAttribute="height" multiplier="0.5" id="TJD-BK-697"/>
+                                                    <constraint firstItem="5En-Mg-TWO" firstAttribute="height" secondItem="qXo-26-WM6" secondAttribute="height" multiplier="0.1" id="X4A-aD-cAv"/>
+                                                    <constraint firstItem="5En-Mg-TWO" firstAttribute="leading" secondItem="CuP-3z-utu" secondAttribute="leading" constant="20" id="b6g-Cw-rJf"/>
                                                     <constraint firstItem="qXo-26-WM6" firstAttribute="centerX" secondItem="CuP-3z-utu" secondAttribute="centerX" id="gKF-Fz-RuX"/>
                                                     <constraint firstItem="qXo-26-WM6" firstAttribute="width" secondItem="CuP-3z-utu" secondAttribute="width" multiplier="0.95" id="yhU-6p-KXk"/>
                                                 </constraints>
@@ -213,9 +257,10 @@
                                                     <outlet property="mindGoodButton" destination="7H0-SU-e7a" id="ZWC-E7-5j2"/>
                                                     <outlet property="mindNeutralButton" destination="1U8-96-rlJ" id="uS2-x7-NnP"/>
                                                     <outlet property="ratingCardTitle" destination="DUE-RJ-0P1" id="hx0-xx-AZ9"/>
+                                                    <outlet property="ratingCardTitleView" destination="aL8-AU-8ca" id="mfJ-1v-zPX"/>
                                                     <outlet property="ratingCardView" destination="qXo-26-WM6" id="m2F-9k-hJU"/>
                                                     <outlet property="submitButton" destination="Opt-ho-NTk" id="SDy-bM-txW"/>
-                                                    <outlet property="welcomePhraseView" destination="aL8-AU-8ca" id="xYd-am-He1"/>
+                                                    <outlet property="welcomeTitleView" destination="5En-Mg-TWO" id="ak5-bs-OAk"/>
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHl-Bf-cdg">
@@ -260,6 +305,7 @@
     </scenes>
     <resources>
         <image name="BI" width="483" height="483"/>
+        <image name="Detail" width="265" height="265"/>
         <image name="GI" width="483" height="483"/>
         <image name="NI" width="483" height="483"/>
     </resources>

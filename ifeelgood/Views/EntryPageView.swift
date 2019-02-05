@@ -17,7 +17,8 @@ class EntryPageView: UIView {
 	@IBOutlet weak var mindGoodButton: UIButton!
 	@IBOutlet weak var ratingCardView: UIView!
 	@IBOutlet weak var submitButton: UIButton!
-	@IBOutlet weak var welcomePhraseView: UIView!
+	@IBOutlet weak var ratingCardTitleView: UIView!
+	@IBOutlet weak var welcomeTitleView: UIView!
 
 	var ratingButtons: [UIButton: Bool] = [:]
 	
@@ -38,7 +39,8 @@ class EntryPageView: UIView {
 		submitButton.layer.cornerRadius = 10
 		ratingCardTitle.layer.masksToBounds = true
 		ratingCardTitle.layer.cornerRadius = 10
-		welcomePhraseView.layer.cornerRadius = 10
+		welcomeTitleView.layer.cornerRadius = 10
+		ratingCardTitleView.layer.cornerRadius = 10
 		//		ratingCardView.layer.shadowPath = UIBezierPath(rect: ratingCardView.bounds).cgPath
 	}
 	
@@ -79,9 +81,13 @@ class EntryPageView: UIView {
 		delegate?.saveButtonTapped()
 		resetUI()
 	}
-	@IBAction func addFactorButtonTapped(sender: UIButton) {
+	@IBAction func addCardButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
-		delegate?.addFactorButtonTapped()
+		delegate?.addCardButtonTapped()
+	}
+	@IBAction func editCardButtonTapped(sender: UIButton) {
+		animateTapFor(sender)
+		delegate?.editCardButtonTapped()
 	}
 	
 	func updateViews() {
@@ -107,7 +113,8 @@ class EntryPageView: UIView {
 
 protocol EntryPageViewDelegate: class {
 	func saveButtonTapped()
-	func addFactorButtonTapped()
+	func addCardButtonTapped()
+	func editCardButtonTapped()
 }
 
 extension UIView {
