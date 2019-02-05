@@ -52,13 +52,11 @@ extension MainViewController: UIScrollViewDelegate {
 //		print(scrollView.contentOffset)
 //		entryPage.ratingCardView.layer.add(animation, forKey: "lower")
 //	}
-//	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//		var progress = scrollView.contentOffset.x / (scrollView.contentSize.width - scrollView.bounds.size.width)
-//		EntryPageView.animate( withDuration: 0.002, animations: { button.transform = CGAffineTransform(scaleX: 0.9, y: 0.9) }, completion: { _ in UIView.animate(withDuration: 0.1) { button.transform = CGAffineTransform.identity}})
-//		EntryPageView.animateKeyframes(withDuration: 0.01, delay: 0, options: UIView.KeyframeAnimationOptions.beginFromCurrentState, animations: {
-//			let animation
-//		}, completion: nil)
-//	}
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let progress = scrollView.contentOffset.x / (scrollView.contentSize.width - scrollView.bounds.size.width)
+		let distanceToTranslate: CGFloat = 450.0
+		EntryPageView.animate( withDuration: 0.002, animations: { self.entryPage.ratingCardView.transform = CGAffineTransform(translationX: 0, y: (progress/0.5) * distanceToTranslate)} , completion: nil)
+	}
 }
 
 // MARK: - Entry page delegate
