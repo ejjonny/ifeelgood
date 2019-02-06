@@ -11,15 +11,17 @@ import UIKit
 class MainViewController: UIViewController {
 	
 	// MARK: - Outlets
-	@IBOutlet weak var scrollView: UIScrollView!
-	@IBOutlet weak var entryPage: EntryPageView!
+	@IBOutlet weak var cardView: CardView!
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		entryPage.delegate = self
-		scrollView.delegate = self
+		cardView.delegate = self
 		setWelcomePhrase()
     }
+	
+	@IBAction func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
+		UIView.animate( withDuration: 0.002, animations: { self.cardView.transform = CGAffineTransform(translationX: 0, y: 100)} , completion: nil)
+	}
 	
 	func setWelcomePhrase() {
 		let random = Int(arc4random_uniform(15))
@@ -39,26 +41,11 @@ class MainViewController: UIViewController {
 							"I'm all ears",
 							"How's your day been?"
 		]
-		entryPage.ratingCardTitle.text = phraseArray[random]
+		cardView.ratingCardTitle.text = phraseArray[random]
 	}
 }
-
-extension MainViewController: UIScrollViewDelegate {
-	
-	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		
-		// Grabs progress of scroll to next page
-		let progress = scrollView.contentOffset.x / (scrollView.contentSize.width - scrollView.bounds.size.width)
-		// If user is past the relevant page we will return
-		guard progress < 0.5 else { return }
-		// Animate transition from page 1 to page 2
-		let distanceToTranslate: CGFloat = 450.0
-		EntryPageView.animate( withDuration: 0.002, animations: { self.entryPage.ratingCardView.transform = CGAffineTransform(translationX: 0, y: (progress/0.5) * distanceToTranslate)} , completion: nil)
-	}
-}
-
 // MARK: - Entry page delegate
-extension MainViewController: EntryPageViewDelegate {
+extension MainViewController: CardViewDelegate {
 	
 	func editCardButtonTapped() {
 		let alertController = UIAlertController(title: "Edit this tracking card", message: nil, preferredStyle: .actionSheet)
@@ -122,15 +109,15 @@ extension MainViewController: EntryPageViewDelegate {
 	func saveButtonTapped() {
 		
 		// If any of the buttons are active save the entry
-		if entryPage.ratingButtons.contains(where: { $0.1 == true }) {
+		if cardView.ratingButtons.contains(where: { $0.1 == true }) {
 			var rating = 0.0
-			rating = entryPage.ratingButtons[entryPage.mindBadButton]! ? -1.0 : 0.0
-			rating = entryPage.ratingButtons[entryPage.mindGoodButton]! ? 1.0 : 0.0
+			rating = cardView.ratingButtons[cardView.mindBadButton]! ? -1.0 : 0.0
+			rating = cardView.ratingButtons[cardView.mindGoodButton]! ? 1.0 : 0.0
 			EntryController.shared.createEntryWith(mindRating: rating)
-			entryPage.resetUI()
+			cardView.resetUI()
 		} else {
 			// If not say no
-			entryPage.ratingCardView.shake()
+			cardView.shake()
 		}
 	}
 }

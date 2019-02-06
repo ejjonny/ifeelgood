@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CA1F71302205981F0094A12A /* EntryPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F712F2205981F0094A12A /* EntryPageView.swift */; };
+		CA1F71302205981F0094A12A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F712F2205981F0094A12A /* CardView.swift */; };
 		CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F713122059A1A0094A12A /* MainViewController.swift */; };
 		CA4E437722041885002C329F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4E437622041885002C329F /* AppDelegate.swift */; };
 		CA4E437C22041885002C329F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437A22041885002C329F /* Main.storyboard */; };
@@ -21,7 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CA1F712F2205981F0094A12A /* EntryPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPageView.swift; sourceTree = "<group>"; };
+		CA1F712F2205981F0094A12A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA1F713122059A1A0094A12A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CA4E437322041885002C329F /* ifeelgood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ifeelgood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4E437622041885002C329F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				CA4E437A22041885002C329F /* Main.storyboard */,
-				CA1F712F2205981F0094A12A /* EntryPageView.swift */,
+				CA1F712F2205981F0094A12A /* CardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -193,7 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA1F71302205981F0094A12A /* EntryPageView.swift in Sources */,
+				CA1F71302205981F0094A12A /* CardView.swift in Sources */,
 				CAE3F9762204F1B1008625C4 /* Factor+Convenience.swift in Sources */,
 				CA4E437722041885002C329F /* AppDelegate.swift in Sources */,
 				CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */,
