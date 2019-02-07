@@ -103,14 +103,12 @@
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCB-Ez-Iet">
                                                                         <rect key="frame" x="0.0" y="128" width="118" height="118"/>
-                                                                        <color key="backgroundColor" red="0.91492070999999997" green="0.94261030980000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="SCB-Ez-Iet" secondAttribute="height" multiplier="1:1" id="GuH-it-AwM"/>
                                                                         </constraints>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Factor)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAd-3p-WzG">
                                                                         <rect key="frame" x="0.0" y="256" width="118" height="63.5"/>
-                                                                        <color key="backgroundColor" red="0.91492070999999997" green="0.94261030980000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -132,14 +130,12 @@
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYd-pu-Psh">
                                                                         <rect key="frame" x="0.0" y="128" width="118" height="118"/>
-                                                                        <color key="backgroundColor" red="0.91492070999999997" green="0.94261030980000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="tYd-pu-Psh" secondAttribute="height" multiplier="1:1" id="waG-3J-5ae"/>
                                                                         </constraints>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Factor)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8y-Rd-ugp">
                                                                         <rect key="frame" x="0.0" y="256" width="118" height="63.5"/>
-                                                                        <color key="backgroundColor" red="0.91492070999999997" green="0.94261030980000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -161,14 +157,12 @@
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBx-FP-N1N">
                                                                         <rect key="frame" x="0.0" y="128" width="118" height="118"/>
-                                                                        <color key="backgroundColor" red="0.91492070999999997" green="0.94261030980000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="pBx-FP-N1N" secondAttribute="height" multiplier="1:1" id="7xc-Kz-r3n"/>
                                                                         </constraints>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Factor)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DF9-Q9-Ctf">
                                                                         <rect key="frame" x="0.0" y="256" width="118" height="63.5"/>
-                                                                        <color key="backgroundColor" red="0.91492070999999997" green="0.94261030980000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -229,9 +223,11 @@
                                     <outlet property="mindBadButton" destination="Pbs-Yc-VpF" id="c9I-bd-h4Y"/>
                                     <outlet property="mindGoodButton" destination="bm2-Ma-7Ah" id="dMq-cu-IuS"/>
                                     <outlet property="mindNeutralButton" destination="53H-EF-usV" id="jN9-D2-N84"/>
+                                    <outlet property="panGesture" destination="4AZ-ek-Uxq" id="JAZ-rx-uhR"/>
                                     <outlet property="ratingCardTitle" destination="ib4-O6-1qp" id="jsn-iQ-8rT"/>
                                     <outlet property="ratingCardTitleView" destination="I2r-Kh-FNS" id="23O-qR-pib"/>
                                     <outlet property="submitButton" destination="dYU-jv-jFa" id="TGH-aK-ISf"/>
+                                    <outletCollection property="gestureRecognizers" destination="4AZ-ek-Uxq" appends="YES" id="dDg-a3-Lph"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -250,11 +246,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0m7-0q-ZvU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="down" id="V5M-Yc-db3">
+                <panGestureRecognizer minimumNumberOfTouches="1" id="4AZ-ek-Uxq" customClass="CustomPanGesture" customModule="ifeelgood" customModuleProvider="target">
                     <connections>
-                        <action selector="didSwipeDown:" destination="wjG-zT-1LP" id="w1y-MG-B1E"/>
+                        <action selector="handlePan:" destination="wha-vi-MeG" id="3pc-hp-aBI"/>
                     </connections>
-                </swipeGestureRecognizer>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2181.5999999999999" y="893.3497536945813"/>
         </scene>

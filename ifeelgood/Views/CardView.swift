@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import UIKit.UIGestureRecognizerSubclass
 
 class CardView: UIView {
 
@@ -17,7 +18,7 @@ class CardView: UIView {
 	@IBOutlet weak var mindGoodButton: UIButton!
 	@IBOutlet weak var submitButton: UIButton!
 	@IBOutlet weak var ratingCardTitleView: UIView!
-	//@IBOutlet weak var welcomeTitleView: UIView!
+	@IBOutlet weak var panGesture: CustomPanGesture!
 
 	var ratingButtons: [UIButton: Bool] = [:]
 	
@@ -83,6 +84,24 @@ class CardView: UIView {
 		animateTapFor(sender)
 		delegate?.editCardButtonTapped()
 	}
+	@IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
+		switch panGesture.state {
+		case .began:
+			panGesture.totalTranslation = panGesture.translation(in: self)
+		case .changed:
+			self.center = CGPoint(x: self.center.x, y: self.center.y + panGesture.translation(in: self).y)
+			panGesture.totalTranslation.y += panGesture.translation(in: self).y
+			panGesture.totalTranslation.x += panGesture.translation(in: self).x
+			panGesture.setTranslation(CGPoint.zero, in: self)
+		case .ended:
+			panGesture.setTranslation(CGPoint.zero, in: self)
+			if panGesture.totalTranslation.y > self.bounds.height / 4 {
+				delegate?.hideCard()
+			}
+		default:
+			return
+		}
+	}
 	
 	func updateViews() {
 		mindBadButton.setImage(ratingButtons[mindBadButton]! ? UIImage(named: "BA") : UIImage(named: "BI"), for: .normal)
@@ -109,14 +128,5 @@ protocol CardViewDelegate: class {
 	func saveButtonTapped()
 	func addCardButtonTapped()
 	func editCardButtonTapped()
-}
-
-extension UIView {
-	func shake() {
-		let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-		animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-		animation.duration = 0.6
-		animation.values = [-10.0, 10.0, -10.0, 10.0, -5.0, 5.0, -2.5, 2.5, 0.0 ]
-		layer.add(animation, forKey: "shake")
-	}
+	func hideCard()
 }

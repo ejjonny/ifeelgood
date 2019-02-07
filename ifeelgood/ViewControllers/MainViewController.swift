@@ -19,10 +19,6 @@ class MainViewController: UIViewController {
 		setWelcomePhrase()
     }
 	
-	@IBAction func didSwipeDown(_ sender: UISwipeGestureRecognizer) {
-		UIView.animate( withDuration: 0.002, animations: { self.cardView.transform = CGAffineTransform(translationX: 0, y: 100)} , completion: nil)
-	}
-	
 	func setWelcomePhrase() {
 		let random = Int(arc4random_uniform(15))
 		let phraseArray = [ "Hey good lookin'",
@@ -46,6 +42,10 @@ class MainViewController: UIViewController {
 }
 // MARK: - Entry page delegate
 extension MainViewController: CardViewDelegate {
+	
+	func hideCard() {
+		// TODO: - Hide card here
+	}
 	
 	func editCardButtonTapped() {
 		let alertController = UIAlertController(title: "Edit this tracking card", message: nil, preferredStyle: .actionSheet)
