@@ -16,35 +16,74 @@ class MainViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		cardView.delegate = self
-		setWelcomePhrase()
+		if CardController.shared.cards.isEmpty {
+			// If there are no cards existing make one and set it as the active card.
+			let card = CardController.shared.createCard(named: "My new card")
+			CardController.shared.setActive(card: card)
+			loadCard(card: CardController.shared.activeCard!)
+		} else {
+			// If I try to load a card when there are cards existing & there are no active cards let's crash
+			loadCard(card: CardController.shared.activeCard!)
+		}
     }
 	
-	func setWelcomePhrase() {
-		let random = Int(arc4random_uniform(15))
-		let phraseArray = [ "Hey good lookin'",
-							"What's cookin'?",
-							"How's life?",
-							"Hey - how are you?",
-							"Tell me about your day",
-							"You look great. What's up?",
-							"I'm listening.",
-							"I gotchu.",
-							"I'm here for you.",
-							"What do you need?",
-							"Hey there :)",
-							"Hi lovely",
-							"Hey :)",
-							"I'm all ears",
-							"How's your day been?"
-		]
-		cardView.ratingCardTitle.text = phraseArray[random]
-	}
+//	func setWelcomePhrase() {
+//		let random = Int(arc4random_uniform(15))
+//		let phraseArray = [ "Hey good lookin'",
+//							"What's cookin'?",
+//							"How's life?",
+//							"Hey - how are you?",
+//							"Tell me about your day",
+//							"You look great. What's up?",
+//							"I'm listening.",
+//							"I gotchu.",
+//							"I'm here for you.",
+//							"What do you need?",
+//							"Hey there :)",
+//							"Hi lovely",
+//							"Hey :)",
+//							"I'm all ears",
+//							"How's your day been?"
+//		]
+//	}
 }
+
 // MARK: - Entry page delegate
 extension MainViewController: CardViewDelegate {
 	
 	func hideCard() {
-		// TODO: - Hide card here
+		// Sets target location and current location of card & then animates.
+		let target = self.view.frame.height * 0.8
+		let distanceToTranslate = target - self.cardView.frame.minY
+		CardView.animate(withDuration: 0.2, animations: {
+			self.cardView.frame =  self.cardView.frame.offsetBy(dx: 0, dy: distanceToTranslate)
+		}) { (_) in
+			self.cardView.active = false
+		}
+	}
+	
+	func showCard() {
+		// Sets target location and current location of card & then animates.
+		let target = self.view.frame.height * 0.2
+		let distanceToTranslate = target - self.cardView.frame.minY
+		CardView.animate(withDuration: 0.2, animations: {
+			self.cardView.frame =  self.cardView.frame.offsetBy(dx: 0, dy: distanceToTranslate)
+		}) { (_) in
+			self.cardView.active = true
+		}
+	}
+	
+	func loadCard(card: Card) {
+		CardController.shared.setActive(card: card)
+		let target = self.view.frame.height * 0.8
+		let distanceToTranslate = target - self.cardView.frame.minY
+		CardView.animate(withDuration: 0.2, animations: {
+			self.cardView.frame =  self.cardView.frame.offsetBy(dx: 0, dy: distanceToTranslate)
+		}) { (_) in
+			self.cardView.active = true
+		}
+		cardView.card = card
+		showCard()
 	}
 	
 	func editCardButtonTapped() {
@@ -65,7 +104,7 @@ extension MainViewController: CardViewDelegate {
 		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert) in
 			alertController.dismiss(animated: true, completion: nil)
 		}
-
+		
 		alertController.addAction(switchCardAction)
 		alertController.addAction(addFactorAction)
 		alertController.addAction(deleteFactorAction)
@@ -102,7 +141,9 @@ extension MainViewController: CardViewDelegate {
 	
 	func addCardButtonTapped() {
 		createAlert(withPrompt: "Create a new card.", message: "What would you like to start tracking?", textFieldPlaceholder: "Card Name", confirmActionName: "Add") { (input) in
-			// TODO: - Initialize a new card.
+			let card = Card(name: input)
+			CardController.shared.setActive(card: card)
+			self.loadCard(card: card)
 		}
 	}
 	
@@ -113,7 +154,7 @@ extension MainViewController: CardViewDelegate {
 			var rating = 0.0
 			rating = cardView.ratingButtons[cardView.mindBadButton]! ? -1.0 : 0.0
 			rating = cardView.ratingButtons[cardView.mindGoodButton]! ? 1.0 : 0.0
-			EntryController.shared.createEntryWith(mindRating: rating)
+			CardController.shared.createEntry(ofRating: rating, onCard: cardView.card!)
 			cardView.resetUI()
 		} else {
 			// If not say no

@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Card" representedClassName="Card" syncable="YES" codeGenerationType="class">
+        <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="entries" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="inCard" inverseEntity="Entry" syncable="YES"/>
+        <relationship name="factors" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Factor" inverseName="onCard" inverseEntity="Factor" syncable="YES"/>
+    </entity>
     <entity name="Entry" representedClassName="Entry" syncable="YES" codeGenerationType="class">
-        <attribute name="bodyRating" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="mindRating" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="rating" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="factors" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Factor" inverseName="inEntry" inverseEntity="Factor" syncable="YES"/>
+        <relationship name="inCard" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Card" inverseName="entries" inverseEntity="Card" syncable="YES"/>
     </entity>
     <entity name="Factor" representedClassName="Factor" syncable="YES" codeGenerationType="class">
         <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="inEntry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="factors" inverseEntity="Entry" syncable="YES"/>
+        <relationship name="onCard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="factors" inverseEntity="Card" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Entry" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="Factor" positionX="-36" positionY="9" width="128" height="30"/>
+        <element name="Card" positionX="-87.12109375" positionY="309.625" width="128" height="135"/>
+        <element name="Entry" positionX="-96.87109375" positionY="506.64453125" width="128" height="120"/>
+        <element name="Factor" positionX="148.4765625" positionY="406.875" width="128" height="105"/>
     </elements>
 </model>

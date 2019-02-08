@@ -7,11 +7,19 @@
 //
 
 import UIKit
-//import UIKit.UIGestureRecognizerSubclass
 
 class CardView: UIView {
 
-
+	// MARK: - Properties
+	var active = true
+	
+	var card: Card? {
+		didSet {
+			self.ratingCardTitle.text = card?.name
+		}
+	}
+	
+	// MARK: - Outlets
 	@IBOutlet weak var ratingCardTitle: UILabel!
 	@IBOutlet weak var mindBadButton: UIButton!
 	@IBOutlet weak var mindNeutralButton: UIButton!
@@ -19,7 +27,7 @@ class CardView: UIView {
 	@IBOutlet weak var submitButton: UIButton!
 	@IBOutlet weak var ratingCardTitleView: UIView!
 	@IBOutlet weak var panGesture: CustomPanGesture!
-
+	
 	var ratingButtons: [UIButton: Bool] = [:]
 	
 	weak var delegate: CardViewDelegate?
@@ -39,7 +47,6 @@ class CardView: UIView {
 		submitButton.layer.cornerRadius = 10
 		ratingCardTitle.layer.masksToBounds = true
 		ratingCardTitle.layer.cornerRadius = 10
-//		welcomeTitleView.layer.cornerRadius = 10
 		ratingCardTitleView.layer.cornerRadius = 10
 	}
 	
@@ -56,38 +63,49 @@ class CardView: UIView {
 		}
 	}
 	
+	// MARK: - Actions
 	@IBAction func badButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
 		updateViews()
+		delegate?.showCard()
 	}
 	@IBAction func neutralButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
 		updateViews()
+		delegate?.showCard()
 	}
 	@IBAction func goodButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
 		updateViews()
+		delegate?.showCard()
 	}
 	@IBAction func saveButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		delegate?.saveButtonTapped()
 		resetUI()
+		delegate?.showCard()
 	}
 	@IBAction func addCardButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		delegate?.addCardButtonTapped()
+		delegate?.showCard()
 	}
 	@IBAction func editCardButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		delegate?.editCardButtonTapped()
+		delegate?.showCard()
 	}
 	@IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
 		switch panGesture.state {
 		case .began:
 			panGesture.totalTranslation = panGesture.translation(in: self)
+			panGesture.totalTranslation.y += panGesture.translation(in: self).y
+			panGesture.totalTranslation.x += panGesture.translation(in: self).x
+			self.center = CGPoint(x: self.center.x, y: self.center.y + panGesture.translation(in: self).y)
+			panGesture.setTranslation(CGPoint.zero, in: self)
 		case .changed:
 			self.center = CGPoint(x: self.center.x, y: self.center.y + panGesture.translation(in: self).y)
 			panGesture.totalTranslation.y += panGesture.translation(in: self).y
@@ -95,8 +113,10 @@ class CardView: UIView {
 			panGesture.setTranslation(CGPoint.zero, in: self)
 		case .ended:
 			panGesture.setTranslation(CGPoint.zero, in: self)
-			if panGesture.totalTranslation.y > self.bounds.height / 4 {
+			if self.active {
 				delegate?.hideCard()
+			} else {
+				delegate?.showCard()
 			}
 		default:
 			return
@@ -110,7 +130,6 @@ class CardView: UIView {
 	}
 	
 	func resetUI() {
-		
 		// Iterate through all the values and set them to false
 		for (key, _) in self.ratingButtons {
 			self.ratingButtons[key] = false
@@ -124,9 +143,11 @@ class CardView: UIView {
 	}
 }
 
+// MARK: - Delegate functions
 protocol CardViewDelegate: class {
 	func saveButtonTapped()
 	func addCardButtonTapped()
 	func editCardButtonTapped()
 	func hideCard()
+	func showCard()
 }

@@ -15,11 +15,12 @@
 		CA4E438122041886002C329F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437F22041886002C329F /* LaunchScreen.storyboard */; };
 		CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC30678220C072D00C3229F /* ShakeExtension.swift */; };
 		CAC3067B220C075C00C3229F /* CustomPanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3067A220C075C00C3229F /* CustomPanGesture.swift */; };
+		CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306B7220D360200C3229F /* Card+Convenience.swift */; };
+		CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306BA220D4FAC00C3229F /* CardController.swift */; };
 		CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9702204EF04008625C4 /* ifeelgood.xcdatamodeld */; };
 		CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9732204F16D008625C4 /* CoreDataStack.swift */; };
 		CAE3F9762204F1B1008625C4 /* Factor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9752204F1B1008625C4 /* Factor+Convenience.swift */; };
 		CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */; };
-		CAE3F97B2204F373008625C4 /* EntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F97A2204F373008625C4 /* EntryController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,11 +34,12 @@
 		CA4E438222041886002C329F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CAC30678220C072D00C3229F /* ShakeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeExtension.swift; sourceTree = "<group>"; };
 		CAC3067A220C075C00C3229F /* CustomPanGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPanGesture.swift; sourceTree = "<group>"; };
+		CAC306B7220D360200C3229F /* Card+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Convenience.swift"; sourceTree = "<group>"; };
+		CAC306BA220D4FAC00C3229F /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		CAE3F9712204EF04008625C4 /* ifeelgood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ifeelgood.xcdatamodel; sourceTree = "<group>"; };
 		CAE3F9732204F16D008625C4 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		CAE3F9752204F1B1008625C4 /* Factor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factor+Convenience.swift"; sourceTree = "<group>"; };
 		CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+Convenience.swift"; sourceTree = "<group>"; };
-		CAE3F97A2204F373008625C4 /* EntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,9 +74,8 @@
 			children = (
 				CA4E438822041894002C329F /* Resources */,
 				CAE3F9792204F1C6008625C4 /* Models */,
-				CAE3F97C2204F37E008625C4 /* ModelController */,
 				CAE3F96D2204E926008625C4 /* Views */,
-				CAE3F96E2204E92D008625C4 /* ViewControllers */,
+				CAC306B6220D20F300C3229F /* Controllers */,
 			);
 			path = ifeelgood;
 			sourceTree = "<group>";
@@ -88,8 +89,27 @@
 				CA4E437D22041886002C329F /* Assets.xcassets */,
 				CA4E437F22041886002C329F /* LaunchScreen.storyboard */,
 				CA4E438222041886002C329F /* Info.plist */,
+				CAC306B9220D380100C3229F /* CustomComponents */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		CAC306B6220D20F300C3229F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CAE3F97C2204F37E008625C4 /* ModelController */,
+				CAE3F96E2204E92D008625C4 /* ViewControllers */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CAC306B9220D380100C3229F /* CustomComponents */ = {
+			isa = PBXGroup;
+			children = (
+				CAC3067A220C075C00C3229F /* CustomPanGesture.swift */,
+				CAC30678220C072D00C3229F /* ShakeExtension.swift */,
+			);
+			path = CustomComponents;
 			sourceTree = "<group>";
 		};
 		CAE3F96D2204E926008625C4 /* Views */ = {
@@ -97,8 +117,6 @@
 			children = (
 				CA4E437A22041885002C329F /* Main.storyboard */,
 				CA1F712F2205981F0094A12A /* CardView.swift */,
-				CAC3067A220C075C00C3229F /* CustomPanGesture.swift */,
-				CAC30678220C072D00C3229F /* ShakeExtension.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -114,8 +132,9 @@
 		CAE3F9792204F1C6008625C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CAE3F9752204F1B1008625C4 /* Factor+Convenience.swift */,
+				CAC306B7220D360200C3229F /* Card+Convenience.swift */,
 				CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */,
+				CAE3F9752204F1B1008625C4 /* Factor+Convenience.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -123,7 +142,7 @@
 		CAE3F97C2204F37E008625C4 /* ModelController */ = {
 			isa = PBXGroup;
 			children = (
-				CAE3F97A2204F373008625C4 /* EntryController.swift */,
+				CAC306BA220D4FAC00C3229F /* CardController.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -200,11 +219,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA1F71302205981F0094A12A /* CardView.swift in Sources */,
+				CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */,
 				CAE3F9762204F1B1008625C4 /* Factor+Convenience.swift in Sources */,
 				CA4E437722041885002C329F /* AppDelegate.swift in Sources */,
 				CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */,
 				CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */,
-				CAE3F97B2204F373008625C4 /* EntryController.swift in Sources */,
+				CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */,
 				CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */,
 				CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */,
 				CAC3067B220C075C00C3229F /* CustomPanGesture.swift in Sources */,
