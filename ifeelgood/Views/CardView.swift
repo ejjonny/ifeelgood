@@ -12,13 +12,7 @@ class CardView: UIView {
 
 	// MARK: - Properties
 	var active = true
-	
-	var card: Card? {
-		didSet {
-			self.ratingCardTitle.text = card?.name
-		}
-	}
-	
+		
 	// MARK: - Outlets
 	@IBOutlet weak var ratingCardTitle: UILabel!
 	@IBOutlet weak var mindBadButton: UIButton!
@@ -27,14 +21,19 @@ class CardView: UIView {
 	@IBOutlet weak var submitButton: UIButton!
 	@IBOutlet weak var ratingCardTitleView: UIView!
 	@IBOutlet weak var panGesture: CustomPanGesture!
+	@IBOutlet weak var factorXButton: UIButton!
+	@IBOutlet weak var factorYButton: UIButton!
+	@IBOutlet weak var factorZButton: UIButton!
 	
 	var ratingButtons: [UIButton: Bool] = [:]
+	var factorButtons: [UIButton: Bool] = [:]
 	
 	weak var delegate: CardViewDelegate?
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		ratingButtons = [mindBadButton: false, mindNeutralButton: false, mindGoodButton: false]
+		factorButtons = [factorXButton: false, factorYButton: false, factorZButton: false]
 		initializeUI()
 	}
 	
@@ -51,7 +50,6 @@ class CardView: UIView {
 	}
 	
 	func updateButtonStatuses(for button: UIButton) {
-		
 		if self.ratingButtons[button]! {
 			// If an active rating is tapped all should be set to false
 			self.ratingButtons[button] = false
@@ -61,6 +59,10 @@ class CardView: UIView {
 				self.ratingButtons[key] = key == button ? true : false
 			}
 		}
+	}
+	
+	func toggleActive(for button: UIButton) {
+		self.factorButtons[button] = !self.factorButtons[button]!
 	}
 	
 	// MARK: - Actions
@@ -79,6 +81,24 @@ class CardView: UIView {
 	@IBAction func goodButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
+		updateViews()
+		delegate?.showCard()
+	}
+	@IBAction func factorXButtonTapped(sender: UIButton) {
+		animateTapFor(sender)
+		toggleActive(for: sender)
+		updateViews()
+		delegate?.showCard()
+	}
+	@IBAction func factorYButtonTapped(sender: UIButton) {
+		animateTapFor(sender)
+		toggleActive(for: sender)
+		updateViews()
+		delegate?.showCard()
+	}
+	@IBAction func factorZButtonTapped(sender: UIButton) {
+		animateTapFor(sender)
+		toggleActive(for: sender)
 		updateViews()
 		delegate?.showCard()
 	}
@@ -101,16 +121,16 @@ class CardView: UIView {
 	@IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
 		switch panGesture.state {
 		case .began:
+			self.center = CGPoint(x: self.center.x, y: self.center.y + panGesture.translation(in: self).y)
+			panGesture.setTranslation(CGPoint.zero, in: self)
 			panGesture.totalTranslation = panGesture.translation(in: self)
 			panGesture.totalTranslation.y += panGesture.translation(in: self).y
 			panGesture.totalTranslation.x += panGesture.translation(in: self).x
-			self.center = CGPoint(x: self.center.x, y: self.center.y + panGesture.translation(in: self).y)
-			panGesture.setTranslation(CGPoint.zero, in: self)
 		case .changed:
 			self.center = CGPoint(x: self.center.x, y: self.center.y + panGesture.translation(in: self).y)
+			panGesture.setTranslation(CGPoint.zero, in: self)
 			panGesture.totalTranslation.y += panGesture.translation(in: self).y
 			panGesture.totalTranslation.x += panGesture.translation(in: self).x
-			panGesture.setTranslation(CGPoint.zero, in: self)
 		case .ended:
 			panGesture.setTranslation(CGPoint.zero, in: self)
 			if self.active {
@@ -124,15 +144,22 @@ class CardView: UIView {
 	}
 	
 	func updateViews() {
+		ratingCardTitle.text = CardController.shared.activeCard?.name
 		mindBadButton.setImage(ratingButtons[mindBadButton]! ? UIImage(named: "BA") : UIImage(named: "BI"), for: .normal)
 		mindNeutralButton.setImage(ratingButtons[mindNeutralButton]! ? UIImage(named: "NA") : UIImage(named: "NI"), for: .normal)
 		mindGoodButton.setImage(ratingButtons[mindGoodButton]! ? UIImage(named: "GA") : UIImage(named: "GI"), for: .normal)
+		factorXButton.setImage(factorButtons[factorXButton]! ? UIImage(named: "FA") : UIImage(named: "FI"), for: .normal)
+		factorYButton.setImage(factorButtons[factorYButton]! ? UIImage(named: "FA") : UIImage(named: "FI"), for: .normal)
+		factorZButton.setImage(factorButtons[factorZButton]! ? UIImage(named: "FA") : UIImage(named: "FI"), for: .normal)
 	}
 	
 	func resetUI() {
 		// Iterate through all the values and set them to false
 		for (key, _) in self.ratingButtons {
 			self.ratingButtons[key] = false
+		}
+		for (key, _) in self.factorButtons {
+			self.factorButtons[key] = false
 		}
 		updateViews()
 	}

@@ -30,11 +30,17 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I2r-Kh-FNS">
                                                         <rect key="frame" x="10" y="10" width="374" height="71"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="2wo-ZB-djl">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wo-ZB-djl">
                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="71"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Card Name)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ib4-O6-1qp">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="232" height="71"/>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0F-6E-8hi">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="23.5" height="71"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="J0F-6E-8hi" secondAttribute="height" multiplier="1:3" id="PSw-IR-czr"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Card Name)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ib4-O6-1qp">
+                                                                        <rect key="frame" x="23.5" y="0.0" width="208.5" height="71"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -44,7 +50,7 @@
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="9dN-SE-d4f" secondAttribute="height" multiplier="1:1" id="rZw-C1-Z5e"/>
                                                                         </constraints>
-                                                                        <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                                        <inset key="imageEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                                                         <state key="normal" image="Detail"/>
                                                                         <connections>
                                                                             <action selector="editCardButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="VI4-Ky-NGj"/>
@@ -101,18 +107,29 @@
                                                                             <action selector="badButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="qAz-Kz-wMo"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCB-Ez-Iet">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCB-Ez-Iet">
                                                                         <rect key="frame" x="0.0" y="128" width="118" height="118"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="SCB-Ez-Iet" secondAttribute="height" multiplier="1:1" id="GuH-it-AwM"/>
                                                                         </constraints>
+                                                                        <state key="normal" image="FI"/>
+                                                                        <connections>
+                                                                            <action selector="factorXButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="Uqz-ao-d3C"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Factor)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAd-3p-WzG">
-                                                                        <rect key="frame" x="0.0" y="256" width="118" height="195"/>
+                                                                        <rect key="frame" x="0.0" y="256" width="118" height="29.5"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="WAd-3p-WzG" secondAttribute="height" multiplier="4:1" id="pcQ-GK-beF"/>
+                                                                        </constraints>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="cFT-Os-htZ">
+                                                                        <rect key="frame" x="0.0" y="295.5" width="118" height="155.5"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QU9-Ya-xmG">
@@ -128,18 +145,29 @@
                                                                             <action selector="neutralButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="3er-UF-dU1"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYd-pu-Psh">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYd-pu-Psh">
                                                                         <rect key="frame" x="0.0" y="128" width="118" height="118"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="tYd-pu-Psh" secondAttribute="height" multiplier="1:1" id="waG-3J-5ae"/>
                                                                         </constraints>
+                                                                        <state key="normal" image="FI"/>
+                                                                        <connections>
+                                                                            <action selector="factorYButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="KSw-Mo-DJI"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Factor)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8y-Rd-ugp">
-                                                                        <rect key="frame" x="0.0" y="256" width="118" height="195"/>
+                                                                        <rect key="frame" x="0.0" y="256" width="118" height="29.5"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="j8y-Rd-ugp" secondAttribute="height" multiplier="4:1" id="0hE-xi-q6s"/>
+                                                                        </constraints>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hfo-xp-sRj">
+                                                                        <rect key="frame" x="0.0" y="295.5" width="118" height="155.5"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="izg-6g-EPG">
@@ -155,18 +183,29 @@
                                                                             <action selector="goodButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="sWU-mR-zOs"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBx-FP-N1N">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBx-FP-N1N">
                                                                         <rect key="frame" x="0.0" y="128" width="118" height="118"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="pBx-FP-N1N" secondAttribute="height" multiplier="1:1" id="7xc-Kz-r3n"/>
                                                                         </constraints>
+                                                                        <state key="normal" image="FI"/>
+                                                                        <connections>
+                                                                            <action selector="factorZButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="FlF-gq-WNj"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Factor)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DF9-Q9-Ctf">
-                                                                        <rect key="frame" x="0.0" y="256" width="118" height="195"/>
+                                                                        <rect key="frame" x="0.0" y="256" width="118" height="29.5"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="DF9-Q9-Ctf" secondAttribute="height" multiplier="4:1" id="VtK-ex-JWv"/>
+                                                                        </constraints>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="tmc-t0-76q">
+                                                                        <rect key="frame" x="0.0" y="295.5" width="118" height="155.5"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
@@ -220,6 +259,9 @@
                                     <constraint firstItem="SR9-wg-Hdj" firstAttribute="height" secondItem="wha-vi-MeG" secondAttribute="height" multiplier="0.12" id="uS4-Hm-MhL"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="factorXButton" destination="SCB-Ez-Iet" id="egP-hq-4on"/>
+                                    <outlet property="factorYButton" destination="tYd-pu-Psh" id="WHF-X5-qPg"/>
+                                    <outlet property="factorZButton" destination="pBx-FP-N1N" id="LdN-P4-ypK"/>
                                     <outlet property="mindBadButton" destination="Pbs-Yc-VpF" id="c9I-bd-h4Y"/>
                                     <outlet property="mindGoodButton" destination="bm2-Ma-7Ah" id="dMq-cu-IuS"/>
                                     <outlet property="mindNeutralButton" destination="53H-EF-usV" id="jN9-D2-N84"/>
@@ -252,12 +294,13 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2181.5999999999999" y="893.3497536945813"/>
+            <point key="canvasLocation" x="2181.1594202898555" y="893.30357142857133"/>
         </scene>
     </scenes>
     <resources>
         <image name="BI" width="483" height="483"/>
         <image name="Detail" width="265" height="265"/>
+        <image name="FI" width="483" height="483"/>
         <image name="GI" width="483" height="483"/>
         <image name="NI" width="483" height="483"/>
     </resources>

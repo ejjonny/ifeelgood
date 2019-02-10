@@ -44,16 +44,25 @@ class CardController {
 		}
 	}
 	
-	// MARK: - CUD
-	func createCard(named name: String) -> Card {
-		let factor = Factor(name: "A greatly influencing factor", isActive: false)
-		let card = Card(name: name)
-		saveToPersistentStore()
-		return card
+	// MARK: - Card functions
+	func createDefaultCard() {
+		createCard(named: "My new card")
 	}
 	
-	func createEntry(ofRating rating: Double, onCard card: Card) {
-		Entry(rating: rating, inCard: card)
+	func createCard(named name: String){
+		let card = Card(name: name)
+		createFactor(withName: "An influence to track", onCard: card)
+		self.setActive(card: card)
+		saveToPersistentStore()
+	}
+	
+	func renameActiveCard(withName name: String) {
+		self.activeCard?.name = name
+		saveToPersistentStore()
+	}
+	
+	func deleteActiveCard() {
+		CoreDataStack.context.delete(self.activeCard!)
 		saveToPersistentStore()
 	}
 	
@@ -63,6 +72,25 @@ class CardController {
 			active.isActive = false
 		}
 		card.isActive = true
+		saveToPersistentStore()
+	}
+	
+	// MARK: - Factor functions
+	func createFactor(withName name: String, onCard card: Card) {
+		let factor = Factor(name: name)
+		card.factorX = factor
+		saveToPersistentStore()
+	}
+	
+	func replaceFactor(_ factor: Factor, withName name: String, onCard card: Card) {
+		CoreDataStack.context.delete(factor)
+		createFactor(withName: name, onCard: card)
+		saveToPersistentStore()
+	}
+	
+	// MARK: - Entry functions
+	func createEntry(ofRating rating: Double, onCard card: Card, X: Bool, Y: Bool, Z: Bool) {
+		Entry(rating: rating, inCard: card, XActive: X, YActive: Y, ZActive: Z)
 		saveToPersistentStore()
 	}
 	

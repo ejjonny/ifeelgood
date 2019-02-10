@@ -18,8 +18,7 @@ class MainViewController: UIViewController {
 		cardView.delegate = self
 		if CardController.shared.cards.isEmpty {
 			// If there are no cards existing make one and set it as the active card.
-			let card = CardController.shared.createCard(named: "My new card")
-			CardController.shared.setActive(card: card)
+			CardController.shared.createDefaultCard()
 			loadCard(card: CardController.shared.activeCard!)
 		} else {
 			// If I try to load a card when there are cards existing & there are no active cards let's crash
@@ -75,74 +74,25 @@ extension MainViewController: CardViewDelegate {
 	
 	func loadCard(card: Card) {
 		CardController.shared.setActive(card: card)
-		let target = self.view.frame.height * 0.8
+		let target = self.view.frame.height
 		let distanceToTranslate = target - self.cardView.frame.minY
-		CardView.animate(withDuration: 0.2, animations: {
+		print(self.view.frame.height, self.cardView.frame.minY, distanceToTranslate)
+		CardView.animate(withDuration: 0.1, animations: {
 			self.cardView.frame =  self.cardView.frame.offsetBy(dx: 0, dy: distanceToTranslate)
 		}) { (_) in
 			self.cardView.active = true
+			self.cardView.updateViews()
+			self.showCard()
 		}
-		cardView.card = card
-		showCard()
 	}
 	
 	func editCardButtonTapped() {
-		let alertController = UIAlertController(title: "Edit this tracking card", message: nil, preferredStyle: .actionSheet)
-		let switchCardAction = UIAlertAction(title: "Switch to a different card", style: .default) { (_) in
-			// TODO: - show a list of the cards and then switch to the one picked.
-		}
-		let addFactorAction = UIAlertAction(title: "Add a factor", style: .default) { (alert) in
-			// TODO: - If there are already 3 factors filled I need to ask if user wants to replace one & confirm destruction. Otherwise add one.
-			self.createAlert(withPrompt: "Name your factor", message: "", textFieldPlaceholder: "Your most ingenious name.", confirmActionName: "Create", completion: { (input) in
-				print("I should create a new factor here")
-			})
-			
-		}
-		let deleteFactorAction = UIAlertAction(title: "Delete a factor", style: .destructive) { (alert) in
-			// TODO: - I should present an alert action to choose and then to remove a factor and all of it's data here
-		}
-		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert) in
-			alertController.dismiss(animated: true, completion: nil)
-		}
-		
-		alertController.addAction(switchCardAction)
-		alertController.addAction(addFactorAction)
-		alertController.addAction(deleteFactorAction)
-		alertController.addAction(cancelAction)
-		self.present(alertController, animated: true, completion: nil)
+		beginEditCardOptionTree()
 	}
-	
-	// Creates an alert controller with specified parameters and returns a string to use on completion.
-	func createAlert(withPrompt prompt: String, message: String, textFieldPlaceholder: String, confirmActionName: String, completion: @escaping (String) -> Void){
-		let alertController = UIAlertController(title: prompt, message: message, preferredStyle: .alert)
-		// Confirm will complete with entered string.
-		let confirmAction = UIAlertAction(title: confirmActionName, style: .default) { (_) in
-			completion(alertController.textFields![0].text!)
-		}
-		
-		confirmAction.isEnabled = false
-		
-		// Configures text field (if text field is empty the confirm action will be disabled).
-		alertController.addTextField { textField in
-			textField.placeholder = textFieldPlaceholder
-			NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main, using: { (_) in
-				guard let input = textField.text else { return }
-				confirmAction.isEnabled = input.count > 0 ? true : false
-			})
-		}
-		
-		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-		alertController.addAction(confirmAction)
-		alertController.addAction(cancelAction)
-		
-		self.present(alertController, animated: true, completion: nil)
-	}
-	
 	
 	func addCardButtonTapped() {
-		createAlert(withPrompt: "Create a new card.", message: "What would you like to start tracking?", textFieldPlaceholder: "Card Name", confirmActionName: "Add") { (input) in
+		createDefaultAlert(withPrompt: "Create a new card.", message: "What would you like to start tracking?", textFieldPlaceholder: "Card Name", confirmActionName: "Add") { (input) in
 			let card = Card(name: input)
-			CardController.shared.setActive(card: card)
 			self.loadCard(card: card)
 		}
 	}
@@ -154,7 +104,7 @@ extension MainViewController: CardViewDelegate {
 			var rating = 0.0
 			rating = cardView.ratingButtons[cardView.mindBadButton]! ? -1.0 : 0.0
 			rating = cardView.ratingButtons[cardView.mindGoodButton]! ? 1.0 : 0.0
-			CardController.shared.createEntry(ofRating: rating, onCard: cardView.card!)
+			CardController.shared.createEntry(ofRating: rating, onCard: CardController.shared.activeCard!, X: cardView.factorButtons[cardView.factorXButton]!, Y: cardView.factorButtons[cardView.factorYButton]!, Z: cardView.factorButtons[cardView.factorZButton]!)
 			cardView.resetUI()
 		} else {
 			// If not say no

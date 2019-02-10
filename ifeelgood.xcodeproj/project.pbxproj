@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CA1F71302205981F0094A12A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F712F2205981F0094A12A /* CardView.swift */; };
 		CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F713122059A1A0094A12A /* MainViewController.swift */; };
+		CA3F5846220FA1000049752A /* AlertControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3F5845220FA1000049752A /* AlertControllers.swift */; };
 		CA4E437722041885002C329F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4E437622041885002C329F /* AppDelegate.swift */; };
 		CA4E437C22041885002C329F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437A22041885002C329F /* Main.storyboard */; };
 		CA4E437E22041886002C329F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437D22041886002C329F /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		CA1F712F2205981F0094A12A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA1F713122059A1A0094A12A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		CA3F5845220FA1000049752A /* AlertControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllers.swift; sourceTree = "<group>"; };
 		CA4E437322041885002C329F /* ifeelgood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ifeelgood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4E437622041885002C329F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA4E437B22041885002C329F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		CAC306B9220D380100C3229F /* CustomComponents */ = {
 			isa = PBXGroup;
 			children = (
+				CA3F5845220FA1000049752A /* AlertControllers.swift */,
 				CAC3067A220C075C00C3229F /* CustomPanGesture.swift */,
 				CAC30678220C072D00C3229F /* ShakeExtension.swift */,
 			);
@@ -218,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA3F5846220FA1000049752A /* AlertControllers.swift in Sources */,
 				CA1F71302205981F0094A12A /* CardView.swift in Sources */,
 				CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */,
 				CAE3F9762204F1B1008625C4 /* Factor+Convenience.swift in Sources */,
