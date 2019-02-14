@@ -47,7 +47,12 @@ extension MainViewController {
 		let editFactors = UIAlertAction(title: "Edit factors", style: .default) { (alert) in
 			// TODO: - If there are already 3 factors filled I need to ask if user wants to replace one & confirm destruction. Otherwise add one.
 			self.createDefaultAlert(withPrompt: "Name your factor", message: nil, textFieldPlaceholder: "Your most ingenious name.", confirmActionName: "Create", completion: { (input) in
-				print("I should create a new factor here")
+				if CardController.shared.activeCard?.factorX == nil || CardController.shared.activeCard?.factorY == nil || CardController.shared.activeCard?.factorZ == nil  {
+					CardController.shared.createFactor(withName: input)
+					self.reloadCard()
+				} else {
+					// TODO: - Ask if the user wants to replace a factor here & proceed accordingly
+				}
 			})
 			
 		}
@@ -86,6 +91,7 @@ extension MainViewController {
 			CardController.shared.deleteActiveCard()
 			if CardController.shared.cards.isEmpty {
 				CardController.shared.createDefaultCard()
+				self.loadCard(card: CardController.shared.activeCard!)
 			} else {
 				self.loadCard(card: CardController.shared.cards.last!)
 			}

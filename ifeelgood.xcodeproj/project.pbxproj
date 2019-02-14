@@ -14,6 +14,8 @@
 		CA4E437C22041885002C329F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437A22041885002C329F /* Main.storyboard */; };
 		CA4E437E22041886002C329F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437D22041886002C329F /* Assets.xcassets */; };
 		CA4E438122041886002C329F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437F22041886002C329F /* LaunchScreen.storyboard */; };
+		CA8148EA22154C4D00AA7111 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148E922154C4D00AA7111 /* GraphView.swift */; };
+		CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148EB22154D9B00AA7111 /* GraphFunction.swift */; };
 		CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC30678220C072D00C3229F /* ShakeExtension.swift */; };
 		CAC3067B220C075C00C3229F /* CustomPanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3067A220C075C00C3229F /* CustomPanGesture.swift */; };
 		CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306B7220D360200C3229F /* Card+Convenience.swift */; };
@@ -34,6 +36,8 @@
 		CA4E437D22041886002C329F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA4E438022041886002C329F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA4E438222041886002C329F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA8148E922154C4D00AA7111 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		CA8148EB22154D9B00AA7111 /* GraphFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphFunction.swift; sourceTree = "<group>"; };
 		CAC30678220C072D00C3229F /* ShakeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeExtension.swift; sourceTree = "<group>"; };
 		CAC3067A220C075C00C3229F /* CustomPanGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPanGesture.swift; sourceTree = "<group>"; };
 		CAC306B7220D360200C3229F /* Card+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Convenience.swift"; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				CA3F5845220FA1000049752A /* AlertControllers.swift */,
+				CA8148E922154C4D00AA7111 /* GraphView.swift */,
 				CAC3067A220C075C00C3229F /* CustomPanGesture.swift */,
 				CAC30678220C072D00C3229F /* ShakeExtension.swift */,
 			);
@@ -127,6 +132,7 @@
 		CAE3F96E2204E92D008625C4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CA8148EB22154D9B00AA7111 /* GraphFunction.swift */,
 				CA1F713122059A1A0094A12A /* MainViewController.swift */,
 			);
 			path = ViewControllers;
@@ -225,8 +231,10 @@
 				CA1F71302205981F0094A12A /* CardView.swift in Sources */,
 				CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */,
 				CAE3F9762204F1B1008625C4 /* Factor+Convenience.swift in Sources */,
+				CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */,
 				CA4E437722041885002C329F /* AppDelegate.swift in Sources */,
 				CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */,
+				CA8148EA22154C4D00AA7111 /* GraphView.swift in Sources */,
 				CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */,
 				CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */,
 				CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */,

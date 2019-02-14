@@ -24,6 +24,9 @@ class CardView: UIView {
 	@IBOutlet weak var factorXButton: UIButton!
 	@IBOutlet weak var factorYButton: UIButton!
 	@IBOutlet weak var factorZButton: UIButton!
+	@IBOutlet weak var factorXLabel: UILabel!
+	@IBOutlet weak var factorYLabel: UILabel!
+	@IBOutlet weak var factorZLabel: UILabel!
 	
 	var ratingButtons: [UIButton: Bool] = [:]
 	var factorButtons: [UIButton: Bool] = [:]

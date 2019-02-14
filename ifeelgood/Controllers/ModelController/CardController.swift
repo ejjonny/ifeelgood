@@ -51,7 +51,7 @@ class CardController {
 	
 	func createCard(named name: String){
 		let card = Card(name: name)
-		createFactor(withName: "An influence to track", onCard: card)
+		createFactor(withName: "An influence to track")
 		self.setActive(card: card)
 		saveToPersistentStore()
 	}
@@ -76,15 +76,24 @@ class CardController {
 	}
 	
 	// MARK: - Factor functions
-	func createFactor(withName name: String, onCard card: Card) {
+	func createFactor(withName name: String) {
 		let factor = Factor(name: name)
-		card.factorX = factor
+		guard let card = self.activeCard else { print("ERROR: No active card"); return }
+		if card.factorX == nil {
+			card.factorX = factor
+		} else if card.factorY == nil {
+			card.factorY = factor
+		} else if card.factorZ == nil {
+			card.factorZ = factor
+		} else {
+			print("ERROR: Tried to save a factor when all factors on active card were full. Factor not saved.")
+		}
 		saveToPersistentStore()
 	}
 	
 	func replaceFactor(_ factor: Factor, withName name: String, onCard card: Card) {
 		CoreDataStack.context.delete(factor)
-		createFactor(withName: name, onCard: card)
+		createFactor(withName: name)
 		saveToPersistentStore()
 	}
 	
