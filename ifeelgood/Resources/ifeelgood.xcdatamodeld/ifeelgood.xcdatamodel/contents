@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Card" representedClassName="Card" syncable="YES" codeGenerationType="class">
         <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Entry" inverseName="inCard" inverseEntity="Entry" syncable="YES"/>
-        <relationship name="factorX" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Factor" inverseName="isFactorXInCard" inverseEntity="Factor" syncable="YES"/>
-        <relationship name="factorY" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Factor" inverseName="isFactorYInCard" inverseEntity="Factor" syncable="YES"/>
-        <relationship name="factorZ" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Factor" inverseName="isFactorZInCard" inverseEntity="Factor" syncable="YES"/>
+        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Entry" inverseName="onCard" inverseEntity="Entry" syncable="YES"/>
+        <relationship name="factorTypes" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="FactorType" inverseName="card" inverseEntity="FactorType" syncable="YES"/>
     </entity>
     <entity name="Entry" representedClassName="Entry" syncable="YES" codeGenerationType="class">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="factorXActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="factorYActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="factorZActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="rating" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="inCard" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Card" inverseName="entries" inverseEntity="Card" syncable="YES"/>
+        <relationship name="factorMarks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="FactorMark" inverseName="entry" inverseEntity="FactorMark" syncable="YES"/>
+        <relationship name="onCard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="entries" inverseEntity="Card" syncable="YES"/>
     </entity>
-    <entity name="Factor" representedClassName="Factor" syncable="YES" codeGenerationType="class">
-        <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+    <entity name="FactorMark" representedClassName="FactorMark" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="isFactorXInCard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="factorX" inverseEntity="Card" syncable="YES"/>
-        <relationship name="isFactorYInCard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="factorY" inverseEntity="Card" syncable="YES"/>
-        <relationship name="isFactorZInCard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="factorZ" inverseEntity="Card" syncable="YES"/>
+        <relationship name="entry" optional="YES" maxCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="Entry" inverseName="factorMarks" inverseEntity="Entry" syncable="YES"/>
+    </entity>
+    <entity name="FactorType" representedClassName="FactorType" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="factorTypes" inverseEntity="Card" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Card" positionX="-188.73046875" positionY="365.64453125" width="128" height="163"/>
-        <element name="Entry" positionX="37.109375" positionY="201.30859375" width="128" height="148"/>
-        <element name="Factor" positionX="310.6015625" positionY="396.5625" width="128" height="118"/>
+        <element name="Card" positionX="-188.73046875" positionY="365.64453125" width="128" height="135"/>
+        <element name="Entry" positionX="37.109375" positionY="201.30859375" width="128" height="120"/>
+        <element name="FactorMark" positionX="310.6015625" positionY="396.5625" width="128" height="75"/>
+        <element name="FactorType" positionX="18" positionY="333" width="128" height="75"/>
     </elements>
 </model>

@@ -50,6 +50,9 @@ class CardView: UIView {
 		ratingCardTitle.layer.masksToBounds = true
 		ratingCardTitle.layer.cornerRadius = 10
 		ratingCardTitleView.layer.cornerRadius = 10
+		factorXLabel.text = ""
+		factorYLabel.text = ""
+		factorZLabel.text = ""
 	}
 	
 	func updateButtonStatuses(for button: UIButton) {
@@ -147,7 +150,7 @@ class CardView: UIView {
 	}
 	
 	func updateViews() {
-		ratingCardTitle.text = CardController.shared.activeCard?.name
+		ratingCardTitle.text = CardController.shared.activeCard.name
 		mindBadButton.setImage(ratingButtons[mindBadButton]! ? UIImage(named: "BA") : UIImage(named: "BI"), for: .normal)
 		mindNeutralButton.setImage(ratingButtons[mindNeutralButton]! ? UIImage(named: "NA") : UIImage(named: "NI"), for: .normal)
 		mindGoodButton.setImage(ratingButtons[mindGoodButton]! ? UIImage(named: "GA") : UIImage(named: "GI"), for: .normal)

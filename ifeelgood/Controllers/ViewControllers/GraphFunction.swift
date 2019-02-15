@@ -33,7 +33,6 @@ extension MainViewController {
 			// First and last index points will be graphed with different curves
 			if index + 1 < YValues.count && index != 0 {
 				graphPath.addCurve(to: pointOne, controlPoint1: CGPoint(x: pointZero.x + smoothingRelativeToSegment, y: pointZero.y), controlPoint2: CGPoint(x: pointOne.x - smoothingRelativeToSegment, y: pointOne.y))
-				
 			} else if index == 0 {
 				graphPath.addLine(to: pointOne)
 			} else {

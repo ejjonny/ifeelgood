@@ -46,7 +46,7 @@
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Card Name)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ib4-O6-1qp">
                                                                         <rect key="frame" x="23.5" y="0.0" width="228.5" height="71"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -290,13 +290,16 @@
                                                 <rect key="frame" x="20" y="114.5" width="354" height="44.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpJ-Zq-bfc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="246" height="44.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="309" height="44.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHK-d9-Qak">
-                                                        <rect key="frame" x="246" y="0.0" width="108" height="44.5"/>
+                                                        <rect key="frame" x="309" y="0.0" width="45" height="44.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="oHK-d9-Qak" secondAttribute="height" multiplier="1:1" id="11F-2q-xLw"/>
+                                                        </constraints>
                                                         <state key="normal" title="help"/>
                                                     </button>
                                                 </subviews>

@@ -20,14 +20,7 @@ class MainViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		cardView.delegate = self
-		if CardController.shared.cards.isEmpty {
-			// If there are no cards existing make one and set it as the active card.
-			CardController.shared.createDefaultCard()
-			loadCard(card: CardController.shared.activeCard!)
-		} else {
-			// If I try to load a card when there are cards existing & there are no active cards let's crash
-			loadCard(card: CardController.shared.activeCard!)
-		}
+		loadCard(card: CardController.shared.activeCard)
 		self.initializeUI()
     }
 	
@@ -95,27 +88,27 @@ extension MainViewController: CardViewDelegate {
 		CardView.animate(withDuration: 0.1, animations: {
 			self.cardView.frame =  self.cardView.frame.offsetBy(dx: 0, dy: distanceToTranslate)
 		}) { (_) in
-			self.cardView.factorXLabel.text = CardController.shared.activeCard?.factorX?.name
-			self.cardView.factorYLabel.text = CardController.shared.activeCard?.factorY?.name
-			self.cardView.factorZLabel.text = CardController.shared.activeCard?.factorZ?.name
+			if !CardController.shared.activeCardFactorTypes.isEmpty {
+				// Selectively update factor labels
+				if CardController.shared.activeCardFactorTypes.indices.contains(0) {
+					self.cardView.factorXLabel.text = CardController.shared.activeCardFactorTypes[0].name
+				} else {
+					self.cardView.factorXLabel.text = ""
+				}
+				if CardController.shared.activeCardFactorTypes.indices.contains(1) {
+					self.cardView.factorYLabel.text = CardController.shared.activeCardFactorTypes[1].name
+				} else {
+					self.cardView.factorYLabel.text = ""
+				}
+				if CardController.shared.activeCardFactorTypes.indices.contains(2) {
+					self.cardView.factorZLabel.text = CardController.shared.activeCardFactorTypes[2].name
+				} else {
+					self.cardView.factorZLabel.text = ""
+				}
+			}
 			self.cardView.active = true
 			self.cardView.updateViews()
 			self.cardView.resetUI()
-			self.showCard()
-		}
-	}
-	
-	func reloadCard() {
-		let target = self.view.frame.height
-		let distanceToTranslate = target - self.cardView.frame.minY
-		CardView.animate(withDuration: 0.1, animations: {
-			self.cardView.frame =  self.cardView.frame.offsetBy(dx: 0, dy: distanceToTranslate)
-		}) { (_) in
-			self.cardView.factorXLabel.text = CardController.shared.activeCard?.factorX?.name
-			self.cardView.factorYLabel.text = CardController.shared.activeCard?.factorY?.name
-			self.cardView.factorZLabel.text = CardController.shared.activeCard?.factorZ?.name
-			self.cardView.active = true
-			self.cardView.updateViews()
 			self.showCard()
 		}
 	}
@@ -124,21 +117,22 @@ extension MainViewController: CardViewDelegate {
 		beginEditCardOptionTree()
 	}
 	
-	func addCardButtonTapped() {
-		createDefaultAlert(withPrompt: "Create a new card.", message: "What would you like to start tracking?", textFieldPlaceholder: "Card Name", confirmActionName: "Add") { (input) in
-			let card = Card(name: input)
-			self.loadCard(card: card)
-		}
-	}
-	
 	func saveButtonTapped() {
 		
 		// If any of the buttons are active save the entry
-		if cardView.ratingButtons.contains(where: { $0.1 == true }) {
+		if cardView.ratingButtons.contains(where: { $0.1 == true }) || cardView.factorButtons.contains(where: { $0.1 == true }) {
 			var rating = 0.0
 			rating = cardView.ratingButtons[cardView.mindBadButton]! ? -1.0 : 0.0
 			rating = cardView.ratingButtons[cardView.mindGoodButton]! ? 1.0 : 0.0
-			CardController.shared.createEntry(ofRating: rating, onCard: CardController.shared.activeCard!, X: cardView.factorButtons[cardView.factorXButton]!, Y: cardView.factorButtons[cardView.factorYButton]!, Z: cardView.factorButtons[cardView.factorZButton]!)
+			var factors = [FactorType]()
+			if cardView.factorButtons[cardView.factorXButton]! {
+				factors.append(CardController.shared.activeCardFactorTypes[0])
+			} else if cardView.factorButtons[cardView.factorYButton]! {
+				factors.append(CardController.shared.activeCardFactorTypes[1])
+			} else if cardView.factorButtons[cardView.factorZButton]! {
+				factors.append(CardController.shared.activeCardFactorTypes[2])
+			}
+			CardController.shared.createEntry(ofRating: rating, factorMarks: factors)
 			cardView.resetUI()
 		} else {
 			// If not say no

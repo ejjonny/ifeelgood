@@ -12,25 +12,50 @@ import CoreData
 
 class CardController {
 	
+	// MARK: - Load from persistent store on init
+	init() {
+		do {
+			try fetchResultsController.performFetch()
+		} catch {
+			print("Unable to load data: \(error): \(error.localizedDescription)")
+		}
+	}
+	
 	// Singleton
 	static var shared = CardController()
 	
-	var activeCard: Card? {
+	var activeCard: Card {
 		let cardRequest = NSFetchRequest<Card>(entityName: "Card")
 		let predicate = NSPredicate(format: "isActive = true")
 		let dateSort = NSSortDescriptor(key: "startDate", ascending: true)
 		cardRequest.sortDescriptors = [dateSort]
 		cardRequest.predicate = predicate
+		var activeCards = [Card]()
 		do {
-			if try CoreDataStack.context.fetch(cardRequest).indices.contains(0) {
-				return try CoreDataStack.context.fetch(cardRequest)[0]
-			} else {
-				return nil
-			}
+			activeCards = try CoreDataStack.context.fetch(cardRequest)
 		} catch {
-			print(error.localizedDescription, "There are no cards")
-			return nil
+			print(error.localizedDescription, "Didn't find a card marked as active.")
 		}
+		// Check the count of active cards.
+		if activeCards.count > 1 {
+			print("There are multiple cards marked as active. This shouldn't print")
+		}
+		// If we get a card back from fetch return it
+		if activeCards.indices.contains(0) {
+			return activeCards[0]
+		}
+		// Activate the last card in the stack
+		if let lastCard = cards.last {
+			lastCard.isActive = true
+			return lastCard
+		}
+		// Last resort make a default card
+		return Card(name: "My New Card", isActive: true)
+	}
+	
+	var activeCardFactorTypes: [FactorType] {
+		guard let array = activeCard.factorTypes?.array as? [FactorType] else { print("Unable to cast set as factor types."); return []}
+		return array
 	}
 	
 	var cards: [Card] {
@@ -45,61 +70,68 @@ class CardController {
 	}
 	
 	// MARK: - Card functions
-	func createDefaultCard() {
-		createCard(named: "My new card")
-	}
-	
 	func createCard(named name: String){
 		let card = Card(name: name)
-		createFactor(withName: "An influence to track")
 		self.setActive(card: card)
 		saveToPersistentStore()
 	}
 	
 	func renameActiveCard(withName name: String) {
-		self.activeCard?.name = name
+		self.activeCard.name = name
 		saveToPersistentStore()
 	}
 	
 	func deleteActiveCard() {
-		CoreDataStack.context.delete(self.activeCard!)
+		CoreDataStack.context.delete(self.activeCard)
 		saveToPersistentStore()
 	}
 	
 	func setActive(card: Card) {
 		// If there is currently an active card deactivate it.
-		if let active = activeCard {
-			active.isActive = false
-		}
+		activeCard.isActive = false
 		card.isActive = true
 		saveToPersistentStore()
 	}
 	
 	// MARK: - Factor functions
-	func createFactor(withName name: String) {
-		let factor = Factor(name: name)
-		guard let card = self.activeCard else { print("ERROR: No active card"); return }
-		if card.factorX == nil {
-			card.factorX = factor
-		} else if card.factorY == nil {
-			card.factorY = factor
-		} else if card.factorZ == nil {
-			card.factorZ = factor
+	func createFactorType(withName name: String) {
+		guard let factorTypeCount = activeCard.factorTypes?.count else { print("Card's factor types were nil. Factor not created."); return }
+		if factorTypeCount < 3 {
+			FactorType(name: name, card: activeCard)
 		} else {
-			print("ERROR: Tried to save a factor when all factors on active card were full. Factor not saved.")
+			print("ERROR: Tried to save a factor when all factors on active card were full. Factor was not saved.")
 		}
 		saveToPersistentStore()
 	}
 	
-	func replaceFactor(_ factor: Factor, withName name: String, onCard card: Card) {
-		CoreDataStack.context.delete(factor)
-		createFactor(withName: name)
+	func replaceFactorType(_ factorType: FactorType, withName name: String) {
+		CoreDataStack.context.delete(factorType)
+		createFactorType(withName: name)
 		saveToPersistentStore()
 	}
 	
+	func deleteFactorType(_ factorType: FactorType) {
+		CoreDataStack.context.delete(factorType)
+		saveToPersistentStore()
+	}
+	
+	func createFactorMark(ofType type: FactorType, onEntry entry: Entry) {
+		guard let name = type.name else { print("FactorType name was nil. Entry not created"); return }
+		FactorMark(name: name, entry: entry)
+		saveToPersistentStore()
+	}
+	
+	func deleteFactorMark(named: String, fromEntries: [Entry]) {
+		// TODO: - Delete factor marks here
+	}
+	
 	// MARK: - Entry functions
-	func createEntry(ofRating rating: Double, onCard card: Card, X: Bool, Y: Bool, Z: Bool) {
-		Entry(rating: rating, inCard: card, XActive: X, YActive: Y, ZActive: Z)
+	func createEntry(ofRating rating: Double, factorMarks: [FactorType]) {
+		let entry = Entry(rating: rating, onCard: activeCard)
+		for mark in factorMarks {
+			guard let name = mark.name else { print("Name on factor type was nil. Mark not created."); return }
+			FactorMark(name: name, entry: entry)
+		}
 		saveToPersistentStore()
 	}
 	
@@ -111,17 +143,9 @@ class CardController {
 		return NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
 	}()
 	
-	// MARK: - Load from persistent store on init
-	init() {
-		do {
-			try fetchResultsController.performFetch()
-		} catch {
-			print("Unable to load entries: \(error): \(error.localizedDescription)")
-		}
-	}
-	
 	// MARK: - Save to persistent store
 	func saveToPersistentStore() {
+		print(" There are \(cards.count) cards.")
 		do {
 			try CoreDataStack.context.save()
 			print("Saved")

@@ -1,5 +1,5 @@
 //
-//  Factor+Convenience.swift
+//  FactorType+Convenience.swift
 //  ifeelgood
 //
 //  Created by Ethan John on 2/1/19.
@@ -9,11 +9,11 @@
 import Foundation
 import CoreData
 
-extension Factor {
+extension FactorType {
 	@discardableResult
-	convenience init(name: String, isActive: Bool = false, moc: NSManagedObjectContext = CoreDataStack.context) {
+	convenience init(name: String, card: Card, moc: NSManagedObjectContext = CoreDataStack.context) {
 		self.init(context: moc)
 		self.name = name
-		self.isActive = isActive
+		self.card = card
 	}
 }

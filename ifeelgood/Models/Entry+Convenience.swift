@@ -11,14 +11,12 @@ import CoreData
 
 extension Entry {
 	@discardableResult
-	convenience init(rating: Double, inCard card: Card, XActive: Bool = false, YActive: Bool = false, ZActive: Bool = false, date: Date = Date(), uuid: UUID = UUID(), moc: NSManagedObjectContext = CoreDataStack.context) {
+	convenience init(rating: Double, onCard card: Card, factorMarks: NSOrderedSet = NSOrderedSet(), date: Date = Date(), uuid: UUID = UUID(), moc: NSManagedObjectContext = CoreDataStack.context) {
 		self.init(context: moc)
 		self.rating = rating
-		self.inCard = card
+		self.onCard = card
+		self.factorMarks = factorMarks
 		self.date = Date()
 		self.uuid = UUID()
-		self.factorXActive = XActive
-		self.factorYActive = YActive
-		self.factorZActive = ZActive
 	}
 }

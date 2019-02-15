@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA164FDE2216125300205AE9 /* FactorMark+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA164FDD2216125300205AE9 /* FactorMark+Convenience.swift */; };
 		CA1F71302205981F0094A12A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F712F2205981F0094A12A /* CardView.swift */; };
 		CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F713122059A1A0094A12A /* MainViewController.swift */; };
 		CA3F5846220FA1000049752A /* AlertControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3F5845220FA1000049752A /* AlertControllers.swift */; };
@@ -22,11 +23,12 @@
 		CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306BA220D4FAC00C3229F /* CardController.swift */; };
 		CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9702204EF04008625C4 /* ifeelgood.xcdatamodeld */; };
 		CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9732204F16D008625C4 /* CoreDataStack.swift */; };
-		CAE3F9762204F1B1008625C4 /* Factor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9752204F1B1008625C4 /* Factor+Convenience.swift */; };
+		CAE3F9762204F1B1008625C4 /* FactorType+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9752204F1B1008625C4 /* FactorType+Convenience.swift */; };
 		CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA164FDD2216125300205AE9 /* FactorMark+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactorMark+Convenience.swift"; sourceTree = "<group>"; };
 		CA1F712F2205981F0094A12A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA1F713122059A1A0094A12A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CA3F5845220FA1000049752A /* AlertControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllers.swift; sourceTree = "<group>"; };
@@ -44,7 +46,7 @@
 		CAC306BA220D4FAC00C3229F /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		CAE3F9712204EF04008625C4 /* ifeelgood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ifeelgood.xcdatamodel; sourceTree = "<group>"; };
 		CAE3F9732204F16D008625C4 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		CAE3F9752204F1B1008625C4 /* Factor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factor+Convenience.swift"; sourceTree = "<group>"; };
+		CAE3F9752204F1B1008625C4 /* FactorType+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactorType+Convenience.swift"; sourceTree = "<group>"; };
 		CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,7 +145,8 @@
 			children = (
 				CAC306B7220D360200C3229F /* Card+Convenience.swift */,
 				CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */,
-				CAE3F9752204F1B1008625C4 /* Factor+Convenience.swift */,
+				CAE3F9752204F1B1008625C4 /* FactorType+Convenience.swift */,
+				CA164FDD2216125300205AE9 /* FactorMark+Convenience.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -230,7 +233,7 @@
 				CA3F5846220FA1000049752A /* AlertControllers.swift in Sources */,
 				CA1F71302205981F0094A12A /* CardView.swift in Sources */,
 				CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */,
-				CAE3F9762204F1B1008625C4 /* Factor+Convenience.swift in Sources */,
+				CAE3F9762204F1B1008625C4 /* FactorType+Convenience.swift in Sources */,
 				CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */,
 				CA4E437722041885002C329F /* AppDelegate.swift in Sources */,
 				CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */,
@@ -238,6 +241,7 @@
 				CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */,
 				CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */,
 				CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */,
+				CA164FDE2216125300205AE9 /* FactorMark+Convenience.swift in Sources */,
 				CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */,
 				CAC3067B220C075C00C3229F /* CustomPanGesture.swift in Sources */,
 				CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */,
