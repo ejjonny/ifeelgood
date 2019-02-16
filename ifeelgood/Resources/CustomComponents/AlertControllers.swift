@@ -98,18 +98,25 @@ extension MainViewController {
 	}
 	
 	func chooseFactor() {
-		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-		for factorType in CardController.shared.activeCardFactorTypes {
-			let factorChoice = UIAlertAction(title: factorType.name, style: .default) { (_) in
-				self.showEditFactorTypeOptions(for: factorType)
+		if !CardController.shared.activeCardFactorTypes.isEmpty {
+			let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+			for factorType in CardController.shared.activeCardFactorTypes {
+				let factorChoice = UIAlertAction(title: factorType.name, style: .default) { (_) in
+					self.showEditFactorTypeOptions(for: factorType)
+				}
+				alertController.addAction(factorChoice)
 			}
-			alertController.addAction(factorChoice)
+			let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+				alertController.dismiss(animated: true, completion: nil)
+			}
+			alertController.addAction(cancel)
+			self.present(alertController, animated: true, completion: nil)
+		} else {
+			let alertController = UIAlertController(title: "There aren't any factors on this card yet.", message: nil, preferredStyle: .alert)
+			let okAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+			alertController.addAction(okAction)
+			self.present(alertController, animated: true, completion: nil)
 		}
-		let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
-			alertController.dismiss(animated: true, completion: nil)
-		}
-		alertController.addAction(cancel)
-		self.present(alertController, animated: true, completion: nil)
 	}
 	
 	func showNewFactorOptions() {

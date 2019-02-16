@@ -76,53 +76,53 @@ class CardView: UIView {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
 		updateViews()
-		delegate?.showCard(withDuration: nil)
+		delegate?.showCard()
 	}
 	@IBAction func neutralButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
 		updateViews()
-		delegate?.showCard(withDuration: nil)
+		delegate?.showCard()
 	}
 	@IBAction func goodButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
 		updateViews()
-		delegate?.showCard(withDuration: nil)
+		delegate?.showCard()
 	}
 	@IBAction func factorXButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		toggleActive(for: sender)
 		updateViews()
-		delegate?.showCard(withDuration: nil)
+		delegate?.showCard()
 	}
 	@IBAction func factorYButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		toggleActive(for: sender)
 		updateViews()
-		delegate?.showCard(withDuration: nil)
+		delegate?.showCard()
 	}
 	@IBAction func factorZButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		toggleActive(for: sender)
 		updateViews()
-		delegate?.showCard(withDuration: nil)
+		delegate?.showCard()
 	}
 	@IBAction func saveButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		delegate?.saveButtonTapped()
 		resetUI()
-		delegate?.showCard(withDuration: nil)
+		delegate?.showCard()
 	}
 	@IBAction func addCardButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		delegate?.addCardButtonTapped()
-		delegate?.showCard(withDuration: nil)
+		delegate?.showCard()
 	}
 	@IBAction func editCardButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		delegate?.editCardButtonTapped()
-		delegate?.showCard(withDuration: nil)
+		delegate?.showCard()
 	}
 	@IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
 		switch panGesture.state {
@@ -134,16 +134,7 @@ class CardView: UIView {
 			panGesture.setTranslation(CGPoint.zero, in: self)
 		case .ended:
 			panGesture.setTranslation(CGPoint.zero, in: self)
-			var duration = 0.1 / (abs(Double(self.panGesture.velocity(in: self).y)) / 5000)
-			if duration > 1.5 {
-				duration = 0.4
-			}
-			print(duration)
-			if self.active {
-				delegate?.hideCard(withDuration: duration)
-			} else {
-				delegate?.showCard(withDuration: duration)
-			}
+			delegate?.panDidEnd()
 		default:
 			return
 		}
@@ -181,7 +172,8 @@ protocol CardViewDelegate: class {
 	func saveButtonTapped()
 	func addCardButtonTapped()
 	func editCardButtonTapped()
-	func hideCard(withDuration duration: Double?)
-	func showCard(withDuration duration: Double?)
+	func panDidEnd()
+	func showCard()
+	func hideCard()
 	func panViews(withPanPoint panPoint:CGPoint)
 }

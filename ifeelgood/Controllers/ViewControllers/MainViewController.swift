@@ -10,8 +10,6 @@ import UIKit
 
 class MainViewController: UIViewController {
 	
-	var defaultAnimationDuration = 0.5
-	
 	// MARK: - Outlets
 	@IBOutlet weak var cardView: CardView!
 	@IBOutlet weak var topBarView: UIView!
@@ -61,35 +59,40 @@ class MainViewController: UIViewController {
 // MARK: - Entry page delegate
 extension MainViewController: CardViewDelegate {
 	
-	func hideCard(withDuration duration: Double?) {
-		var defaultDuration = self.defaultAnimationDuration
-		if let duration = duration {
-			defaultDuration = duration
+	func panDidEnd() {
+		let aboveHalfWay = self.cardView.frame.minY < (self.view.frame.height * 0.5)
+		let velocity = self.cardView.panGesture.velocity(in: self.cardView).y
+		
+		if velocity > 500 {
+			self.hideCard()
+		} else if velocity < -500 {
+			self.showCard()
+		} else if aboveHalfWay {
+			self.autoShow()
+		} else if !aboveHalfWay {
+			self.autoHide()
 		}
+	}
+	
+	func autoHide() {
 		// Sets target location and current location of card & then animates.
 		let target = self.view.frame.height * 0.8
 		let distanceToTranslate = target - self.cardView.frame.minY
-		CardView.animate(withDuration: defaultDuration, animations: {
+		CardView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
 			self.cardView.frame =  self.cardView.frame.offsetBy(dx: 0, dy: distanceToTranslate)
 		}) { (_) in
-			self.cardView.active = false
+			self.cardView.active = true
 		}
-		
+
 		let topBarTarget: CGFloat = -50
 		let topBarDistanceToTranslate = topBarTarget - self.topBarView.frame.maxY
-		UIView.animate(withDuration: defaultDuration, animations: {self.topBarView.frame = self.topBarView.frame.offsetBy(dx: 0, dy: topBarDistanceToTranslate)})
-
+		UIView.animate(withDuration: 0.1, animations: {self.topBarView.frame = self.topBarView.frame.offsetBy(dx: 0, dy: topBarDistanceToTranslate)})
 	}
-	
-	func showCard(withDuration duration: Double?) {
-		var defaultDuration = self.defaultAnimationDuration
-		if let duration = duration {
-			defaultDuration = duration
-		}
+	func autoShow() {
 		// Sets target location and current location of card & then animates.
 		let target = self.view.frame.height * 0.2
 		let distanceToTranslate = target - self.cardView.frame.minY
-		CardView.animate(withDuration: defaultDuration, animations: {
+		CardView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
 			self.cardView.frame =  self.cardView.frame.offsetBy(dx: 0, dy: distanceToTranslate)
 		}) { (_) in
 			self.cardView.active = true
@@ -97,14 +100,45 @@ extension MainViewController: CardViewDelegate {
 		
 		let topBarTarget: CGFloat = -50
 		let topBarDistanceToTranslate = topBarTarget - self.topBarView.frame.minY
-		UIView.animate(withDuration: defaultDuration, animations: {self.topBarView.frame = self.topBarView.frame.offsetBy(dx: 0, dy: topBarDistanceToTranslate)})
+		UIView.animate(withDuration: 0.2, animations: {self.topBarView.frame = self.topBarView.frame.offsetBy(dx: 0, dy: topBarDistanceToTranslate)})
+	}
+	
+	func hideCard() {
+		// Sets target location and current location of card & then animates.
+		let target = self.view.frame.height * 0.8
+		self.userInteractionAnimate(view: self.cardView, to: target, velocity: self.cardView.panGesture.velocity(in: self.cardView).y)
+
+		let topBarTarget: CGFloat = -50
+		let topBarDistanceToTranslate = topBarTarget - self.topBarView.frame.maxY
+		UIView.animate(withDuration: 0.1, animations: {self.topBarView.frame = self.topBarView.frame.offsetBy(dx: 0, dy: topBarDistanceToTranslate)})
+	}
+	
+	func showCard() {
+		// Sets target locations of views & then animates.
+		let target = self.view.frame.height * 0.2
+		self.userInteractionAnimate(view: self.cardView, to: target, velocity: self.cardView.panGesture.velocity(in: self.cardView).y)
+		
+		let topBarTarget: CGFloat = -50
+		self.userInteractionAnimate(view: self.topBarView, to: topBarTarget, velocity: self.cardView.panGesture.velocity(in: self.cardView).y)
+	}
+	
+	func userInteractionAnimate(view: UIView, to target: CGFloat, velocity: CGFloat) {
+		let distanceToTranslate = target - view.frame.minY
+		UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.97, initialSpringVelocity: abs(velocity) * 0.01, options: .curveEaseOut , animations: {view.frame =  view.frame.offsetBy(dx: 0, dy: distanceToTranslate)}, completion: nil)
+	}
+	
+	func autoAnimateTo(view: UIView, to target: CGFloat) {
+		let distanceToTranslate = target - view.frame.minY
+		UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
+			view.frame =  view.frame.offsetBy(dx: 0, dy: distanceToTranslate)
+		}, completion: nil)
 	}
 	
 	func loadCard(card: Card) {
 		CardController.shared.setActive(card: card)
 		let target = self.view.frame.height
 		let distanceToTranslate = target - self.cardView.frame.minY
-		CardView.animate(withDuration: self.defaultAnimationDuration, animations: {
+		CardView.animate(withDuration: 0.2, animations: {
 			self.cardView.frame =  self.cardView.frame.offsetBy(dx: 0, dy: distanceToTranslate)
 		}) { (_) in
 			if !CardController.shared.activeCardFactorTypes.isEmpty {
@@ -124,11 +158,15 @@ extension MainViewController: CardViewDelegate {
 				} else {
 					self.cardView.factorZLabel.text = ""
 				}
+			} else {
+				self.cardView.factorXLabel.text = ""
+				self.cardView.factorYLabel.text = ""
+				self.cardView.factorZLabel.text = ""
 			}
 			self.cardView.active = true
 			self.cardView.updateViews()
 			self.cardView.resetUI()
-			self.showCard(withDuration: nil)
+			self.showCard()
 		}
 	}
 	
