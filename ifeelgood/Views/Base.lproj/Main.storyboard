@@ -352,7 +352,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0m7-0q-ZvU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="4AZ-ek-Uxq" customClass="CustomPanGesture" customModule="ifeelgood" customModuleProvider="target">
+                <panGestureRecognizer minimumNumberOfTouches="1" id="4AZ-ek-Uxq">
                     <connections>
                         <action selector="handlePan:" destination="wha-vi-MeG" id="3pc-hp-aBI"/>
                     </connections>

@@ -18,7 +18,6 @@
 		CA8148EA22154C4D00AA7111 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148E922154C4D00AA7111 /* GraphView.swift */; };
 		CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148EB22154D9B00AA7111 /* GraphFunction.swift */; };
 		CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC30678220C072D00C3229F /* ShakeExtension.swift */; };
-		CAC3067B220C075C00C3229F /* CustomPanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3067A220C075C00C3229F /* CustomPanGesture.swift */; };
 		CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306B7220D360200C3229F /* Card+Convenience.swift */; };
 		CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306BA220D4FAC00C3229F /* CardController.swift */; };
 		CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9702204EF04008625C4 /* ifeelgood.xcdatamodeld */; };
@@ -41,7 +40,6 @@
 		CA8148E922154C4D00AA7111 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		CA8148EB22154D9B00AA7111 /* GraphFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphFunction.swift; sourceTree = "<group>"; };
 		CAC30678220C072D00C3229F /* ShakeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeExtension.swift; sourceTree = "<group>"; };
-		CAC3067A220C075C00C3229F /* CustomPanGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPanGesture.swift; sourceTree = "<group>"; };
 		CAC306B7220D360200C3229F /* Card+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Convenience.swift"; sourceTree = "<group>"; };
 		CAC306BA220D4FAC00C3229F /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		CAE3F9712204EF04008625C4 /* ifeelgood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ifeelgood.xcdatamodel; sourceTree = "<group>"; };
@@ -116,7 +114,6 @@
 			children = (
 				CA3F5845220FA1000049752A /* AlertControllers.swift */,
 				CA8148E922154C4D00AA7111 /* GraphView.swift */,
-				CAC3067A220C075C00C3229F /* CustomPanGesture.swift */,
 				CAC30678220C072D00C3229F /* ShakeExtension.swift */,
 			);
 			path = CustomComponents;
@@ -243,7 +240,6 @@
 				CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */,
 				CA164FDE2216125300205AE9 /* FactorMark+Convenience.swift in Sources */,
 				CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */,
-				CAC3067B220C075C00C3229F /* CustomPanGesture.swift in Sources */,
 				CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
