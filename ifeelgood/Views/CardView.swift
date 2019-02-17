@@ -9,9 +9,6 @@
 import UIKit
 
 class CardView: UIView {
-
-	// MARK: - Properties
-	var active = true
 		
 	// MARK: - Outlets
 	@IBOutlet weak var ratingCardTitle: UILabel!
@@ -43,7 +40,7 @@ class CardView: UIView {
 	func initializeUI() {
 		self.layer.cornerRadius = 10
 		self.layer.shadowColor = UIColor.black.cgColor
-		self.layer.shadowOpacity = 0.1
+		self.layer.shadowOpacity = 0.08
 		self.layer.shadowOffset = CGSize(width: 0.0, height: -5.0)
 		self.layer.shadowRadius = 5
 		submitButton.layer.cornerRadius = 10
@@ -76,53 +73,53 @@ class CardView: UIView {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
 		updateViews()
-		delegate?.showCard()
+		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func neutralButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
 		updateViews()
-		delegate?.showCard()
+		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func goodButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
 		updateViews()
-		delegate?.showCard()
+		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func factorXButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		toggleActive(for: sender)
 		updateViews()
-		delegate?.showCard()
+		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func factorYButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		toggleActive(for: sender)
 		updateViews()
-		delegate?.showCard()
+		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func factorZButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		toggleActive(for: sender)
 		updateViews()
-		delegate?.showCard()
+		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func saveButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		delegate?.saveButtonTapped()
 		resetUI()
-		delegate?.showCard()
+		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func addCardButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		delegate?.addCardButtonTapped()
-		delegate?.showCard()
+		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func editCardButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		delegate?.editCardButtonTapped()
-		delegate?.showCard()
+		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
 		switch panGesture.state {
@@ -173,7 +170,6 @@ protocol CardViewDelegate: class {
 	func addCardButtonTapped()
 	func editCardButtonTapped()
 	func panDidEnd()
-	func showCard()
-	func hideCard()
+	func userDidInteractWithCard()
 	func panViews(withPanPoint panPoint:CGPoint)
 }
