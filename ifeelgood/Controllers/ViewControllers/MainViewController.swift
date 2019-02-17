@@ -60,6 +60,7 @@ class MainViewController: UIViewController {
 extension MainViewController: CardViewDelegate {
 	
 	func panDidEnd() {
+		// Check the state when the pan gesture ends and react accordingly with linear or velocity reactive animations.
 		let aboveHalfWay = self.cardView.frame.minY < (self.view.frame.height * 0.5)
 		let velocity = self.cardView.panGesture.velocity(in: self.cardView).y
 		
@@ -161,11 +162,13 @@ extension MainViewController: CardViewDelegate {
 	}
 	
 	func panViews(withPanPoint panPoint: CGPoint) {
+		// If user goes against necessary pan adjust reaction
 		if self.cardView.frame.maxY < self.view.bounds.maxY {
-			self.cardView.center.y = cardView.panGesture.translation(in: cardView).y / (self.view.bounds.maxY - self.cardView.frame.maxY)
-			self.topBarView.center.y -= cardView.panGesture.translation(in: cardView).y / (3 + self.view.bounds.maxY - self.cardView.frame.maxY)
+			// Don't animate top bar with pan gesture
+			self.cardView.center.y += cardView.panGesture.translation(in: cardView).y / 3
 		} else {
-			self.cardView.center.y = panPoint.y
+			// Normal reaction
+			self.cardView.center.y += cardView.panGesture.translation(in: cardView).y
 			self.topBarView.center.y -= cardView.panGesture.translation(in: cardView).y / 3
 		}
 	}
