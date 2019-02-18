@@ -10,6 +10,13 @@ import UIKit
 
 let chillBlue: UIColor = UIColor(red: 0.91, green: 0.94, blue: 1.00, alpha: 1.0)
 
+enum organizationType {
+	case all
+	case day
+	case month
+	case year
+}
+
 class MainViewController: UIViewController {
 	
 	// MARK: - Outlets
@@ -17,8 +24,10 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var topBarView: UIView!
 	@IBOutlet weak var topBarInsetView: UIView!
 	@IBOutlet weak var welcomeLabel: UILabel!
-	
 	@IBOutlet weak var graphView: GraphView!
+	
+	var organizationStyle = organizationType.all
+	
 	override func viewDidLoad() {
         super.viewDidLoad()
 		cardView.delegate = self
@@ -56,12 +65,36 @@ class MainViewController: UIViewController {
 		let random = Int(arc4random_uniform(UInt32(phraseArray.count)))
 		self.welcomeLabel.text = phraseArray[random]
 	}
+	
+	@IBAction func menuButtonTapped(_ sender: Any) {
+		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		let byYear = UIAlertAction(title: "Year", style: .default) { (_) in
+			self.organizationStyle = organizationType.year
+			self.performSegue(withIdentifier: "toEntryTable", sender: self)
+		}
+		let byMonth = UIAlertAction(title: "Month", style: .default) { (_) in
+			self.organizationStyle = organizationType.month
+			self.performSegue(withIdentifier: "toEntryTable", sender: self)
+		}
+		let byDay = UIAlertAction(title: "Day", style: .default) { (_) in
+			self.organizationStyle = organizationType.day
+			self.performSegue(withIdentifier: "toEntryTable", sender: self)
+		}
+		let byEntry = UIAlertAction(title: "All", style: .default)
+		alertController.addAction(byYear)
+		alertController.addAction(byMonth)
+		alertController.addAction(byDay)
+		alertController.addAction(byEntry)
+		self.present(alertController, animated: true, completion: nil)
+	}
+	
 	// MARK: - Navigation
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "toEntryTable" {
 			guard let destination = segue.destination as? EntryTableViewController else { return }
 			destination.card = CardController.shared.activeCard
+			destination.organization = self.organizationStyle
 		}
 	}
 }
@@ -188,7 +221,6 @@ extension MainViewController: CardViewDelegate {
 	}
 	
 	func saveButtonTapped() {
-		
 		// If any of the buttons are active save the entry
 		if cardView.ratingButtons.contains(where: { $0.1 == true }) || cardView.factorButtons.contains(where: { $0.1 == true }) {
 			var rating = 0.0

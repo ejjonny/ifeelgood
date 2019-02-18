@@ -287,7 +287,7 @@
                                                         <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                                         <state key="normal" image="Menu"/>
                                                         <connections>
-                                                            <segue destination="ptW-EX-BRc" kind="show" identifier="toEntryTable" id="Tt5-Hv-8BZ"/>
+                                                            <action selector="menuButtonTapped:" destination="wjG-zT-1LP" eventType="touchUpInside" id="th5-JK-Xeg"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -336,6 +336,7 @@
                         <outlet property="topBarInsetView" destination="JcT-aP-k3b" id="FC6-5F-iBl"/>
                         <outlet property="topBarView" destination="qlq-Cc-uZe" id="7be-Qm-bFQ"/>
                         <outlet property="welcomeLabel" destination="qpJ-Zq-bfc" id="afC-Jn-amt"/>
+                        <segue destination="ptW-EX-BRc" kind="show" identifier="toEntryTable" id="waT-NQ-ych"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0m7-0q-ZvU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -345,7 +346,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2181.1594202898555" y="893.30357142857133"/>
+            <point key="canvasLocation" x="2210" y="875"/>
         </scene>
         <!--Entry Table View Controller-->
         <scene sceneID="3i4-Fu-yzX">

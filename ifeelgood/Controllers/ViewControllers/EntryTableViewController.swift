@@ -11,6 +11,9 @@ import UIKit
 class EntryTableViewController: UITableViewController {
 	
 	@IBOutlet weak var titleLabel: UINavigationItem!
+		
+	var organization = organizationType.all
+	
 	var card: Card?
 
     override func viewDidLoad() {
@@ -25,6 +28,16 @@ class EntryTableViewController: UITableViewController {
 	// MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		switch organization {
+		case .all:
+			break
+		case .day:
+			break
+		case .month:
+			break
+		case .year:
+			break
+		}
         return card?.entries?.count ?? 0
     }
 
