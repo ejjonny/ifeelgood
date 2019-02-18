@@ -102,12 +102,15 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4g5-St-mj3">
                                                                 <rect key="frame" x="0.0" y="0.0" width="394" height="71"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ea0-3h-mz6">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ea0-3h-mz6">
                                                                         <rect key="frame" x="0.0" y="0.0" width="71" height="71"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="ea0-3h-mz6" secondAttribute="height" multiplier="1:1" id="hj6-rR-ZOd"/>
                                                                         </constraints>
-                                                                        <state key="normal" title="Button"/>
+                                                                        <state key="normal" image="SBI"/>
+                                                                        <connections>
+                                                                            <action selector="superBadButtonTapperWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="4bQ-rE-xtN"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbs-Yc-VpF" userLabel="Bad">
                                                                         <rect key="frame" x="81" y="0.0" width="70.5" height="71"/>
@@ -139,12 +142,15 @@
                                                                             <action selector="goodButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="sWU-mR-zOs"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZw-WL-v3f">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZw-WL-v3f">
                                                                         <rect key="frame" x="323" y="0.0" width="71" height="71"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="dZw-WL-v3f" secondAttribute="height" multiplier="1:1" id="H5b-1o-IGO"/>
                                                                         </constraints>
-                                                                        <state key="normal" title="Button"/>
+                                                                        <state key="normal" title="Button" image="SGI"/>
+                                                                        <connections>
+                                                                            <action selector="superGoodButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="clC-x7-zYl"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>
@@ -152,74 +158,48 @@
                                                                 </constraints>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vxI-Aj-D7E">
-                                                                <rect key="frame" x="0.0" y="81" width="394" height="124.5"/>
+                                                                <rect key="frame" x="0.0" y="81" width="394" height="41.5"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCB-Ez-Iet">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="124.5" height="124.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="124.5" height="41.5"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="SCB-Ez-Iet" secondAttribute="height" multiplier="1:1" id="GuH-it-AwM"/>
+                                                                            <constraint firstAttribute="width" secondItem="SCB-Ez-Iet" secondAttribute="height" multiplier="3:1" id="GuH-it-AwM"/>
                                                                         </constraints>
-                                                                        <state key="normal" image="FI"/>
+                                                                        <state key="normal" title="factor">
+                                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </state>
                                                                         <connections>
                                                                             <action selector="factorXButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="Uqz-ao-d3C"/>
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYd-pu-Psh">
-                                                                        <rect key="frame" x="134.5" y="0.0" width="125" height="124.5"/>
+                                                                        <rect key="frame" x="134.5" y="0.0" width="125" height="41.5"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="tYd-pu-Psh" secondAttribute="height" multiplier="1:1" id="waG-3J-5ae"/>
+                                                                            <constraint firstAttribute="width" secondItem="tYd-pu-Psh" secondAttribute="height" multiplier="3:1" id="waG-3J-5ae"/>
                                                                         </constraints>
-                                                                        <state key="normal" image="FI"/>
+                                                                        <state key="normal" title="factor">
+                                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </state>
                                                                         <connections>
                                                                             <action selector="factorYButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="KSw-Mo-DJI"/>
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBx-FP-N1N">
-                                                                        <rect key="frame" x="269.5" y="0.0" width="124.5" height="124.5"/>
+                                                                        <rect key="frame" x="269.5" y="0.0" width="124.5" height="41.5"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="pBx-FP-N1N" secondAttribute="height" multiplier="1:1" id="7xc-Kz-r3n"/>
+                                                                            <constraint firstAttribute="width" secondItem="pBx-FP-N1N" secondAttribute="height" multiplier="3:1" id="7xc-Kz-r3n"/>
                                                                         </constraints>
-                                                                        <state key="normal" image="FI"/>
+                                                                        <state key="normal" title="factor">
+                                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </state>
                                                                         <connections>
                                                                             <action selector="factorZButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="FlF-gq-WNj"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1oJ-Va-ybh">
-                                                                <rect key="frame" x="0.0" y="215.5" width="394" height="31.5"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="factor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAd-3p-WzG">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="124.5" height="31.5"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="WAd-3p-WzG" secondAttribute="height" multiplier="4:1" id="pcQ-GK-beF"/>
-                                                                        </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="factor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8y-Rd-ugp">
-                                                                        <rect key="frame" x="134.5" y="0.0" width="125" height="31.5"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="j8y-Rd-ugp" secondAttribute="height" multiplier="4:1" id="0hE-xi-q6s"/>
-                                                                        </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="factor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DF9-Q9-Ctf">
-                                                                        <rect key="frame" x="269.5" y="0.0" width="124.5" height="31.5"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="DF9-Q9-Ctf" secondAttribute="height" multiplier="4:1" id="VtK-ex-JWv"/>
-                                                                        </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
-                                                            </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P9S-8K-oFc">
-                                                                <rect key="frame" x="0.0" y="257" width="394" height="211"/>
+                                                                <rect key="frame" x="0.0" y="132.5" width="394" height="335.5"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                         </subviews>
@@ -270,11 +250,8 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="factorXButton" destination="SCB-Ez-Iet" id="egP-hq-4on"/>
-                                    <outlet property="factorXLabel" destination="WAd-3p-WzG" id="P4a-3D-O4a"/>
                                     <outlet property="factorYButton" destination="tYd-pu-Psh" id="WHF-X5-qPg"/>
-                                    <outlet property="factorYLabel" destination="j8y-Rd-ugp" id="t3z-Av-2CO"/>
                                     <outlet property="factorZButton" destination="pBx-FP-N1N" id="LdN-P4-ypK"/>
-                                    <outlet property="factorZLabel" destination="DF9-Q9-Ctf" id="zo8-c1-vha"/>
                                     <outlet property="mindBadButton" destination="Pbs-Yc-VpF" id="c9I-bd-h4Y"/>
                                     <outlet property="mindGoodButton" destination="bm2-Ma-7Ah" id="dMq-cu-IuS"/>
                                     <outlet property="mindNeutralButton" destination="53H-EF-usV" id="jN9-D2-N84"/>
@@ -282,6 +259,8 @@
                                     <outlet property="ratingCardTitle" destination="ib4-O6-1qp" id="jsn-iQ-8rT"/>
                                     <outlet property="ratingCardTitleView" destination="I2r-Kh-FNS" id="23O-qR-pib"/>
                                     <outlet property="submitButton" destination="dYU-jv-jFa" id="TGH-aK-ISf"/>
+                                    <outlet property="superBadButton" destination="ea0-3h-mz6" id="Qau-la-IRX"/>
+                                    <outlet property="superGoodButton" destination="dZw-WL-v3f" id="5al-9I-vuy"/>
                                     <outletCollection property="gestureRecognizers" destination="4AZ-ek-Uxq" appends="YES" id="dDg-a3-Lph"/>
                                 </connections>
                             </view>
@@ -300,12 +279,13 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHK-d9-Qak">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHK-d9-Qak">
                                                         <rect key="frame" x="309" y="0.0" width="45" height="45"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="oHK-d9-Qak" secondAttribute="height" multiplier="1:1" id="11F-2q-xLw"/>
                                                         </constraints>
-                                                        <state key="normal" title="help"/>
+                                                        <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                                        <state key="normal" image="Menu"/>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -368,8 +348,10 @@
     <resources>
         <image name="BI" width="483" height="483"/>
         <image name="Detail" width="265" height="265"/>
-        <image name="FI" width="483" height="483"/>
         <image name="GI" width="483" height="483"/>
+        <image name="Menu" width="265" height="265"/>
         <image name="NI" width="483" height="483"/>
+        <image name="SBI" width="483" height="483"/>
+        <image name="SGI" width="483" height="483"/>
     </resources>
 </document>

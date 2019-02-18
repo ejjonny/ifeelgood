@@ -8,6 +8,8 @@
 
 import UIKit
 
+let chillBlue: UIColor = UIColor(red: 0.91, green: 0.94, blue: 1.00, alpha: 1.0)
+
 class MainViewController: UIViewController {
 	
 	// MARK: - Outlets
@@ -136,29 +138,29 @@ extension MainViewController: CardViewDelegate {
 			if !CardController.shared.activeCardFactorTypes.isEmpty {
 				// Selectively update factor labels
 				if CardController.shared.activeCardFactorTypes.indices.contains(0) {
-					self.cardView.factorXLabel.text = CardController.shared.activeCardFactorTypes[0].name
+					self.cardView.factorXButton.setTitle(CardController.shared.activeCardFactorTypes[0].name, for: .normal)
 				} else {
-					self.cardView.factorXLabel.text = ""
+					self.cardView.factorXButton.setTitle("", for: .normal)
 				}
 				if CardController.shared.activeCardFactorTypes.indices.contains(1) {
-					self.cardView.factorYLabel.text = CardController.shared.activeCardFactorTypes[1].name
+					self.cardView.factorYButton.setTitle(CardController.shared.activeCardFactorTypes[1].name, for: .normal)
 				} else {
-					self.cardView.factorYLabel.text = ""
+					self.cardView.factorYButton.setTitle("", for: .normal)
 				}
 				if CardController.shared.activeCardFactorTypes.indices.contains(2) {
-					self.cardView.factorZLabel.text = CardController.shared.activeCardFactorTypes[2].name
+					self.cardView.factorZButton.setTitle(CardController.shared.activeCardFactorTypes[2].name, for: .normal)
 				} else {
-					self.cardView.factorZLabel.text = ""
+					self.cardView.factorZButton.setTitle("", for: .normal)
 				}
 			} else {
-				self.cardView.factorXLabel.text = ""
-				self.cardView.factorYLabel.text = ""
-				self.cardView.factorZLabel.text = ""
+				self.cardView.factorXButton.setTitle("", for: .normal)
+				self.cardView.factorYButton.setTitle("", for: .normal)
+				self.cardView.factorZButton.setTitle("", for: .normal)
 			}
-			self.cardView.updateViews()
-			self.cardView.resetUI()
-			self.showCard()
 		}
+		self.cardView.updateViews()
+		self.cardView.resetUI()
+		self.showCard()
 	}
 	
 	func panViews(withPanPoint panPoint: CGPoint) {

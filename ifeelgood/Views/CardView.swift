@@ -14,6 +14,8 @@ class CardView: UIView {
 	@IBOutlet weak var ratingCardTitle: UILabel!
 	@IBOutlet weak var mindBadButton: UIButton!
 	@IBOutlet weak var mindNeutralButton: UIButton!
+	@IBOutlet weak var superGoodButton: UIButton!
+	@IBOutlet weak var superBadButton: UIButton!
 	@IBOutlet weak var mindGoodButton: UIButton!
 	@IBOutlet weak var submitButton: UIButton!
 	@IBOutlet weak var ratingCardTitleView: UIView!
@@ -21,9 +23,6 @@ class CardView: UIView {
 	@IBOutlet weak var factorXButton: UIButton!
 	@IBOutlet weak var factorYButton: UIButton!
 	@IBOutlet weak var factorZButton: UIButton!
-	@IBOutlet weak var factorXLabel: UILabel!
-	@IBOutlet weak var factorYLabel: UILabel!
-	@IBOutlet weak var factorZLabel: UILabel!
 	
 	var ratingButtons: [UIButton: Bool] = [:]
 	var factorButtons: [UIButton: Bool] = [:]
@@ -32,7 +31,7 @@ class CardView: UIView {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		ratingButtons = [mindBadButton: false, mindNeutralButton: false, mindGoodButton: false]
+		ratingButtons = [superBadButton: false, mindBadButton: false, mindNeutralButton: false, mindGoodButton: false, superGoodButton: false]
 		factorButtons = [factorXButton: false, factorYButton: false, factorZButton: false]
 		initializeUI()
 	}
@@ -47,9 +46,12 @@ class CardView: UIView {
 		ratingCardTitle.layer.masksToBounds = true
 		ratingCardTitle.layer.cornerRadius = 10
 		ratingCardTitleView.layer.cornerRadius = 10
-		factorXLabel.text = ""
-		factorYLabel.text = ""
-		factorZLabel.text = ""
+		factorXButton.layer.cornerRadius = 10
+		factorYButton.layer.cornerRadius = 10
+		factorZButton.layer.cornerRadius = 10
+		factorXButton.setTitle("", for: .normal)
+		factorYButton.setTitle("", for: .normal)
+		factorZButton.setTitle("", for: .normal)
 	}
 	
 	func updateButtonStatuses(for button: UIButton) {
@@ -64,11 +66,26 @@ class CardView: UIView {
 		}
 	}
 	
-	func toggleActive(for button: UIButton) {
-		self.factorButtons[button] = !self.factorButtons[button]!
+	func toggleActive(for sender: UIButton) {
+		self.factorButtons[sender] = !self.factorButtons[sender]!
 	}
 	
 	// MARK: - Actions
+	
+	@IBAction func superBadButtonTapper(sender: UIButton) {
+		animateTapFor(sender)
+		updateButtonStatuses(for: sender)
+		updateViews()
+		delegate?.userDidInteractWithCard()
+	}
+	
+	@IBAction func superGoodButtonTapped(sender: UIButton) {
+		animateTapFor(sender)
+		updateButtonStatuses(for: sender)
+		updateViews()
+		delegate?.userDidInteractWithCard()
+	}
+	
 	@IBAction func badButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
 		updateButtonStatuses(for: sender)
@@ -89,20 +106,26 @@ class CardView: UIView {
 	}
 	@IBAction func factorXButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
-		toggleActive(for: sender)
-		updateViews()
+		if CardController.shared.activeCardFactorTypes.indices.contains(0) {
+			self.toggleActive(for: sender)
+			updateViews()
+		}
 		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func factorYButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
-		toggleActive(for: sender)
-		updateViews()
+		if CardController.shared.activeCardFactorTypes.indices.contains(1) {
+			self.toggleActive(for: sender)
+			updateViews()
+		}
 		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func factorZButtonTapped(sender: UIButton) {
 		animateTapFor(sender)
-		toggleActive(for: sender)
-		updateViews()
+		if CardController.shared.activeCardFactorTypes.indices.contains(2) {
+			self.toggleActive(for: sender)
+			updateViews()
+		}
 		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func saveButtonTapped(sender: UIButton) {
@@ -139,12 +162,14 @@ class CardView: UIView {
 	
 	func updateViews() {
 		ratingCardTitle.text = CardController.shared.activeCard.name
+		superBadButton.setImage(ratingButtons[superBadButton]! ? UIImage(named: "SBA") : UIImage(named: "SBI"), for: .normal)
 		mindBadButton.setImage(ratingButtons[mindBadButton]! ? UIImage(named: "BA") : UIImage(named: "BI"), for: .normal)
 		mindNeutralButton.setImage(ratingButtons[mindNeutralButton]! ? UIImage(named: "NA") : UIImage(named: "NI"), for: .normal)
 		mindGoodButton.setImage(ratingButtons[mindGoodButton]! ? UIImage(named: "GA") : UIImage(named: "GI"), for: .normal)
-		factorXButton.setImage(factorButtons[factorXButton]! ? UIImage(named: "FA") : UIImage(named: "FI"), for: .normal)
-		factorYButton.setImage(factorButtons[factorYButton]! ? UIImage(named: "FA") : UIImage(named: "FI"), for: .normal)
-		factorZButton.setImage(factorButtons[factorZButton]! ? UIImage(named: "FA") : UIImage(named: "FI"), for: .normal)
+		superGoodButton.setImage(ratingButtons[superGoodButton]! ? UIImage(named: "SGA") : UIImage(named: "SGI"), for: .normal)
+		factorXButton.backgroundColor = factorButtons[factorXButton]! ? chillBlue : UIColor.clear
+		factorYButton.backgroundColor = factorButtons[factorYButton]! ? chillBlue : UIColor.clear
+		factorZButton.backgroundColor = factorButtons[factorZButton]! ? chillBlue : UIColor.clear
 	}
 	
 	func resetUI() {
