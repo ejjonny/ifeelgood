@@ -286,6 +286,9 @@
                                                         </constraints>
                                                         <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                                         <state key="normal" image="Menu"/>
+                                                        <connections>
+                                                            <segue destination="ptW-EX-BRc" kind="show" identifier="toEntryTable" id="Tt5-Hv-8BZ"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -343,6 +346,69 @@
                 </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2181.1594202898555" y="893.30357142857133"/>
+        </scene>
+        <!--Entry Table View Controller-->
+        <scene sceneID="3i4-Fu-yzX">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DgM-aO-4UE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="ptW-EX-BRc" customClass="EntryTableViewController" customModule="ifeelgood" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Xf6-rq-b0r">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.6355042423694649" green="0.74611038255736606" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="separatorColor" red="0.91492070999999997" green="0.94261030980000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" translucent="NO" id="VaT-8C-IjG">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <items>
+                                <navigationItem title="Title" id="g6b-kR-WEC">
+                                    <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="CHu-v5-maZ">
+                                        <connections>
+                                            <action selector="doneButtonTapped:" destination="ptW-EX-BRc" id="Xld-eB-51l"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="entryCell" textLabel="fWD-F1-LQI" detailTextLabel="zVB-5a-mmv" rowHeight="48" style="IBUITableViewCellStyleValue1" id="EdC-nO-HiY">
+                                <rect key="frame" x="0.0" y="72" width="414" height="48"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EdC-nO-HiY" id="Gbt-2H-3Tv">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="47.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fWD-F1-LQI">
+                                            <rect key="frame" x="20" y="14" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zVB-5a-mmv">
+                                            <rect key="frame" x="350" y="14" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ptW-EX-BRc" id="87d-0M-Ihs"/>
+                            <outlet property="delegate" destination="ptW-EX-BRc" id="9Oz-hc-yeB"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="titleLabel" destination="g6b-kR-WEC" id="bn3-LJ-0HH"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="3055" y="893"/>
         </scene>
     </scenes>
     <resources>

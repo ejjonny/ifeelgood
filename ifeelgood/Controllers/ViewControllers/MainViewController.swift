@@ -56,6 +56,14 @@ class MainViewController: UIViewController {
 		let random = Int(arc4random_uniform(UInt32(phraseArray.count)))
 		self.welcomeLabel.text = phraseArray[random]
 	}
+	// MARK: - Navigation
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "toEntryTable" {
+			guard let destination = segue.destination as? EntryTableViewController else { return }
+			destination.card = CardController.shared.activeCard
+		}
+	}
 }
 
 // MARK: - Entry page delegate
@@ -184,8 +192,31 @@ extension MainViewController: CardViewDelegate {
 		// If any of the buttons are active save the entry
 		if cardView.ratingButtons.contains(where: { $0.1 == true }) || cardView.factorButtons.contains(where: { $0.1 == true }) {
 			var rating = 0.0
-			rating = cardView.ratingButtons[cardView.mindBadButton]! ? -1.0 : 0.0
-			rating = cardView.ratingButtons[cardView.mindGoodButton]! ? 1.0 : 0.0
+			for button in cardView.ratingButtons {
+				switch button {
+				case (cardView.superBadButton, true):
+					rating = -2
+				case (cardView.mindBadButton, true):
+					rating = -1
+				case (cardView.mindNeutralButton, true):
+					break
+				case (cardView.mindGoodButton, true):
+					rating = 1
+				case (cardView.superGoodButton, true):
+					rating = 2
+				default:
+					break
+				}
+			}
+			if cardView.ratingButtons[cardView.mindBadButton]! {
+				
+			}
+			if cardView.ratingButtons[cardView.mindBadButton]! {
+				rating = -1
+			}
+			if cardView.ratingButtons[cardView.mindGoodButton]! {
+				rating = 1
+			}
 			var factors = [FactorType]()
 			if cardView.factorButtons[cardView.factorXButton]! {
 				factors.append(CardController.shared.activeCardFactorTypes[0])
