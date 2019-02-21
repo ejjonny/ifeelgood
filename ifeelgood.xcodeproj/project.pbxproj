@@ -17,6 +17,7 @@
 		CA4E438122041886002C329F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437F22041886002C329F /* LaunchScreen.storyboard */; };
 		CA7164FB221A4C5C00C38029 /* EntryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7164FA221A4C5C00C38029 /* EntryTableViewController.swift */; };
 		CA7164FF221A56D100C38029 /* DateAsString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7164FE221A56D100C38029 /* DateAsString.swift */; };
+		CA716503221CD93A00C38029 /* EntryStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA716502221CD93A00C38029 /* EntryStats.swift */; };
 		CA8148EA22154C4D00AA7111 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148E922154C4D00AA7111 /* GraphView.swift */; };
 		CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148EB22154D9B00AA7111 /* GraphFunction.swift */; };
 		CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC30678220C072D00C3229F /* ShakeExtension.swift */; };
@@ -41,6 +42,7 @@
 		CA4E438222041886002C329F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA7164FA221A4C5C00C38029 /* EntryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewController.swift; sourceTree = "<group>"; };
 		CA7164FE221A56D100C38029 /* DateAsString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAsString.swift; sourceTree = "<group>"; };
+		CA716502221CD93A00C38029 /* EntryStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryStats.swift; sourceTree = "<group>"; };
 		CA8148E922154C4D00AA7111 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		CA8148EB22154D9B00AA7111 /* GraphFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphFunction.swift; sourceTree = "<group>"; };
 		CAC30678220C072D00C3229F /* ShakeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeExtension.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				CAC306BA220D4FAC00C3229F /* CardController.swift */,
+				CA716502221CD93A00C38029 /* EntryStats.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				CA1F71302205981F0094A12A /* CardView.swift in Sources */,
 				CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */,
 				CAE3F9762204F1B1008625C4 /* FactorType+Convenience.swift in Sources */,
+				CA716503221CD93A00C38029 /* EntryStats.swift in Sources */,
 				CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */,
 				CA4E437722041885002C329F /* AppDelegate.swift in Sources */,
 				CA7164FF221A56D100C38029 /* DateAsString.swift in Sources */,

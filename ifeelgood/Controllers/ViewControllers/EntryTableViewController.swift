@@ -11,10 +11,9 @@ import UIKit
 class EntryTableViewController: UITableViewController {
 	
 	@IBOutlet weak var titleLabel: UINavigationItem!
-		
-	var organization = organizationType.all
 	
 	var card: Card?
+	var entriesByDateStyle = CardController.shared.entriesByDateStyle()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,29 +27,34 @@ class EntryTableViewController: UITableViewController {
 	// MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		switch organization {
+		switch CardController.shared.entryDateStyle {
 		case .all:
-			break
-		case .day:
-			break
-		case .month:
-			break
-		case .year:
-			break
+			return card?.entries?.count ?? 0
+		default:
+			return entriesByDateStyle.count
 		}
-        return card?.entries?.count ?? 0
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "entryCell", for: indexPath)
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "entryCell", for: indexPath)
 		// Sort from newest to oldest
-		let index = (card?.entries?.count)! - indexPath.row - 1
-		// Cast entry as Entry object
-		guard let entry = card?.entries?[index] as? Entry else { return UITableViewCell()}
-		cell.textLabel?.text = String(entry.rating)
-		cell.detailTextLabel?.text = entry.date?.asString()
-        return cell
-    }
+		switch CardController.shared.entryDateStyle {
+		case .all:
+			let index = (card?.entries?.count)! - indexPath.row - 1
+			// Cast entry as Entry object
+			guard let entry = card?.entries?[index] as? Entry else { return UITableViewCell() }
+			cell.textLabel?.text = String(round(entry.rating))
+			cell.detailTextLabel?.text = entry.date?.asString()
+			return cell
+		case .day:
+			let index = entriesByDateStyle.count - indexPath.row - 1
+			cell.textLabel?.text = String("\(entriesByDateStyle[index].ratingCount) entries with an average of \(round(entriesByDateStyle[index].averageRating * 100) / 100)")
+			cell.detailTextLabel?.text = entriesByDateStyle[index].name
+			return cell
+		default:
+			return UITableViewCell()
+		}
+	}
 
     // Override to support editing the table view.
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

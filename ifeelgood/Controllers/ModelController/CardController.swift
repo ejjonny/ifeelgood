@@ -12,6 +12,8 @@ import CoreData
 
 class CardController {
 	
+	var entryDateStyle: entryDateStyles = .day
+	
 	// MARK: - Load from persistent store on init
 	init() {
 		do {
@@ -68,6 +70,81 @@ class CardController {
 			return []
 		}
 	}
+	
+	func entriesByDateStyle() -> [EntryStats] {
+		
+		guard let entries = self.activeCard.entries else { return [] }
+		let calendar = Calendar.current
+		var stats: [EntryStats] = []
+		var lastEntry: Entry?
+		var entryGroup: [Entry] = []
+		
+		for entry in entries {
+			switch self.entryDateStyle {
+			case .all:
+				break
+			case .day:
+				guard let entryObject = entry as? Entry else { print("Found nil while unwrapping entry.");return [] }
+				guard let entryObjectDate = entryObject.date else { print("Found nil while unwrapping entry date."); return []}
+				let entryDateComponents = calendar.dateComponents([.day, .month, .year], from: entryObjectDate)
+				
+				// If it's not the first one
+				if let last = lastEntry {
+					guard let lastEntryDate = last.date else { print("Found nil while unwrapping an entry's date."); return []}
+					let lastEntryComponents = calendar.dateComponents([.day, .month, .year], from: lastEntryDate)
+					guard let lastEntryDay = lastEntryComponents.day,
+						let lastEntryMonth = lastEntryComponents.month,
+						let lastEntryYear = lastEntryComponents.year,
+						let entryDay = entryDateComponents.day,
+						let entryMonth = entryDateComponents.month,
+						let entryYear = entryDateComponents.year else { print("Found nil while unwrapping entry date components."); return [] }
+					// New group
+					if entryDay > lastEntryDay || entryMonth != lastEntryMonth || entryYear != lastEntryYear && entries.index(of: entry) != entries.count - 1 {
+						var averageRating: Double?
+						for entryObject in entryGroup {
+							guard averageRating != nil else { averageRating = entryGroup.first?.rating; continue }
+							averageRating = (averageRating! + entryObject.rating) / 2
+						}
+						guard let average = averageRating else { print("Found nil while unwrapping a rating."); return []}
+						stats.append(EntryStats(name: "\(lastEntry?.date?.asString() ?? "Date")", ratingCount: entryGroup.count, averageRating: average))
+						entryGroup = []
+						averageRating = 0
+					}
+				}
+				// If first
+				entryGroup.append(entryObject)
+				lastEntry = entryObject
+				// If last
+				if entries.index(of: entry) == entries.count - 1 {
+					var averageRating: Double?
+					for entryObject in entryGroup {
+						guard averageRating != nil else { averageRating = entryGroup.first?.rating; continue }
+						averageRating = (averageRating! + entryObject.rating) / 2
+					}
+					guard let average = averageRating else { print("Found nil while unwrapping a rating."); return []}
+					stats.append(EntryStats(name: "\(lastEntry?.date?.asString() ?? "Date")", ratingCount: entryGroup.count, averageRating: average))
+				}
+			case .week:
+				break
+			case .month:
+				break
+			case .year:
+				break
+			}
+		}
+		return stats
+	}
+	
+	
+	
+	func formatDateAsString(date: Date) -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
+		dateFormatter.locale = Locale(identifier: "en_US")
+		return dateFormatter.string(from: date)
+	}
+	
 	
 	// MARK: - Card functions
 	func createCard(named name: String){

@@ -10,9 +10,10 @@ import UIKit
 
 let chillBlue: UIColor = UIColor(red: 0.91, green: 0.94, blue: 1.00, alpha: 1.0)
 
-enum organizationType {
+enum entryDateStyles {
 	case all
 	case day
+	case week
 	case month
 	case year
 }
@@ -25,8 +26,6 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var topBarInsetView: UIView!
 	@IBOutlet weak var welcomeLabel: UILabel!
 	@IBOutlet weak var graphView: GraphView!
-	
-	var organizationStyle = organizationType.all
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,20 +68,28 @@ class MainViewController: UIViewController {
 	@IBAction func menuButtonTapped(_ sender: Any) {
 		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		let byYear = UIAlertAction(title: "Year", style: .default) { (_) in
-			self.organizationStyle = organizationType.year
+			CardController.shared.entryDateStyle = .year
 			self.performSegue(withIdentifier: "toEntryTable", sender: self)
 		}
 		let byMonth = UIAlertAction(title: "Month", style: .default) { (_) in
-			self.organizationStyle = organizationType.month
+			CardController.shared.entryDateStyle = .month
+			self.performSegue(withIdentifier: "toEntryTable", sender: self)
+		}
+		let byWeek = UIAlertAction(title: "Week", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .week
 			self.performSegue(withIdentifier: "toEntryTable", sender: self)
 		}
 		let byDay = UIAlertAction(title: "Day", style: .default) { (_) in
-			self.organizationStyle = organizationType.day
+			CardController.shared.entryDateStyle = .day
 			self.performSegue(withIdentifier: "toEntryTable", sender: self)
 		}
-		let byEntry = UIAlertAction(title: "All", style: .default)
+		let byEntry = UIAlertAction(title: "All", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .all
+			self.performSegue(withIdentifier: "toEntryTable", sender: self)
+		}
 		alertController.addAction(byYear)
 		alertController.addAction(byMonth)
+		alertController.addAction(byWeek)
 		alertController.addAction(byDay)
 		alertController.addAction(byEntry)
 		self.present(alertController, animated: true, completion: nil)
@@ -94,7 +101,6 @@ class MainViewController: UIViewController {
 		if segue.identifier == "toEntryTable" {
 			guard let destination = segue.destination as? EntryTableViewController else { return }
 			destination.card = CardController.shared.activeCard
-			destination.organization = self.organizationStyle
 		}
 	}
 }
@@ -174,8 +180,8 @@ extension MainViewController: CardViewDelegate {
 	
 	func loadCard(card: Card) {
 		let target = self.view.frame.height
+		CardController.shared.setActive(card: card)
 		self.autoAnimate(view: self.cardView, edge: self.cardView.bounds.minY, to: target) { (_) in
-			CardController.shared.setActive(card: card)
 			if !CardController.shared.activeCardFactorTypes.isEmpty {
 				// Selectively update factor labels
 				if CardController.shared.activeCardFactorTypes.indices.contains(0) {
@@ -223,31 +229,22 @@ extension MainViewController: CardViewDelegate {
 	func saveButtonTapped() {
 		// If any of the buttons are active save the entry
 		if cardView.ratingButtons.contains(where: { $0.1 == true }) || cardView.factorButtons.contains(where: { $0.1 == true }) {
-			var rating = 0.0
+			var rating = Double()
 			for button in cardView.ratingButtons {
 				switch button {
 				case (cardView.superBadButton, true):
-					rating = -2
-				case (cardView.mindBadButton, true):
-					rating = -1
-				case (cardView.mindNeutralButton, true):
-					break
-				case (cardView.mindGoodButton, true):
 					rating = 1
-				case (cardView.superGoodButton, true):
+				case (cardView.mindBadButton, true):
 					rating = 2
+				case (cardView.mindNeutralButton, true):
+					rating = 3
+				case (cardView.mindGoodButton, true):
+					rating = 4
+				case (cardView.superGoodButton, true):
+					rating = 5
 				default:
 					break
 				}
-			}
-			if cardView.ratingButtons[cardView.mindBadButton]! {
-				
-			}
-			if cardView.ratingButtons[cardView.mindBadButton]! {
-				rating = -1
-			}
-			if cardView.ratingButtons[cardView.mindGoodButton]! {
-				rating = 1
 			}
 			var factors = [FactorType]()
 			if cardView.factorButtons[cardView.factorXButton]! {

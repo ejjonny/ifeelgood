@@ -13,7 +13,7 @@ extension Date {
 	func asString() -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .short
+		dateFormatter.timeStyle = .none
 		dateFormatter.locale = Locale(identifier: "en_US")
 		return dateFormatter.string(from: self)
 	}
