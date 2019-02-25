@@ -12,12 +12,11 @@ class EntryTableViewController: UITableViewController {
 	
 	@IBOutlet weak var titleLabel: UINavigationItem!
 	
-	var card: Card?
 	var entriesByDateStyle = CardController.shared.entriesByDateStyle()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		titleLabel.title = card?.name
+		titleLabel.title = CardController.shared.activeCard.name
 	}
 
 	@IBAction func doneButtonTapped(_ sender: Any) {
@@ -29,7 +28,7 @@ class EntryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch CardController.shared.entryDateStyle {
 		case .all:
-			return card?.entries?.count ?? 0
+			return CardController.shared.activeCard.entries?.count ?? 0
 		default:
 			return entriesByDateStyle.count
 		}
@@ -37,12 +36,13 @@ class EntryTableViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "entryCell", for: indexPath)
+		let card = CardController.shared.activeCard
 		// Sort from newest to oldest
 		switch CardController.shared.entryDateStyle {
 		case .all:
-			let index = (card?.entries?.count)! - indexPath.row - 1
+			let index = (card.entries?.count)! - indexPath.row - 1
 			// Cast entry as Entry object
-			guard let entry = card?.entries?[index] as? Entry else { return UITableViewCell() }
+			guard let entry = card.entries?[index] as? Entry else { return UITableViewCell() }
 			cell.textLabel?.text = String(round(entry.rating))
 			cell.detailTextLabel?.text = entry.date?.asString()
 			return cell

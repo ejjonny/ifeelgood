@@ -23,10 +23,12 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="factorTypes" inverseEntity="Card" syncable="YES"/>
     </entity>
+    <entity name="Reminder" representedClassName="Reminder" syncable="YES" codeGenerationType="class"/>
     <elements>
         <element name="Card" positionX="-188.73046875" positionY="365.64453125" width="128" height="135"/>
         <element name="Entry" positionX="37.109375" positionY="201.30859375" width="128" height="120"/>
         <element name="FactorMark" positionX="310.6015625" positionY="396.5625" width="128" height="75"/>
         <element name="FactorType" positionX="18" positionY="333" width="128" height="75"/>
+        <element name="Reminder" positionX="18" positionY="333" width="128" height="45"/>
     </elements>
 </model>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SpriteKit
 
 let chillBlue: UIColor = UIColor(red: 0.91, green: 0.94, blue: 1.00, alpha: 1.0)
 
@@ -25,16 +26,15 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var topBarView: UIView!
 	@IBOutlet weak var topBarInsetView: UIView!
 	@IBOutlet weak var welcomeLabel: UILabel!
-	@IBOutlet weak var graphView: GraphView!
+//	let graphView = GraphView()
+//	let graphSuperView = UIView()
+//	let graphLabel = UILabel()
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
 		cardView.delegate = self
 		loadCard(card: CardController.shared.activeCard)
-		self.initializeUI()
-    }
-	
-	func initializeUI() {
+		
 		topBarView.layer.cornerRadius = 10
 		topBarView.layer.shadowColor = UIColor.black.cgColor
 		topBarView.layer.shadowOpacity = 0.08
@@ -42,7 +42,27 @@ class MainViewController: UIViewController {
 		topBarView.layer.shadowRadius = 5
 		topBarInsetView.layer.cornerRadius = 10
 		setWelcomePhrase()
-	}
+		
+//		graphSuperView.backgroundColor = chillBlue
+//		graphSuperView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 20, height: (self.view.frame.height / 5) + 40)
+//		graphSuperView.center = CGPoint(x: self.view.frame.width / 2, y: (self.view.frame.height / 2) - 20)
+//		graphSuperView.layer.cornerRadius = 10
+//
+//		graphLabel.text = "This is a graph lol"
+//		graphLabel.font = UIFont.systemFont(ofSize: 18)
+//		graphLabel.frame = CGRect(origin: CGPoint(x: graphSuperView.frame.minX + 10, y: graphSuperView.frame.minY + 10), size: CGSize(width: graphSuperView.bounds.width - 20, height: 20))
+//
+//		graphView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 20, height: self.view.frame.height / 5)
+//		graphView.center = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
+//		graphView.path = self.bezierWithValues(onView: graphView, YValues: [0,5,4,3,5,0,3,4,0,5,3], smoothing: 0.3, inset: 10)
+//
+//		self.view.addSubview(graphLabel)
+//		self.view.sendSubviewToBack(graphLabel)
+//		self.view.addSubview(graphView)
+//		self.view.sendSubviewToBack(graphView)
+//		self.view.addSubview(graphSuperView)
+//		self.view.sendSubviewToBack(graphSuperView)
+    }
 	
 	func setWelcomePhrase() {
 		let phraseArray = [ "Hey good lookin'",
@@ -66,42 +86,12 @@ class MainViewController: UIViewController {
 	}
 	
 	@IBAction func menuButtonTapped(_ sender: Any) {
-		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-		let byYear = UIAlertAction(title: "Year", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .year
-			self.performSegue(withIdentifier: "toEntryTable", sender: self)
-		}
-		let byMonth = UIAlertAction(title: "Month", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .month
-			self.performSegue(withIdentifier: "toEntryTable", sender: self)
-		}
-		let byWeek = UIAlertAction(title: "Week", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .week
-			self.performSegue(withIdentifier: "toEntryTable", sender: self)
-		}
-		let byDay = UIAlertAction(title: "Day", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .day
-			self.performSegue(withIdentifier: "toEntryTable", sender: self)
-		}
-		let byEntry = UIAlertAction(title: "All", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .all
-			self.performSegue(withIdentifier: "toEntryTable", sender: self)
-		}
-		alertController.addAction(byYear)
-		alertController.addAction(byMonth)
-		alertController.addAction(byWeek)
-		alertController.addAction(byDay)
-		alertController.addAction(byEntry)
-		self.present(alertController, animated: true, completion: nil)
+		self.performSegue(withIdentifier: "toSettings", sender: self)
 	}
 	
 	// MARK: - Navigation
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if segue.identifier == "toEntryTable" {
-			guard let destination = segue.destination as? EntryTableViewController else { return }
-			destination.card = CardController.shared.activeCard
-		}
 	}
 }
 

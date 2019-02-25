@@ -12,12 +12,18 @@ class GraphView: UIView {
 
 	var path: UIBezierPath?
 	
-    override func draw(_ rect: CGRect) {
+	override func draw(_ rect: CGRect) {
+		let shapeLayer = CAShapeLayer()
 		guard let graphPath = self.path else { print("Path is nil - no graph drawn."); return }
-		graphPath.lineWidth = 10.0
-		graphPath.lineCapStyle = .round
-		UIColor.black.setStroke()
-		graphPath.stroke()
-		graphPath.close()
-    }
+		shapeLayer.path = graphPath.cgPath
+		shapeLayer.fillColor = UIColor.clear.cgColor
+		shapeLayer.strokeColor = UIColor.black.cgColor
+		shapeLayer.lineWidth = 5
+		shapeLayer.lineCap = .round
+		self.layer.addSublayer(shapeLayer)
+	}
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+	}
 }

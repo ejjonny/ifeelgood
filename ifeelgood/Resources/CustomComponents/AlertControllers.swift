@@ -199,4 +199,36 @@ extension MainViewController {
 			self.loadCard(card: CardController.shared.activeCard)
 		}
 	}
+	
+	func dateStyleAlert() {
+		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		let byYear = UIAlertAction(title: "Year", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .year
+			self.performSegue(withIdentifier: "toEntryTable", sender: self)
+		}
+		let byMonth = UIAlertAction(title: "Month", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .month
+			self.performSegue(withIdentifier: "toEntryTable", sender: self)
+		}
+		let byWeek = UIAlertAction(title: "Week", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .week
+			self.performSegue(withIdentifier: "toEntryTable", sender: self)
+		}
+		let byDay = UIAlertAction(title: "Day", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .day
+			self.performSegue(withIdentifier: "toEntryTable", sender: self)
+		}
+		let byEntry = UIAlertAction(title: "All", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .all
+			self.performSegue(withIdentifier: "toEntryTable", sender: self)
+		}
+		let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+		alertController.addAction(byYear)
+		alertController.addAction(byMonth)
+		alertController.addAction(byWeek)
+		alertController.addAction(byDay)
+		alertController.addAction(byEntry)
+		alertController.addAction(cancel)
+		self.present(alertController, animated: true, completion: nil)
+	}
 }

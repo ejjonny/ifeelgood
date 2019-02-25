@@ -135,8 +135,6 @@ class CardController {
 		return stats
 	}
 	
-	
-	
 	func formatDateAsString(date: Date) -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .short
@@ -144,7 +142,6 @@ class CardController {
 		dateFormatter.locale = Locale(identifier: "en_US")
 		return dateFormatter.string(from: date)
 	}
-	
 	
 	// MARK: - Card functions
 	func createCard(named name: String){
