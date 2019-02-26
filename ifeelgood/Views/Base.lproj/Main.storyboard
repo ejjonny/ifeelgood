@@ -347,7 +347,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexColor" red="0.63550424240000003" green="0.74611038259999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.63550424240000003" green="0.74611038259999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="vfE-6W-YP9">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="vfE-6W-YP9">
                             <rect key="frame" x="0.0" y="140" width="414" height="178"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </view>
@@ -527,6 +527,13 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="74.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C9o-7z-pQA">
+                                                            <rect key="frame" x="0.0" y="0.0" width="10" height="74.5"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="10" id="Psh-nx-pGZ"/>
+                                                            </constraints>
+                                                        </view>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dlT-4i-Yd2">
                                                             <rect key="frame" x="20" y="11" width="374" height="53"/>
                                                             <subviews>
@@ -550,19 +557,12 @@
                                                                                 </label>
                                                                             </subviews>
                                                                         </stackView>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0W-MO-5GY">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="311" height="53"/>
-                                                                        </button>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstItem="vhn-6K-1iH" firstAttribute="top" secondItem="bQU-Rs-iYi" secondAttribute="top" id="AdU-7m-bQT"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="L0W-MO-5GY" secondAttribute="bottom" id="YAx-R9-R1T"/>
                                                                         <constraint firstItem="vhn-6K-1iH" firstAttribute="leading" secondItem="bQU-Rs-iYi" secondAttribute="leading" id="h1p-fV-Lgh"/>
-                                                                        <constraint firstItem="L0W-MO-5GY" firstAttribute="leading" secondItem="bQU-Rs-iYi" secondAttribute="leading" id="hPq-Ub-md3"/>
                                                                         <constraint firstAttribute="trailing" secondItem="vhn-6K-1iH" secondAttribute="trailing" id="isI-Ix-DAx"/>
-                                                                        <constraint firstItem="L0W-MO-5GY" firstAttribute="top" secondItem="bQU-Rs-iYi" secondAttribute="top" id="lvR-lD-CpI"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="L0W-MO-5GY" secondAttribute="trailing" id="wzS-hu-Wu9"/>
                                                                         <constraint firstAttribute="bottom" secondItem="vhn-6K-1iH" secondAttribute="bottom" id="ykF-0M-3BP"/>
                                                                     </constraints>
                                                                 </view>
@@ -592,10 +592,15 @@
                                                         <constraint firstAttribute="bottomMargin" secondItem="dlT-4i-Yd2" secondAttribute="bottom" id="Ao0-Hr-DRl"/>
                                                         <constraint firstItem="dlT-4i-Yd2" firstAttribute="leading" secondItem="saJ-Z2-RQO" secondAttribute="leadingMargin" id="FHD-Z0-YII"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="dlT-4i-Yd2" secondAttribute="trailing" id="MQr-Kc-3xF"/>
+                                                        <constraint firstAttribute="bottom" secondItem="C9o-7z-pQA" secondAttribute="bottom" id="VzM-L1-6r6"/>
                                                         <constraint firstItem="dlT-4i-Yd2" firstAttribute="top" secondItem="saJ-Z2-RQO" secondAttribute="topMargin" id="uMH-fs-Zco"/>
+                                                        <constraint firstItem="C9o-7z-pQA" firstAttribute="top" secondItem="saJ-Z2-RQO" secondAttribute="top" id="wZN-2e-nfg"/>
+                                                        <constraint firstItem="C9o-7z-pQA" firstAttribute="leading" secondItem="saJ-Z2-RQO" secondAttribute="leading" id="wmi-kr-r8v"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <gestureRecognizers/>
                                                 <connections>
+                                                    <outlet property="activeMarkView" destination="C9o-7z-pQA" id="o3H-9D-v9V"/>
                                                     <outlet property="frequencyLabel" destination="1X9-hk-dDV" id="mv9-8g-vb4"/>
                                                     <outlet property="reminderSwitch" destination="buS-gI-E2j" id="ZWe-Ux-B4a"/>
                                                     <outlet property="timeLabel" destination="NGg-Of-7J7" id="LdC-dz-QXH"/>

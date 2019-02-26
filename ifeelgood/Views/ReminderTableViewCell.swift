@@ -10,6 +10,7 @@ import UIKit
 
 class ReminderTableViewCell: UITableViewCell {
 
+	@IBOutlet weak var activeMarkView: UIView!
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var reminderSwitch: UISwitch!
 	@IBOutlet weak var frequencyLabel: UILabel!
@@ -33,6 +34,16 @@ class ReminderTableViewCell: UITableViewCell {
 		guard let reminder = reminder else { return }
 		reminder.isOn = reminderSwitch.isOn
 		delegate?.updateCellFor(reminder: reminder)
+	}
+	
+	func showAsSelected() {
+		// Animate view moving in from left edge
+		activeMarkView.backgroundColor = chillBlue
+	}
+	
+	func showAsDeselected() {
+		// Animate view moving out towards left edge
+		activeMarkView.backgroundColor = .white
 	}
 }
 
