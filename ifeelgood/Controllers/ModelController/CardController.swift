@@ -17,7 +17,7 @@ class CardController {
 	// MARK: - Load from persistent store on init
 	init() {
 		do {
-			try fetchResultsController.performFetch()
+			try cardFetchResultsController.performFetch()
 		} catch {
 			print("Unable to load data: \(error): \(error.localizedDescription)")
 		}
@@ -40,7 +40,8 @@ class CardController {
 		}
 		// Check the count of active cards.
 		if activeCards.count > 1 {
-			print("There are multiple cards marked as active. This shouldn't print")
+			print("Error: There are multiple cards marked as active.")
+			fatalError()
 		}
 		// If we get a card back from fetch return it
 		if activeCards.indices.contains(0) {
@@ -62,8 +63,8 @@ class CardController {
 	
 	var cards: [Card] {
 		do {
-			try fetchResultsController.performFetch()
-			guard let results = fetchResultsController.fetchedObjects else { print("There were no objects fetched"); return []}
+			try cardFetchResultsController.performFetch()
+			guard let results = cardFetchResultsController.fetchedObjects else { print("There were no objects fetched"); return []}
 			return results
 		} catch {
 			print(error, error.localizedDescription)
@@ -147,24 +148,24 @@ class CardController {
 	func createCard(named name: String){
 		let card = Card(name: name)
 		self.setActive(card: card)
-		saveToPersistentStore()
+		CoreDataController.shared.saveToPersistentStore()
 	}
 	
 	func renameActiveCard(withName name: String) {
 		self.activeCard.name = name
-		saveToPersistentStore()
+		CoreDataController.shared.saveToPersistentStore()
 	}
 	
 	func deleteActiveCard() {
 		CoreDataStack.context.delete(self.activeCard)
-		saveToPersistentStore()
+		CoreDataController.shared.saveToPersistentStore()
 	}
 	
 	func setActive(card: Card) {
 		// If there is currently an active card deactivate it.
 		activeCard.isActive = false
 		card.isActive = true
-		saveToPersistentStore()
+		CoreDataController.shared.saveToPersistentStore()
 	}
 	
 	// MARK: - Factor functions
@@ -175,24 +176,24 @@ class CardController {
 		} else {
 			print("ERROR: Tried to save a factor when all factors on active card were full. Factor was not saved.")
 		}
-		saveToPersistentStore()
+		CoreDataController.shared.saveToPersistentStore()
 	}
 	
 	func replaceFactorType(_ factorType: FactorType, withName name: String) {
 		CoreDataStack.context.delete(factorType)
 		createFactorType(withName: name)
-		saveToPersistentStore()
+		CoreDataController.shared.saveToPersistentStore()
 	}
 	
 	func deleteFactorType(_ factorType: FactorType) {
 		CoreDataStack.context.delete(factorType)
-		saveToPersistentStore()
+		CoreDataController.shared.saveToPersistentStore()
 	}
 	
 	func createFactorMark(ofType type: FactorType, onEntry entry: Entry) {
 		guard let name = type.name else { print("FactorType name was nil. Entry not created"); return }
 		FactorMark(name: name, entry: entry)
-		saveToPersistentStore()
+		CoreDataController.shared.saveToPersistentStore()
 	}
 	
 	func deleteFactorMark(named: String, fromEntries: [Entry]) {
@@ -206,26 +207,15 @@ class CardController {
 			guard let name = mark.name else { print("Name on factor type was nil. Mark not created."); return }
 			FactorMark(name: name, entry: entry)
 		}
-		saveToPersistentStore()
+		CoreDataController.shared.saveToPersistentStore()
 	}
 	
 	// MARK: - FetchResultsController
-	let fetchResultsController: NSFetchedResultsController<Card> = {
+	let cardFetchResultsController: NSFetchedResultsController<Card> = {
 		let request = NSFetchRequest<Card>(entityName: "Card")
 		let dateSort = NSSortDescriptor(key: "startDate", ascending: true)
 		request.sortDescriptors = [dateSort]
 		return NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
 	}()
-	
-	// MARK: - Save to persistent store
-	func saveToPersistentStore() {
-		print(" There are \(cards.count) cards.")
-		do {
-			try CoreDataStack.context.save()
-			print("Saved")
-		} catch {
-			print("Unable to save to persistent store. \(error): \(error.localizedDescription)")
-		}
-	}
 }
 
