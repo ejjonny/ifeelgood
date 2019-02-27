@@ -34,6 +34,10 @@ class ReminderController {
 		return reminders
 	}
 	
+	var activeReminders: [Reminder] {
+		return self.reminders.filter{ $0.isOn == true }
+	}
+	
 	func createReminder() {
 		Reminder(isOn: true, timeOfDay: Date(), frequency: frequencyOptions.daily)
 		CoreDataController.shared.saveToPersistentStore()

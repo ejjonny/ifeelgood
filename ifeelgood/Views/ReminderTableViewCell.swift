@@ -15,17 +15,29 @@ class ReminderTableViewCell: UITableViewCell {
 	@IBOutlet weak var reminderSwitch: UISwitch!
 	@IBOutlet weak var frequencyLabel: UILabel!
 	
+	override var isSelected: Bool {
+		didSet{
+			isSelected ? self.select() : self.deselect()
+		}
+	}
+	
 	var reminder: Reminder? {
 		didSet{
 			self.updateViews()
 		}
 	}
 	
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		self.activeMarkView.layer.cornerRadius = 10
+		self.updateViews()
+	}
+	
 	weak var delegate: ReminderCellDelegate?
 	
 	func updateViews() {
 		guard let reminder = reminder else { return }
-		self.timeLabel.text = reminder.timeOfDay?.asString()
+		self.timeLabel.text = reminder.timeOfDay?.asTime()
 		self.frequencyLabel.text = reminder.frequency
 		self.reminderSwitch.isOn = reminder.isOn
 	}
@@ -36,14 +48,18 @@ class ReminderTableViewCell: UITableViewCell {
 		delegate?.updateCellFor(reminder: reminder)
 	}
 	
-	func showAsSelected() {
+	func select() {
 		// Animate view moving in from left edge
-		activeMarkView.backgroundColor = chillBlue
+		UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+			self.activeMarkView.transform = CGAffineTransform(translationX: self.activeMarkView.center.x + 9, y: 0)
+		}, completion: nil)
 	}
 	
-	func showAsDeselected() {
+	func deselect() {
 		// Animate view moving out towards left edge
-		activeMarkView.backgroundColor = .white
+		UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+			self.activeMarkView.transform = CGAffineTransform(translationX: self.activeMarkView.center.x - 9, y: 0)
+		}, completion: nil)
 	}
 }
 

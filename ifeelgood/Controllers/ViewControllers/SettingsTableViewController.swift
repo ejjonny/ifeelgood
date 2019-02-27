@@ -13,10 +13,12 @@ class SettingsTableViewController: UITableViewController {
 	@IBOutlet weak var cardCountLabel: UILabel!
 	@IBOutlet weak var reminderCountLabel: UILabel!
 	
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		let reminderCount = ReminderController.shared.activeReminders.count
+		self.reminderCountLabel.text = reminderCount > 1 ? "\(reminderCount) active reminders" : "\(reminderCount) active reminder"
 		let cardCount = CardController.shared.cards.count
-		self.cardCountLabel.text = cardCount > 1 ? "\(cardCount) active cards" : "\(cardCount) active card"
+		self.cardCountLabel.text = cardCount > 1 ? "\(cardCount) cards" : "\(cardCount) card"
 	}
 	
 	@IBAction func doneButtonTapped(_ sender: Any) {
