@@ -30,7 +30,6 @@ class ReminderTableViewCell: UITableViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		self.activeMarkView.layer.cornerRadius = 10
-		self.updateViews()
 	}
 	
 	weak var delegate: ReminderCellDelegate?

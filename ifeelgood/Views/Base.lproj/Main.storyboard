@@ -629,6 +629,9 @@
                                                 <date key="date" timeIntervalSinceReferenceDate="572846077.98364305">
                                                     <!--2019-02-26 03:54:37 +0000-->
                                                 </date>
+                                                <connections>
+                                                    <action selector="timePickerValueChanged:" destination="PyQ-Um-FNi" eventType="valueChanged" id="crR-Gd-iVE"/>
+                                                </connections>
                                             </datePicker>
                                         </subviews>
                                     </stackView>
