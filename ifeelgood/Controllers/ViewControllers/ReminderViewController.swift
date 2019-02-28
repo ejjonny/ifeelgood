@@ -15,11 +15,7 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 	@IBOutlet weak var frequencyControl: UISegmentedControl!
 	@IBOutlet weak var reminderTableView: UITableView!
 	
-	var activeIndex: IndexPath? {
-		didSet {
-			print("Index set")
-		}
-	}
+	var activeIndex: IndexPath?
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,17 +56,18 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 	}
 	
 	@IBAction func timePickerValueChanged(_ sender: Any) {
-		guard let index = activeIndex else { return }
-		ReminderController.shared.reminders[index.row].timeOfDay = timePicker.date
-		reminderTableView.selectRow(at: index, animated: true, scrollPosition: .none)
+		guard let index = activeIndex else { print("Unable to unwrap active index") ; return }
+		let reminder = ReminderController.shared.reminders[index.row]
+		guard let frequency = reminder.frequency else { print("Unable to unwrap reminder frequency") ; return }
+		ReminderController.shared.update(reminder: reminder, isOn: reminder.isOn, timeOfDay: timePicker.date, frequency: frequency)
 		reminderTableView.reloadRows(at: [index], with: .automatic)
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		// Get the appropriate index and assign it to activeIndex. Changes made on editor should change that reminder's data.
+		// Changes made on editor should change that reminder's data.
 		guard let allCells = tableView.visibleCells as? [ReminderTableViewCell] else { return }
 		for cell in allCells {
-			cell.isSelected = false
+			cell.reminderSelected = false
 			activeIndex = nil
 		}
 		guard let cell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell else { return }
@@ -83,18 +80,23 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 			return
 		}
 		// Otherwise select cell and show control
-		cell.isSelected = true
+		cell.reminderSelected = true
 		activeIndex = indexPath
+		guard let reminderTime = ReminderController.shared.reminders[activeIndex!.row].timeOfDay else { return }
+		timePicker.date = reminderTime
 		UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
 			self.reminderControlView.transform = CGAffineTransform(translationX: 0, y: -self.reminderControlView.bounds.height - 50)
 		}, completion: nil)
+	}
+	
+	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+		print("Deselected \(indexPath)")
 	}
 }
 
 extension ReminderViewController: ReminderCellDelegate {
 	func updateCellFor(reminder: Reminder) {
-		guard let index = ReminderController.shared.reminders.index(of: reminder) else { return }
-		let path = IndexPath(index: index)
-		self.reminderTableView.reloadRows(at: [path], with: .automatic)
+		guard let index = activeIndex else { return }
+		self.reminderTableView.reloadRows(at: [index], with: .automatic)
 	}
 }

@@ -46,10 +46,10 @@ class ReminderController {
 		reminder.isOn = !reminder.isOn
 		CoreDataController.shared.saveToPersistentStore()
 	}
-	func update(reminder: Reminder, isOn: Bool, timeOfDay: Date, frequency: frequencyOptions) {
+	func update(reminder: Reminder, isOn: Bool, timeOfDay: Date, frequency: String) {
 		reminder.isOn = isOn
 		reminder.timeOfDay = timeOfDay
-		reminder.frequency = frequency.rawValue
+		reminder.frequency = frequency
 		CoreDataController.shared.saveToPersistentStore()
 	}
 	func delete(reminder: Reminder) {

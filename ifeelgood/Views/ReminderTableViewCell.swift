@@ -15,9 +15,9 @@ class ReminderTableViewCell: UITableViewCell {
 	@IBOutlet weak var reminderSwitch: UISwitch!
 	@IBOutlet weak var frequencyLabel: UILabel!
 	
-	override var isSelected: Bool {
-		didSet{
-			isSelected ? self.select() : self.deselect()
+	var reminderSelected = false {
+		didSet {
+			reminderSelected ? self.select() : self.deselect()
 		}
 	}
 	
