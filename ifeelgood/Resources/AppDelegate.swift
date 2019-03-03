@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,9 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		
-		CoreDataController.shared.loadFromPersistentStore()
-		
+		UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+		CoreDataManager.loadFromPersistentStore()
+		requestAuth { (granted) in
+			print("Notification authorization granted")
+		}
 		return true
+	}
+	
+	func requestAuth(completion: @escaping (Bool) -> Void) {
+		UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+			if let error = error {
+				print("Error requesting notification auth from user: \(error, error.localizedDescription)")
+				completion(false)
+				return
+			}
+			completion(true)
+		}
 	}
 
 	func applicationWillResignActive(_ application: UIApplication) {

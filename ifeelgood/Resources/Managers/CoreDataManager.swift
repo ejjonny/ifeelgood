@@ -1,5 +1,5 @@
 //
-//  CoreDataController.swift
+//  CoreDataManager.swift
 //  ifeelgood
 //
 //  Created by Ethan John on 2/25/19.
@@ -9,21 +9,30 @@
 import UIKit
 import CoreData
 
-class CoreDataController {
+class CoreDataManager {
 	
-	static let shared = CoreDataController()
-		
 	// MARK: - Persistence
-	func saveToPersistentStore() {
+	static func saveToPersistentStore(completion: ((Bool) -> Void)? = { success in
+		
+		if (success) {
+			CoreDataManager.loadFromPersistentStore()
+		} else {
+			print("Error saving")
+		}}) {
 		do {
 			try CoreDataStack.context.save()
-			print("Saved")
+			if let comp = completion {
+				comp(true)
+			}
 		} catch {
 			print("Unable to save to persistent store. \(error): \(error.localizedDescription)")
+			if let comp = completion {
+				comp(false)
+			}
 		}
 	}
 	
-	func loadFromPersistentStore() {
+	static func loadFromPersistentStore() {
 		
 		// Mark: Reminder fetch controller
 		do {
@@ -57,14 +66,14 @@ class CoreDataController {
 	}
 	
 	// MARK: FetchResultsController
-	let cardFetchResultsController: NSFetchedResultsController<Card> = {
+	private static let cardFetchResultsController: NSFetchedResultsController<Card> = {
 		let request = NSFetchRequest<Card>(entityName: "Card")
 		let dateSort = NSSortDescriptor(key: "startDate", ascending: true)
 		request.sortDescriptors = [dateSort]
 		return NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
 	}()
 	
-	let reminderFetchResultsController: NSFetchedResultsController<Reminder> = {
+	private static let reminderFetchResultsController: NSFetchedResultsController<Reminder> = {
 		let request = NSFetchRequest<Reminder>(entityName: "Reminder")
 		let predicate = NSPredicate(value: true)
 		let dateSort = NSSortDescriptor(key: "timeOfDay", ascending: true)

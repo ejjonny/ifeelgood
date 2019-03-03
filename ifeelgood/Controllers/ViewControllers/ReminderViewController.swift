@@ -8,11 +8,8 @@
 
 import UIKit
 
-class ReminderViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ReminderViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ReminderControlViewDelegate {
 
-	@IBOutlet weak var reminderControlView: UIView!
-	@IBOutlet weak var timePicker: UIDatePicker!
-	@IBOutlet weak var frequencyControl: UISegmentedControl!
 	@IBOutlet weak var reminderTableView: UITableView!
 	
 	var activeIndex: IndexPath?
@@ -42,6 +39,8 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 			let reminder = ReminderController.shared.reminders[indexPath.row]
 			ReminderController.shared.delete(reminder: reminder)
 			self.reminderTableView.deleteRows(at: [indexPath], with: .automatic)
+			activeIndex = nil
+			deselectAllAndHideControl()
 		default:
 			break
 		}
@@ -50,30 +49,39 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 	
 	// Mark: - Actions
 	@IBAction func addReminderButtonTapped(_ sender: Any) {
-		ReminderController.shared.createReminder()
-		let index = ReminderController.shared.reminders.count - 1
-		let path = IndexPath(item: index, section: 0)
-		self.reminderTableView.insertRows(at: [path], with: .automatic)
+		ReminderController.shared.createReminderWith(date: Date(), frequency: Frequency.daily) { (success) in
+			if success {
+				DispatchQueue.main.async {
+					let index = ReminderController.shared.reminders.count - 1
+					let path = IndexPath(item: index, section: 0)
+					self.reminderTableView.insertRows(at: [path], with: .automatic)
+				}
+			}
+		}
 	}
 	
-	@IBAction func timePickerValueChanged(_ sender: Any) {
+	func timePickerChangedWith(date: Date) {
+		updateSelectedReminderWith(date: date, frequency: nil)
+	}
+	
+	func frequencySegmentedControlChangedWith(frequencyInt: Int) {
+		guard let frequency = Frequency(rawValue: Int16(frequencyInt)) else { print("Reminder not updated") ; return }
+		updateSelectedReminderWith(date: nil, frequency: frequency)
+	}
+	
+	func updateSelectedReminderWith(date: Date?, frequency: Frequency?) {
 		guard let index = activeIndex else { print("Unable to unwrap active index") ; return }
 		let reminder = ReminderController.shared.reminders[index.row]
-		guard let frequency = reminder.frequency else { print("Unable to unwrap reminder frequency") ; return }
-		ReminderController.shared.update(reminder: reminder, isOn: reminder.isOn, timeOfDay: timePicker.date, frequency: frequency)
-		reminderTableView.reloadRows(at: [index], with: .none)
-	}
-	
-	@IBAction func frequencyControlValueChanged(_ sender: Any) {
+		guard let reminderTime = reminder.timeOfDay else { return }
+		guard let reminderFrequency = Frequency(rawValue: reminder.frequency) else { return }
+		let date = date != nil ? date : reminder.timeOfDay
 		
-	}
-	
-	func updateSelectedReminder() {
-		guard let index = activeIndex else { print("Unable to unwrap active index") ; return }
-		let reminder = ReminderController.shared.reminders[index.row]
-		
-		ReminderController.shared.update(reminder: reminder, isOn: reminder.isOn, timeOfDay: timePicker.date, frequency: frequency.options[frequencyControl.selectedSegmentIndex])
-		reminderTableView.reloadRows(at: [index], with: .none)
+		// Depending on what is passed in the reminder's values will be updated.
+		ReminderController.shared.update(reminder: reminder, isOn: reminder.isOn, timeOfDay: date != nil ? date! : reminderTime, frequency: frequency != nil ? frequency! : reminderFrequency) { (success) in
+			DispatchQueue.main.async {
+				self.reminderTableView.reloadRows(at: [index], with: .none)
+			}
+		}
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -86,20 +94,29 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		guard let cell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell else { return }
 		// If the cell is already selected just deselect all, hide control, and return
 		guard cell.isSelected else {
-			UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-				self.reminderControlView.transform = CGAffineTransform(translationX: 0, y: self.reminderControlView.bounds.height + 50)
-			}, completion: nil)
-			activeIndex = nil
+			deselectAllAndHideControl()
 			return
 		}
 		// Otherwise select cell and show control
 		cell.reminderSelected = true
 		activeIndex = indexPath
 		guard let reminderTime = ReminderController.shared.reminders[activeIndex!.row].timeOfDay else { return }
-		timePicker.date = reminderTime
+		reminderControlContainer.reminderTimePicker.date = reminderTime
 		UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-			self.reminderControlView.transform = CGAffineTransform(translationX: 0, y: -self.reminderControlView.bounds.height - 50)
+			self.reminderControlContainer.view.transform = CGAffineTransform(translationX: 0, y: -self.reminderControlContainer.view.bounds.height - 50)
 		}, completion: nil)
+	}
+	
+	func deselectAllAndHideControl() {
+		guard let allCells = self.reminderTableView.visibleCells as? [ReminderTableViewCell] else { return }
+		for cell in allCells {
+			cell.reminderSelected = false
+			activeIndex = nil
+		}
+		UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+			self.reminderControlContainer.view.transform = CGAffineTransform(translationX: 0, y: self.reminderControlContainer.view.bounds.height + 50)
+		}, completion: nil)
+		activeIndex = nil
 	}
 }
 

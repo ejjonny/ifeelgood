@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA1016F4222B89E60066B2B5 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1016F3222B89E60066B2B5 /* NotificationManager.swift */; };
 		CA164FDE2216125300205AE9 /* FactorMark+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA164FDD2216125300205AE9 /* FactorMark+Convenience.swift */; };
 		CA1F71302205981F0094A12A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F712F2205981F0094A12A /* CardView.swift */; };
 		CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F713122059A1A0094A12A /* MainViewController.swift */; };
@@ -20,6 +21,7 @@
 		CA716503221CD93A00C38029 /* EntryStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA716502221CD93A00C38029 /* EntryStats.swift */; };
 		CA8148EA22154C4D00AA7111 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148E922154C4D00AA7111 /* GraphView.swift */; };
 		CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148EB22154D9B00AA7111 /* GraphFunction.swift */; };
+		CA85E573222BC9C1003BE157 /* ReminderControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85E572222BC9C1003BE157 /* ReminderControlView.swift */; };
 		CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC30678220C072D00C3229F /* ShakeExtension.swift */; };
 		CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306B7220D360200C3229F /* Card+Convenience.swift */; };
 		CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306BA220D4FAC00C3229F /* CardController.swift */; };
@@ -30,12 +32,13 @@
 		CAE740BF2224F46F00CA6C66 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE740BE2224F46F00CA6C66 /* ReminderTableViewCell.swift */; };
 		CAE740C32224F52B00CA6C66 /* ReminderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE740C22224F52B00CA6C66 /* ReminderController.swift */; };
 		CAE740C52224F5AB00CA6C66 /* Reminder+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE740C42224F5AB00CA6C66 /* Reminder+Convenience.swift */; };
-		CAE740C72224F6FC00CA6C66 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE740C62224F6FC00CA6C66 /* CoreDataController.swift */; };
+		CAE740C72224F6FC00CA6C66 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE740C62224F6FC00CA6C66 /* CoreDataManager.swift */; };
 		CAE740C92224FB9300CA6C66 /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE740C82224FB9300CA6C66 /* ReminderViewController.swift */; };
 		CAF353562223C2BA00F614B8 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF353552223C2BA00F614B8 /* SettingsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA1016F3222B89E60066B2B5 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		CA164FDD2216125300205AE9 /* FactorMark+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactorMark+Convenience.swift"; sourceTree = "<group>"; };
 		CA1F712F2205981F0094A12A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA1F713122059A1A0094A12A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +54,7 @@
 		CA716502221CD93A00C38029 /* EntryStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryStats.swift; sourceTree = "<group>"; };
 		CA8148E922154C4D00AA7111 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		CA8148EB22154D9B00AA7111 /* GraphFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphFunction.swift; sourceTree = "<group>"; };
+		CA85E572222BC9C1003BE157 /* ReminderControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderControlView.swift; sourceTree = "<group>"; };
 		CAC30678220C072D00C3229F /* ShakeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeExtension.swift; sourceTree = "<group>"; };
 		CAC306B7220D360200C3229F /* Card+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Convenience.swift"; sourceTree = "<group>"; };
 		CAC306BA220D4FAC00C3229F /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
@@ -61,7 +65,7 @@
 		CAE740BE2224F46F00CA6C66 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		CAE740C22224F52B00CA6C66 /* ReminderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderController.swift; sourceTree = "<group>"; };
 		CAE740C42224F5AB00CA6C66 /* Reminder+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+Convenience.swift"; sourceTree = "<group>"; };
-		CAE740C62224F6FC00CA6C66 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		CAE740C62224F6FC00CA6C66 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		CAE740C82224FB9300CA6C66 /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
 		CAF353552223C2BA00F614B8 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA1016F5222B8A130066B2B5 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				CAE740C62224F6FC00CA6C66 /* CoreDataManager.swift */,
+				CA1016F3222B89E60066B2B5 /* NotificationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		CA4E436A22041885002C329F = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +126,7 @@
 				CA4E437D22041886002C329F /* Assets.xcassets */,
 				CA4E437F22041886002C329F /* LaunchScreen.storyboard */,
 				CA4E438222041886002C329F /* Info.plist */,
+				CA1016F5222B8A130066B2B5 /* Managers */,
 				CAC306B9220D380100C3229F /* CustomComponents */,
 			);
 			path = Resources;
@@ -142,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				CA4E437A22041885002C329F /* Main.storyboard */,
+				CA85E572222BC9C1003BE157 /* ReminderControlView.swift */,
 				CAE740BE2224F46F00CA6C66 /* ReminderTableViewCell.swift */,
 				CA1F712F2205981F0094A12A /* CardView.swift */,
 			);
@@ -178,7 +193,6 @@
 			children = (
 				CAE740C22224F52B00CA6C66 /* ReminderController.swift */,
 				CAC306BA220D4FAC00C3229F /* CardController.swift */,
-				CAE740C62224F6FC00CA6C66 /* CoreDataController.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -260,10 +274,11 @@
 				CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */,
 				CAE740C52224F5AB00CA6C66 /* Reminder+Convenience.swift in Sources */,
 				CAE3F9762204F1B1008625C4 /* FactorType+Convenience.swift in Sources */,
+				CA1016F4222B89E60066B2B5 /* NotificationManager.swift in Sources */,
 				CA716503221CD93A00C38029 /* EntryStats.swift in Sources */,
 				CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */,
 				CAE740C92224FB9300CA6C66 /* ReminderViewController.swift in Sources */,
-				CAE740C72224F6FC00CA6C66 /* CoreDataController.swift in Sources */,
+				CAE740C72224F6FC00CA6C66 /* CoreDataManager.swift in Sources */,
 				CAE740C32224F52B00CA6C66 /* ReminderController.swift in Sources */,
 				CA4E437722041885002C329F /* AppDelegate.swift in Sources */,
 				CA7164FF221A56D100C38029 /* DateAsString.swift in Sources */,
@@ -276,6 +291,7 @@
 				CA164FDE2216125300205AE9 /* FactorMark+Convenience.swift in Sources */,
 				CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */,
 				CA7164FB221A4C5C00C38029 /* EntryTableViewController.swift in Sources */,
+				CA85E573222BC9C1003BE157 /* ReminderControlView.swift in Sources */,
 				CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

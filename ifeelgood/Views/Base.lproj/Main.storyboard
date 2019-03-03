@@ -605,52 +605,33 @@
                                     <outlet property="delegate" destination="PyQ-Um-FNi" id="qAp-4p-1BH"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hbi-aH-fIe">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpr-kB-Iqb">
                                 <rect key="frame" x="0.0" y="824" width="414" height="244"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4Ar-jf-W5K">
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3Y-r5-wvk" customClass="ReminderControlView" customModule="ifeelgood" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="244"/>
-                                        <subviews>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sEZ-h1-H2c">
-                                                <rect key="frame" x="36.5" y="0.0" width="341" height="29"/>
-                                                <segments>
-                                                    <segment title="Daily"/>
-                                                    <segment title="Every Other Day"/>
-                                                    <segment title="Weekly"/>
-                                                </segments>
-                                                <color key="tintColor" red="0.63550424240000003" green="0.74611038259999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <connections>
-                                                    <action selector="frequencyControlValueChanged:" destination="PyQ-Um-FNi" eventType="valueChanged" id="JKa-vU-4e3"/>
-                                                </connections>
-                                            </segmentedControl>
-                                            <datePicker contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="10" translatesAutoresizingMaskIntoConstraints="NO" id="EEU-Ke-sNN">
-                                                <rect key="frame" x="47" y="28" width="320" height="216"/>
-                                                <date key="date" timeIntervalSinceReferenceDate="572846077.98364305">
-                                                    <!--2019-02-26 03:54:37 +0000-->
-                                                </date>
-                                                <connections>
-                                                    <action selector="timePickerValueChanged:" destination="PyQ-Um-FNi" eventType="valueChanged" id="crR-Gd-iVE"/>
-                                                </connections>
-                                            </datePicker>
-                                        </subviews>
-                                    </stackView>
+                                        <connections>
+                                            <segue destination="r1Z-NJ-4sJ" kind="embed" id="a0e-4k-aG5"/>
+                                        </connections>
+                                    </containerView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="4Ar-jf-W5K" firstAttribute="top" secondItem="Hbi-aH-fIe" secondAttribute="top" id="G6e-rp-dSv"/>
-                                    <constraint firstAttribute="bottom" secondItem="4Ar-jf-W5K" secondAttribute="bottom" id="XJ6-cd-Llu"/>
-                                    <constraint firstAttribute="trailing" secondItem="4Ar-jf-W5K" secondAttribute="trailing" id="ZAo-gg-6Rr"/>
-                                    <constraint firstItem="4Ar-jf-W5K" firstAttribute="leading" secondItem="Hbi-aH-fIe" secondAttribute="leading" id="cuD-Op-S7V"/>
+                                    <constraint firstItem="K3Y-r5-wvk" firstAttribute="leading" secondItem="Hpr-kB-Iqb" secondAttribute="leading" id="J7N-fB-F43"/>
+                                    <constraint firstAttribute="trailing" secondItem="K3Y-r5-wvk" secondAttribute="trailing" id="YeJ-Hr-nZN"/>
+                                    <constraint firstAttribute="bottom" secondItem="K3Y-r5-wvk" secondAttribute="bottom" id="hN0-0S-kaJ"/>
+                                    <constraint firstItem="K3Y-r5-wvk" firstAttribute="top" secondItem="Hpr-kB-Iqb" secondAttribute="top" id="qZF-9p-L5C"/>
+                                    <constraint firstAttribute="height" constant="244" id="qjp-nB-fs3"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Hbi-aH-fIe" firstAttribute="width" secondItem="rbt-hc-8Mg" secondAttribute="width" id="A78-gk-qHE"/>
-                            <constraint firstItem="Hbi-aH-fIe" firstAttribute="centerX" secondItem="iRk-cd-R1W" secondAttribute="centerX" id="IWi-u1-4ag"/>
                             <constraint firstItem="YZi-a2-XcR" firstAttribute="top" secondItem="iRk-cd-R1W" secondAttribute="top" id="Mbb-rm-w3s"/>
-                            <constraint firstItem="Hbi-aH-fIe" firstAttribute="top" secondItem="iRk-cd-R1W" secondAttribute="bottom" constant="50" id="QV0-Uf-z5Z"/>
+                            <constraint firstItem="Hpr-kB-Iqb" firstAttribute="top" secondItem="iRk-cd-R1W" secondAttribute="bottom" constant="50" id="Rt3-mC-G0K"/>
                             <constraint firstItem="iRk-cd-R1W" firstAttribute="bottom" secondItem="YZi-a2-XcR" secondAttribute="bottom" id="gW0-Kx-1WK"/>
+                            <constraint firstItem="Hpr-kB-Iqb" firstAttribute="width" secondItem="iRk-cd-R1W" secondAttribute="width" id="joU-9y-GCM"/>
+                            <constraint firstItem="Hpr-kB-Iqb" firstAttribute="centerX" secondItem="iRk-cd-R1W" secondAttribute="centerX" id="qI8-Xv-ZYc"/>
                             <constraint firstItem="YZi-a2-XcR" firstAttribute="leading" secondItem="iRk-cd-R1W" secondAttribute="leading" id="vwO-R9-6bB"/>
                             <constraint firstItem="YZi-a2-XcR" firstAttribute="trailing" secondItem="iRk-cd-R1W" secondAttribute="trailing" id="yCx-4B-ccX"/>
                         </constraints>
@@ -664,10 +645,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="frequencyControl" destination="sEZ-h1-H2c" id="scD-nD-oIC"/>
-                        <outlet property="reminderControlView" destination="Hbi-aH-fIe" id="olQ-Tx-Khh"/>
                         <outlet property="reminderTableView" destination="YZi-a2-XcR" id="mJJ-ou-shi"/>
-                        <outlet property="timePicker" destination="EEU-Ke-sNN" id="cIz-23-Xes"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SPz-nc-zgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -835,6 +813,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="glB-wm-APL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5484" y="1288"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="cyh-es-yHu">
+            <objects>
+                <viewController id="r1Z-NJ-4sJ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tWh-Md-l2G">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="244"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EYz-OE-VpF">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="244"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wRQ-t7-8Ss">
+                                        <rect key="frame" x="20.5" y="0.0" width="373" height="37"/>
+                                        <segments>
+                                            <segment title="Daily"/>
+                                            <segment title="Weekly"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.63550424240000003" green="0.74611038259999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="frequencySegmentedControlChanged:" destination="r1Z-NJ-4sJ" eventType="valueChanged" id="ll6-xg-d2A"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <datePicker contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="10" translatesAutoresizingMaskIntoConstraints="NO" id="Vbb-Oa-veT">
+                                        <rect key="frame" x="0.0" y="36" width="414" height="208"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="572846077.98364305">
+                                            <!--2019-02-26 03:54:37 +0000-->
+                                        </date>
+                                        <connections>
+                                            <action selector="reminderTimePickerChanged:" destination="r1Z-NJ-4sJ" eventType="valueChanged" id="bdC-Pb-hoB"/>
+                                        </connections>
+                                    </datePicker>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="wRQ-t7-8Ss" firstAttribute="width" secondItem="EYz-OE-VpF" secondAttribute="width" multiplier="0.9" id="d2f-sS-JGm"/>
+                                    <constraint firstItem="Vbb-Oa-veT" firstAttribute="width" secondItem="EYz-OE-VpF" secondAttribute="width" id="uC7-fa-LYO"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="EYz-OE-VpF" firstAttribute="leading" secondItem="tWh-Md-l2G" secondAttribute="leading" id="5ny-gC-C7q"/>
+                            <constraint firstItem="EYz-OE-VpF" firstAttribute="top" secondItem="tWh-Md-l2G" secondAttribute="top" id="g3N-PW-lcM"/>
+                            <constraint firstAttribute="bottom" secondItem="EYz-OE-VpF" secondAttribute="bottom" id="mMi-jF-9XQ"/>
+                            <constraint firstAttribute="trailing" secondItem="EYz-OE-VpF" secondAttribute="trailing" id="no4-cM-Dl6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FU5-MM-yEV"/>
+                    </view>
+                    <connections>
+                        <outlet property="frequencySegmentedControl" destination="wRQ-t7-8Ss" id="Nby-Zi-Mcz"/>
+                        <outlet property="reminderTimePicker" destination="Vbb-Oa-veT" id="Upv-EW-Yx4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OY4-FQ-kW7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5543" y="548"/>
         </scene>
     </scenes>
     <resources>

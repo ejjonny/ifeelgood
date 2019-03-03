@@ -24,15 +24,16 @@
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="factorTypes" inverseEntity="Card" syncable="YES"/>
     </entity>
     <entity name="Reminder" representedClassName="Reminder" syncable="YES" codeGenerationType="class">
-        <attribute name="frequency" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isOn" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="timeOfDay" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
     </entity>
     <elements>
         <element name="Card" positionX="-188.73046875" positionY="365.64453125" width="128" height="135"/>
         <element name="Entry" positionX="37.109375" positionY="201.30859375" width="128" height="120"/>
         <element name="FactorMark" positionX="310.6015625" positionY="396.5625" width="128" height="75"/>
         <element name="FactorType" positionX="18" positionY="333" width="128" height="75"/>
-        <element name="Reminder" positionX="18" positionY="333" width="128" height="90"/>
+        <element name="Reminder" positionX="18" positionY="333" width="128" height="105"/>
     </elements>
 </model>

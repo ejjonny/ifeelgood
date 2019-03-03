@@ -17,11 +17,7 @@ class CardController {
 	// Singleton
 	static var shared = CardController()
 	
-	var cards: [Card] = [] {
-		didSet {
-			print(cards.count)
-		}
-	}
+	var cards: [Card] = []
 	
 	var activeCard: Card {
 		
@@ -46,7 +42,8 @@ class CardController {
 				last.isActive = true
 				return last
 			}
-			CoreDataController.shared.saveToPersistentStore()
+			CoreDataManager.saveToPersistentStore()
+			
 		} else if activeArray.count == 1, let first = activeArray.first {
 			// If there is one active card return it. All is well.
 			return first
@@ -138,21 +135,18 @@ class CardController {
 	func createCard(named name: String) -> Card {
 		let card = Card(name: name)
 		self.setActive(card: card)
-		CoreDataController.shared.saveToPersistentStore()
-		CoreDataController.shared.loadFromPersistentStore()
+		CoreDataManager.saveToPersistentStore()
 		return card
 	}
 	
 	func renameActiveCard(withName name: String) {
 		self.activeCard.name = name
-		CoreDataController.shared.saveToPersistentStore()
+		CoreDataManager.saveToPersistentStore()
 	}
 	
 	func deleteActiveCard() {
 		CoreDataStack.context.delete(self.activeCard)
-		guard let index = CardController.shared.cards.index(of: activeCard) else { print("Error deleting active card") ; return }
-		CardController.shared.cards.remove(at: index)
-		CoreDataController.shared.saveToPersistentStore()
+		CoreDataManager.saveToPersistentStore()
 	}
 	
 	func setActive(card: Card) {
@@ -163,7 +157,7 @@ class CardController {
 			}
 		}
 		card.isActive = true
-		CoreDataController.shared.saveToPersistentStore()
+		CoreDataManager.saveToPersistentStore()
 	}
 	
 	// MARK: - Factor control
@@ -174,27 +168,24 @@ class CardController {
 		} else {
 			print("ERROR: Tried to save a factor when all factors on active card were full. Factor was not saved.")
 		}
-		CoreDataController.shared.saveToPersistentStore()
+		CoreDataManager.saveToPersistentStore()
 	}
 	
 	func replaceFactorType(_ factorType: FactorType, withName name: String) {
 		CoreDataStack.context.delete(factorType)
 		createFactorType(withName: name)
-		CoreDataController.shared.saveToPersistentStore()
-		CoreDataController.shared.loadFromPersistentStore()
+		CoreDataManager.saveToPersistentStore()
 	}
 	
 	func deleteFactorType(_ factorType: FactorType) {
 		CoreDataStack.context.delete(factorType)
-		CoreDataController.shared.saveToPersistentStore()
-		CoreDataController.shared.loadFromPersistentStore()
+		CoreDataManager.saveToPersistentStore()
 	}
 	
 	func createFactorMark(ofType type: FactorType, onEntry entry: Entry) {
 		guard let name = type.name else { print("FactorType name was nil. Entry not created"); return }
 		FactorMark(name: name, entry: entry)
-		CoreDataController.shared.saveToPersistentStore()
-		CoreDataController.shared.loadFromPersistentStore()
+		CoreDataManager.saveToPersistentStore()
 	}
 	
 	func deleteFactorMark(named: String, fromEntries: [Entry]) {
@@ -208,8 +199,7 @@ class CardController {
 			guard let name = mark.name else { print("Name on factor type was nil. Mark not created."); return }
 			FactorMark(name: name, entry: entry)
 		}
-		CoreDataController.shared.saveToPersistentStore()
-		CoreDataController.shared.loadFromPersistentStore()
+		CoreDataManager.saveToPersistentStore()
 	}
 }
 

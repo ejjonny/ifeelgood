@@ -16,9 +16,9 @@ class SettingsTableViewController: UITableViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		let reminderCount = ReminderController.shared.activeReminders.count
-		self.reminderCountLabel.text = reminderCount > 1 ? "\(reminderCount) active reminders" : "\(reminderCount) active reminder"
+		self.reminderCountLabel.text = reminderCount == 1 ? "\(reminderCount) active reminder" : "\(reminderCount) active reminders"
 		let cardCount = CardController.shared.cards.count
-		self.cardCountLabel.text = cardCount > 1 ? "\(cardCount) cards" : "\(cardCount) card"
+		self.cardCountLabel.text = cardCount == 1 ? "\(cardCount) card" : "\(cardCount) cards"
 	}
 	
 	@IBAction func doneButtonTapped(_ sender: Any) {

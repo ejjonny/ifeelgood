@@ -26,9 +26,6 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var topBarView: UIView!
 	@IBOutlet weak var topBarInsetView: UIView!
 	@IBOutlet weak var welcomeLabel: UILabel!
-//	let graphView = GraphView()
-//	let graphSuperView = UIView()
-//	let graphLabel = UILabel()
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,26 +39,6 @@ class MainViewController: UIViewController {
 		topBarView.layer.shadowRadius = 5
 		topBarInsetView.layer.cornerRadius = 10
 		setWelcomePhrase()
-		
-//		graphSuperView.backgroundColor = chillBlue
-//		graphSuperView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 20, height: (self.view.frame.height / 5) + 40)
-//		graphSuperView.center = CGPoint(x: self.view.frame.width / 2, y: (self.view.frame.height / 2) - 20)
-//		graphSuperView.layer.cornerRadius = 10
-//
-//		graphLabel.text = "This is a graph lol"
-//		graphLabel.font = UIFont.systemFont(ofSize: 18)
-//		graphLabel.frame = CGRect(origin: CGPoint(x: graphSuperView.frame.minX + 10, y: graphSuperView.frame.minY + 10), size: CGSize(width: graphSuperView.bounds.width - 20, height: 20))
-//
-//		graphView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 20, height: self.view.frame.height / 5)
-//		graphView.center = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
-//		graphView.path = self.bezierWithValues(onView: graphView, YValues: [0,5,4,3,5,0,3,4,0,5,3], smoothing: 0.3, inset: 10)
-//
-//		self.view.addSubview(graphLabel)
-//		self.view.sendSubviewToBack(graphLabel)
-//		self.view.addSubview(graphView)
-//		self.view.sendSubviewToBack(graphView)
-//		self.view.addSubview(graphSuperView)
-//		self.view.sendSubviewToBack(graphSuperView)
     }
 	
 	func setWelcomePhrase() {
@@ -90,7 +67,6 @@ class MainViewController: UIViewController {
 	}
 	
 	// MARK: - Navigation
-	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 	}
 }
@@ -98,6 +74,7 @@ class MainViewController: UIViewController {
 // MARK: - Entry page delegate
 extension MainViewController: CardViewDelegate {
 	
+	// Mark: Animation handling
 	func panDidEnd() {
 		// Check the state when the pan gesture ends and react accordingly with linear or velocity reactive animations.
 		let aboveHalfWay = self.cardView.frame.minY < (self.view.frame.height * 0.5)
@@ -212,6 +189,7 @@ extension MainViewController: CardViewDelegate {
 		}
 	}
 	
+	// Mark: Card view controls
 	func editCardButtonTapped() {
 		beginEditCardOptionTree()
 	}
