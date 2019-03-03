@@ -136,7 +136,7 @@ extension MainViewController {
 		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		let newCard = UIAlertAction(title: "New Card", style: .default) { (_) in
 			self.createDefaultAlert(withPrompt: "Create a new card.", message: "What would you like to start tracking?", textFieldPlaceholder: "Card Name", confirmActionName: "Add") { (input) in
-				let card = Card(name: input)
+				let card = CardController.shared.createCard(named: input)
 				self.loadCard(card: card)
 			}
 		}

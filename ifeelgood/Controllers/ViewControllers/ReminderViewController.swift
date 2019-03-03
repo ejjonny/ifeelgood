@@ -30,6 +30,7 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		let reminder = ReminderController.shared.reminders[indexPath.row]
 		cell.reminder = reminder
 		cell.delegate = self
+		cell.reminderSelected = indexPath == activeIndex ? true : false
 		cell.selectionStyle = .none
 		
 		return cell
@@ -60,7 +61,19 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		let reminder = ReminderController.shared.reminders[index.row]
 		guard let frequency = reminder.frequency else { print("Unable to unwrap reminder frequency") ; return }
 		ReminderController.shared.update(reminder: reminder, isOn: reminder.isOn, timeOfDay: timePicker.date, frequency: frequency)
-		reminderTableView.reloadRows(at: [index], with: .automatic)
+		reminderTableView.reloadRows(at: [index], with: .none)
+	}
+	
+	@IBAction func frequencyControlValueChanged(_ sender: Any) {
+		
+	}
+	
+	func updateSelectedReminder() {
+		guard let index = activeIndex else { print("Unable to unwrap active index") ; return }
+		let reminder = ReminderController.shared.reminders[index.row]
+		
+		ReminderController.shared.update(reminder: reminder, isOn: reminder.isOn, timeOfDay: timePicker.date, frequency: frequency.options[frequencyControl.selectedSegmentIndex])
+		reminderTableView.reloadRows(at: [index], with: .none)
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -87,10 +100,6 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
 			self.reminderControlView.transform = CGAffineTransform(translationX: 0, y: -self.reminderControlView.bounds.height - 50)
 		}, completion: nil)
-	}
-	
-	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-		print("Deselected \(indexPath)")
 	}
 }
 

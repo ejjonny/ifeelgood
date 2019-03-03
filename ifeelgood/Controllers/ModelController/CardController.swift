@@ -13,47 +13,47 @@ import CoreData
 class CardController {
 	
 	var entryDateStyle: entryDateStyles = .day
-	
-	// MARK: - Load from persistent store on init
-	init() {
-		do {
-			try cardFetchResultsController.performFetch()
-		} catch {
-			print("Unable to load data: \(error): \(error.localizedDescription)")
-		}
-	}
-	
+		
 	// Singleton
 	static var shared = CardController()
 	
+	var cards: [Card] = [] {
+		didSet {
+			print(cards.count)
+		}
+	}
+	
 	var activeCard: Card {
-		let cardRequest = NSFetchRequest<Card>(entityName: "Card")
-		let predicate = NSPredicate(format: "isActive = true")
-		let dateSort = NSSortDescriptor(key: "startDate", ascending: true)
-		cardRequest.sortDescriptors = [dateSort]
-		cardRequest.predicate = predicate
-		var activeCards = [Card]()
-		do {
-			activeCards = try CoreDataStack.context.fetch(cardRequest)
-		} catch {
-			print(error.localizedDescription, "Didn't find a card marked as active.")
+		
+		let activeArray = cards.filter{ $0.isActive == true }
+		
+		// Make sure datasource has cards, if not make a default card.
+		if cards.isEmpty {
+			return createCard(named: "My new card")
 		}
-		// Check the count of active cards.
-		if activeCards.count > 1 {
-			print("Error: There are multiple cards marked as active.")
-			fatalError()
+
+		if activeArray.count > 1 || activeArray.count == 0 {
+			// Deactivate all & set last to active and return it if there are more than one active cards.
+			if activeArray.count == 0 {
+				print("No active cards")
+			} else if activeArray.count > 1 {
+				print("Error: Multiple active cards")
+			}
+			for card in activeArray {
+				card.isActive = false
+			}
+			if let last = cards.last {
+				last.isActive = true
+				return last
+			}
+			CoreDataController.shared.saveToPersistentStore()
+		} else if activeArray.count == 1, let first = activeArray.first {
+			// If there is one active card return it. All is well.
+			return first
 		}
-		// If we get a card back from fetch return it
-		if activeCards.indices.contains(0) {
-			return activeCards[0]
-		}
-		// Activate the last card in the stack
-		if let lastCard = cards.last {
-			lastCard.isActive = true
-			return lastCard
-		}
-		// Last resort make a default card
-		return Card(name: "My New Card", isActive: true)
+		// Last resort
+		print("Error: active card computed property should cover all cases.")
+		return createCard(named: "My new card")
 	}
 	
 	var activeCardFactorTypes: [FactorType] {
@@ -61,16 +61,6 @@ class CardController {
 		return array
 	}
 	
-	var cards: [Card] {
-		do {
-			try cardFetchResultsController.performFetch()
-			guard let results = cardFetchResultsController.fetchedObjects else { print("There were no objects fetched"); return []}
-			return results
-		} catch {
-			print(error, error.localizedDescription)
-			return []
-		}
-	}
 	
 	func entriesByDateStyle() -> [EntryStats] {
 		
@@ -144,11 +134,13 @@ class CardController {
 		return dateFormatter.string(from: date)
 	}
 	
-	// MARK: - Card functions
-	func createCard(named name: String){
+	// MARK: - Card control
+	func createCard(named name: String) -> Card {
 		let card = Card(name: name)
 		self.setActive(card: card)
 		CoreDataController.shared.saveToPersistentStore()
+		CoreDataController.shared.loadFromPersistentStore()
+		return card
 	}
 	
 	func renameActiveCard(withName name: String) {
@@ -158,19 +150,25 @@ class CardController {
 	
 	func deleteActiveCard() {
 		CoreDataStack.context.delete(self.activeCard)
+		guard let index = CardController.shared.cards.index(of: activeCard) else { print("Error deleting active card") ; return }
+		CardController.shared.cards.remove(at: index)
 		CoreDataController.shared.saveToPersistentStore()
 	}
 	
 	func setActive(card: Card) {
 		// If there is currently an active card deactivate it.
-		activeCard.isActive = false
+		for card in cards {
+			if card.isActive {
+				card.isActive = false
+			}
+		}
 		card.isActive = true
 		CoreDataController.shared.saveToPersistentStore()
 	}
 	
-	// MARK: - Factor functions
+	// MARK: - Factor control
 	func createFactorType(withName name: String) {
-		guard let factorTypeCount = activeCard.factorTypes?.count else { print("Card's factor types were nil. Factor not created."); return }
+		guard let factorTypeCount = activeCard.factorTypes?.count else { print("Card does not have any factor types."); return }
 		if factorTypeCount < 3 {
 			FactorType(name: name, card: activeCard)
 		} else {
@@ -183,17 +181,20 @@ class CardController {
 		CoreDataStack.context.delete(factorType)
 		createFactorType(withName: name)
 		CoreDataController.shared.saveToPersistentStore()
+		CoreDataController.shared.loadFromPersistentStore()
 	}
 	
 	func deleteFactorType(_ factorType: FactorType) {
 		CoreDataStack.context.delete(factorType)
 		CoreDataController.shared.saveToPersistentStore()
+		CoreDataController.shared.loadFromPersistentStore()
 	}
 	
 	func createFactorMark(ofType type: FactorType, onEntry entry: Entry) {
 		guard let name = type.name else { print("FactorType name was nil. Entry not created"); return }
 		FactorMark(name: name, entry: entry)
 		CoreDataController.shared.saveToPersistentStore()
+		CoreDataController.shared.loadFromPersistentStore()
 	}
 	
 	func deleteFactorMark(named: String, fromEntries: [Entry]) {
@@ -208,14 +209,7 @@ class CardController {
 			FactorMark(name: name, entry: entry)
 		}
 		CoreDataController.shared.saveToPersistentStore()
+		CoreDataController.shared.loadFromPersistentStore()
 	}
-	
-	// MARK: - FetchResultsController
-	let cardFetchResultsController: NSFetchedResultsController<Card> = {
-		let request = NSFetchRequest<Card>(entityName: "Card")
-		let dateSort = NSSortDescriptor(key: "startDate", ascending: true)
-		request.sortDescriptors = [dateSort]
-		return NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
-	}()
 }
 

@@ -11,10 +11,10 @@ import CoreData
 
 extension Reminder {
 	@discardableResult
-	convenience init(isOn: Bool, timeOfDay: Date, frequency: frequencyOptions, moc: NSManagedObjectContext = CoreDataStack.context) {
+	convenience init(isOn: Bool, timeOfDay: Date, frequency: String, moc: NSManagedObjectContext = CoreDataStack.context) {
 		self.init(context: moc)
 		self.isOn = isOn
 		self.timeOfDay = timeOfDay
-		self.frequency = frequency.rawValue
+		self.frequency = frequency
 	}
 }

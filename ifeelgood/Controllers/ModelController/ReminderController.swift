@@ -9,37 +9,23 @@
 import Foundation
 import CoreData
 
-enum frequencyOptions: String {
-	case daily = "daily"
-	case everyOtherDay = "everyOtherDay"
-	case weekly = "weekly"
+struct frequency {
+	static let options = ["daily", "everyOtherDay", "weekly"]
 }
 
 class ReminderController {
 	
 	static let shared = ReminderController()
 	
-	var reminders: [Reminder] {
-		let reminderRequest = NSFetchRequest<Reminder>(entityName: "Reminder")
-		let predicate = NSPredicate(value: true)
-		let dateSort = NSSortDescriptor(key: "timeOfDay", ascending: true)
-		reminderRequest.sortDescriptors = [dateSort]
-		reminderRequest.predicate = predicate
-		var reminders = [Reminder]()
-		do {
-			reminders = try CoreDataStack.context.fetch(reminderRequest)
-		} catch {
-			print(error.localizedDescription, "Didn't find any reminders.")
-		}
-		return reminders
-	}
+	var reminders: [Reminder] = []
 	
 	var activeReminders: [Reminder] {
 		return self.reminders.filter{ $0.isOn == true }
 	}
 	
 	func createReminder() {
-		Reminder(isOn: true, timeOfDay: Date(), frequency: frequencyOptions.daily)
+		let reminder = Reminder(isOn: true, timeOfDay: Date(), frequency: frequency.options[0])
+		reminders.append(reminder)
 		CoreDataController.shared.saveToPersistentStore()
 	}
 	func toggle(reminder: Reminder) {
@@ -54,6 +40,8 @@ class ReminderController {
 	}
 	func delete(reminder: Reminder) {
 		CoreDataStack.context.delete(reminder)
+		guard let index = ReminderController.shared.reminders.index(of: reminder) else { print("Error deleting reminder") ; return }
+		ReminderController.shared.reminders.remove(at: index)
 		CoreDataController.shared.saveToPersistentStore()
 	}
 }
