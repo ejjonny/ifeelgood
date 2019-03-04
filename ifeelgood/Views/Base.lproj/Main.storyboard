@@ -608,10 +608,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpr-kB-Iqb">
                                 <rect key="frame" x="0.0" y="824" width="414" height="244"/>
                                 <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3Y-r5-wvk" customClass="ReminderControlView" customModule="ifeelgood" customModuleProvider="target">
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3Y-r5-wvk">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="244"/>
                                         <connections>
-                                            <segue destination="r1Z-NJ-4sJ" kind="embed" id="a0e-4k-aG5"/>
+                                            <segue destination="r1Z-NJ-4sJ" kind="embed" identifier="toReminderControl" id="a0e-4k-aG5"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
@@ -645,6 +645,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="reminderControlView" destination="Hpr-kB-Iqb" id="a7S-l5-yga"/>
                         <outlet property="reminderTableView" destination="YZi-a2-XcR" id="mJJ-ou-shi"/>
                     </connections>
                 </viewController>
@@ -814,10 +815,10 @@
             </objects>
             <point key="canvasLocation" x="5484" y="1288"/>
         </scene>
-        <!--View Controller-->
+        <!--Reminder Control View-->
         <scene sceneID="cyh-es-yHu">
             <objects>
-                <viewController id="r1Z-NJ-4sJ" sceneMemberID="viewController">
+                <viewController id="r1Z-NJ-4sJ" customClass="ReminderControlView" customModule="ifeelgood" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tWh-Md-l2G">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="244"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

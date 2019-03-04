@@ -11,6 +11,9 @@ import CoreData
 
 class ReminderController {
 	
+	private let title = "How are you?"
+	private let body = "Check in often to learn from your progress."
+	
 	static let shared = ReminderController()
 	
 	var reminders: [Reminder] = []
@@ -20,31 +23,64 @@ class ReminderController {
 	}
 	
 	func createReminderWith(date: Date, frequency: Frequency, completion: @escaping (Bool) -> Void) {
-		NotificationManager.setUpRecurringNotification(title: "How are you?", body: "Check in often to learn from your progress.", date: date, frequency: frequency) { (success) in
+		let reminder = Reminder(isOn: true, timeOfDay: date, frequency: frequency)
+		NotificationManager.setUpRecurringNotification(title: title, body: body, reminder: reminder) { (success) in
 			if success {
-				Reminder(isOn: true, timeOfDay: date, frequency: frequency)
 				CoreDataManager.saveToPersistentStore()
 				completion(true)
-			} else {
-				completion(false)
+				return
 			}
+			self.delete(reminder: reminder)
+			completion(false)
 		}
 	}
 	
 	func toggle(reminder: Reminder) {
-		reminder.isOn = !reminder.isOn
-		CoreDataManager.saveToPersistentStore()
+		if reminder.isOn {
+			NotificationManager.removeRecurringNotificationFor(reminder: reminder) { (success) in
+				if success {
+					reminder.isOn = false
+					CoreDataManager.saveToPersistentStore()
+					return
+				}
+				print("Reminder toggle off failed.")
+			}
+		} else if reminder.isOn == false {
+			NotificationManager.setUpRecurringNotification(title: title, body: body, reminder: reminder) { (success) in
+				if success {
+					reminder.isOn = true
+					CoreDataManager.saveToPersistentStore()
+					return
+				}
+				print("Reminder toggle on failed.")
+				return
+			}
+		}
 	}
 	
 	func update(reminder: Reminder, isOn: Bool, timeOfDay: Date, frequency: Frequency, completion: @escaping (Bool) -> Void) {
 		reminder.isOn = isOn
 		reminder.timeOfDay = timeOfDay
 		reminder.frequency = frequency.rawValue
+		NotificationManager.removeRecurringNotificationFor(reminder: reminder) { (success) in
+			if success {
+				NotificationManager.setUpRecurringNotification(title: self.title, body: self.body, reminder: reminder, completion: { (success) in
+					if success {
+						completion(true)
+					}
+					completion(false)
+				})
+			}
+			completion(false)
+		}
 		CoreDataManager.saveToPersistentStore()
 	}
 	
 	func delete(reminder: Reminder) {
 		CoreDataStack.context.delete(reminder)
+		NotificationManager.removeRecurringNotificationFor(reminder: reminder) { (success) in
+			
+		}
 		CoreDataManager.saveToPersistentStore()
 	}
 }

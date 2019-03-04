@@ -50,8 +50,7 @@ class ReminderTableViewCell: UITableViewCell {
 	
 	@IBAction func switchToggled(_ sender: UISwitch) {
 		guard let reminder = reminder else { return }
-		reminder.isOn = reminderSwitch.isOn
-		delegate?.updateCellFor(reminder: reminder)
+		delegate?.reminderSwitchToggled(reminder: reminder)
 	}
 	
 	func select() {
@@ -70,5 +69,5 @@ class ReminderTableViewCell: UITableViewCell {
 }
 
 protocol ReminderCellDelegate: class {
-	func updateCellFor(reminder: Reminder)
+	func reminderSwitchToggled(reminder: Reminder)
 }

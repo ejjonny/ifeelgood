@@ -10,14 +10,34 @@ import UIKit
 
 class ReminderViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ReminderControlViewDelegate {
 
+	// Mark: - Outlets
+	@IBOutlet weak var reminderControlView: UIView!
 	@IBOutlet weak var reminderTableView: UITableView!
 	
-	var activeIndex: IndexPath?
+	// Mark: - Properties
+	var containerVC: ReminderControlView?
+	var activeIndex: IndexPath? {
+		didSet {
+			if activeIndex == nil {
+				guard let old = oldValue else { return }
+				guard let cell = reminderTableView.cellForRow(at: old) as? ReminderTableViewCell else { return }
+				cell.reminderSelected = false
+				hideControl()
+			}
+			if activeIndex != nil {
+				guard let cell = reminderTableView.cellForRow(at: activeIndex!) as? ReminderTableViewCell else { return }
+				cell.reminderSelected = true
+				showControl()
+			}
+		}
+	}
 	
+	// Mark: - Lifecycle
 	override func viewDidLoad() {
         super.viewDidLoad()
     }
 	
+	// Mark: - TableView data source
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return ReminderController.shared.reminders.count
 	}
@@ -36,16 +56,17 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		switch editingStyle {
 		case .delete:
+			guard let cell = tableView.visibleCells[indexPath.row] as? ReminderTableViewCell else { return }
+			if cell.reminderSelected {
+				activeIndex = nil
+			}
 			let reminder = ReminderController.shared.reminders[indexPath.row]
 			ReminderController.shared.delete(reminder: reminder)
 			self.reminderTableView.deleteRows(at: [indexPath], with: .automatic)
-			activeIndex = nil
-			deselectAllAndHideControl()
 		default:
 			break
 		}
 	}
-	
 	
 	// Mark: - Actions
 	@IBAction func addReminderButtonTapped(_ sender: Any) {
@@ -60,6 +81,16 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		}
 	}
 	
+	// Mark: - Container segue
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "toReminderControl" {
+			guard let destination = segue.destination as? ReminderControlView else { return }
+			destination.delegate = self
+			containerVC = destination
+		}
+	}
+	
+	// Mark: - Control view delegate functions
 	func timePickerChangedWith(date: Date) {
 		updateSelectedReminderWith(date: date, frequency: nil)
 	}
@@ -84,45 +115,38 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		}
 	}
 	
+	// Mark: - TableView delegate
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		// Changes made on editor should change that reminder's data.
-		guard let allCells = tableView.visibleCells as? [ReminderTableViewCell] else { return }
-		for cell in allCells {
-			cell.reminderSelected = false
-			activeIndex = nil
-		}
 		guard let cell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell else { return }
 		// If the cell is already selected just deselect all, hide control, and return
-		guard cell.isSelected else {
-			deselectAllAndHideControl()
+		if cell.reminderSelected {
+			activeIndex = nil
 			return
 		}
 		// Otherwise select cell and show control
 		cell.reminderSelected = true
 		activeIndex = indexPath
-		guard let reminderTime = ReminderController.shared.reminders[activeIndex!.row].timeOfDay else { return }
-		reminderControlContainer.reminderTimePicker.date = reminderTime
+		guard let activeIndex = activeIndex else { return }
+		guard let reminderTime = ReminderController.shared.reminders[activeIndex.row].timeOfDay else { return }
+		containerVC?.reminderTimePicker.date = reminderTime
+	}
+	
+	func hideControl() {
 		UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-			self.reminderControlContainer.view.transform = CGAffineTransform(translationX: 0, y: -self.reminderControlContainer.view.bounds.height - 50)
+			self.reminderControlView.transform = CGAffineTransform(translationX: 0, y: self.reminderControlView.bounds.height + 50)
 		}, completion: nil)
 	}
 	
-	func deselectAllAndHideControl() {
-		guard let allCells = self.reminderTableView.visibleCells as? [ReminderTableViewCell] else { return }
-		for cell in allCells {
-			cell.reminderSelected = false
-			activeIndex = nil
-		}
+	func showControl() {
 		UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-			self.reminderControlContainer.view.transform = CGAffineTransform(translationX: 0, y: self.reminderControlContainer.view.bounds.height + 50)
+			self.reminderControlView.transform = CGAffineTransform(translationX: 0, y: -self.reminderControlView.bounds.height - 50)
 		}, completion: nil)
-		activeIndex = nil
 	}
 }
 
 extension ReminderViewController: ReminderCellDelegate {
-	func updateCellFor(reminder: Reminder) {
-		guard let index = activeIndex else { return }
-		self.reminderTableView.reloadRows(at: [index], with: .automatic)
+	func reminderSwitchToggled(reminder: Reminder) {
+		ReminderController.shared.toggle(reminder: reminder)
 	}
 }

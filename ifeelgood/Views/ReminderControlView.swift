@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReminderControlView: UIView {
+class ReminderControlView: UIViewController {
 	
 	// Mark: - Outlets
 	@IBOutlet weak var frequencySegmentedControl: UISegmentedControl!
@@ -16,6 +16,11 @@ class ReminderControlView: UIView {
 	
 	// Mark: - Properties
 	weak var delegate: ReminderControlViewDelegate?
+	
+	// Mark: - Lifecycle
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 		
 	// Mark: - Actions
 	@IBAction func reminderTimePickerChanged(_ sender: Any) {
@@ -27,7 +32,7 @@ class ReminderControlView: UIView {
 	}
 }
 
-@objc protocol ReminderControlViewDelegate: class {
+protocol ReminderControlViewDelegate: class {
 	func timePickerChangedWith(date: Date)
 	func frequencySegmentedControlChangedWith(frequencyInt: Int)
 }
