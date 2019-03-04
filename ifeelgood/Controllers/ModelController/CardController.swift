@@ -12,7 +12,7 @@ import CoreData
 
 class CardController {
 	
-	var entryDateStyle: entryDateStyles = .day
+	var entryDateStyle: EntryDateStyles = .day
 		
 	// Singleton
 	static var shared = CardController()
@@ -144,9 +144,12 @@ class CardController {
 		CoreDataManager.saveToPersistentStore()
 	}
 	
-	func deleteActiveCard() {
+	func deleteActiveCard(completion: ((Bool) -> Void)?) {
 		CoreDataStack.context.delete(self.activeCard)
 		CoreDataManager.saveToPersistentStore()
+		if let completion = completion {
+			completion(true)
+		}
 	}
 	
 	func setActive(card: Card) {

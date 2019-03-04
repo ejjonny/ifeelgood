@@ -11,7 +11,7 @@ import SpriteKit
 
 let chillBlue: UIColor = UIColor(red: 0.91, green: 0.94, blue: 1.00, alpha: 1.0)
 
-enum entryDateStyles {
+enum EntryDateStyles {
 	case all
 	case day
 	case week
@@ -40,6 +40,11 @@ class MainViewController: UIViewController {
 		topBarInsetView.layer.cornerRadius = 10
 		setWelcomePhrase()
     }
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		loadCard(card: CardController.shared.activeCard)
+	}
 	
 	func setWelcomePhrase() {
 		let phraseArray = [ "Hey good lookin'",

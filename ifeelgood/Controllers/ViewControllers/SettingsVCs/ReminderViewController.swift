@@ -124,8 +124,8 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 			activeIndex = nil
 			return
 		}
+		activeIndex = nil
 		// Otherwise select cell and show control
-		cell.reminderSelected = true
 		activeIndex = indexPath
 		guard let activeIndex = activeIndex else { return }
 		guard let reminderTime = ReminderController.shared.reminders[activeIndex.row].timeOfDay else { return }

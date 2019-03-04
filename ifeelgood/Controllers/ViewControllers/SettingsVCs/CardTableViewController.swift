@@ -9,82 +9,75 @@
 import UIKit
 
 class CardTableViewController: UITableViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
+	
+	var dateStyle: EntryDateStyles = .all
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return CardController.shared.cards.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: "cardCell", for: indexPath) as? CardTableViewCell else { return UITableViewCell()}
+		cell.card = CardController.shared.cards[indexPath.row]
         return cell
     }
-    */
+	
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		switch editingStyle {
+		case .delete:
+			createConfirmDeleteAlert(withPrompt: "Are you sure you want to delete the current active card & all of it's data?", message: nil, confirmActionName: "Yes, delete this card.", confirmActionStyle: .destructive) { (confirmed) in
+				if confirmed {
+					CardController.shared.deleteActiveCard(completion: { (_) in
+						tableView.deleteRows(at: [indexPath], with: .automatic)
+					})
+				}
+			}
+		default:
+			break
+		}
+	}
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let alertController = UIAlertController(title: "How do you want to view entry data?", message: nil, preferredStyle: .actionSheet)
+		let byYear = UIAlertAction(title: "Year", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .year
+			self.performSegue(withIdentifier: "toEntries", sender: self)
+		}
+		let byMonth = UIAlertAction(title: "Month", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .month
+			self.performSegue(withIdentifier: "toEntries", sender: self)
+		}
+		let byWeek = UIAlertAction(title: "Week", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .week
+			self.performSegue(withIdentifier: "toEntries", sender: self)
+		}
+		let byDay = UIAlertAction(title: "Day", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .day
+			self.performSegue(withIdentifier: "toEntries", sender: self)
+		}
+		let byEntry = UIAlertAction(title: "All", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .all
+			self.performSegue(withIdentifier: "toEntries", sender: self)
+		}
+		let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+		alertController.addAction(byYear)
+		alertController.addAction(byMonth)
+		alertController.addAction(byWeek)
+		alertController.addAction(byDay)
+		alertController.addAction(byEntry)
+		alertController.addAction(cancel)
+		self.present(alertController, animated: true, completion: nil)
+	}
+	
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+		if segue.identifier == "toEntries" {
+			guard let index = tableView.indexPathForSelectedRow else { return }
+			guard let destination = segue.destination as? EntryTableViewController else { return }
+			destination.card = CardController.shared.cards[index.row]
+			destination.dateStyle = dateStyle
+		}
     }
-    */
-
 }

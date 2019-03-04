@@ -8,7 +8,20 @@
 
 import UIKit
 
-extension MainViewController {
+extension UIViewController {
+	
+	func createConfirmDeleteAlert(withPrompt prompt: String?, message: String?, confirmActionName: String, confirmActionStyle: UIAlertAction.Style, completion: @escaping (Bool) -> Void){
+		let alertController = UIAlertController(title: prompt, message: message, preferredStyle: .alert)
+		let confirmAction = UIAlertAction(title: confirmActionName, style: confirmActionStyle) { (_) in
+			completion(true)
+		}
+		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+			completion(false)
+		}
+		alertController.addAction(confirmAction)
+		alertController.addAction(cancelAction)
+		self.present(alertController, animated: true, completion: nil)
+	}
 	
 	// Creates an alert controller with specified parameters and returns a string to use on completion.
 	func createDefaultAlert(withPrompt prompt: String?, message: String?, textFieldPlaceholder: String?, confirmActionName: String, completion: @escaping (String) -> Void){
@@ -35,20 +48,9 @@ extension MainViewController {
 		
 		self.present(alertController, animated: true, completion: nil)
 	}
-	
-	func createConfirmDeleteAlert(withPrompt prompt: String?, message: String?, confirmActionName: String, confirmActionStyle: UIAlertAction.Style, completion: @escaping (Bool) -> Void){
-		let alertController = UIAlertController(title: prompt, message: message, preferredStyle: .alert)
-		let confirmAction = UIAlertAction(title: confirmActionName, style: confirmActionStyle) { (_) in
-			completion(true)
-		}
-		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
-			completion(false)
-		}
-		alertController.addAction(confirmAction)
-		alertController.addAction(cancelAction)
-		self.present(alertController, animated: true, completion: nil)
-	}
+}
 
+extension MainViewController {
 	
 	func beginEditCardOptionTree() {
 		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -187,8 +189,9 @@ extension MainViewController {
 	func showConfirmDeleteCard() {
 		createConfirmDeleteAlert(withPrompt: "Are you sure you want to delete the current active card & all of it's data?", message: nil, confirmActionName: "Yes, delete this card.", confirmActionStyle: .destructive) { (confirmed) in
 			if confirmed {
-				CardController.shared.deleteActiveCard()
-				self.loadCard(card: CardController.shared.activeCard)
+				CardController.shared.deleteActiveCard(completion: { (_) in
+					self.loadCard(card: CardController.shared.activeCard)
+				})
 			}
 		}
 	}
@@ -198,37 +201,5 @@ extension MainViewController {
 			CardController.shared.renameActiveCard(withName: input)
 			self.loadCard(card: CardController.shared.activeCard)
 		}
-	}
-	
-	func dateStyleAlert() {
-		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-		let byYear = UIAlertAction(title: "Year", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .year
-			self.performSegue(withIdentifier: "toEntryTable", sender: self)
-		}
-		let byMonth = UIAlertAction(title: "Month", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .month
-			self.performSegue(withIdentifier: "toEntryTable", sender: self)
-		}
-		let byWeek = UIAlertAction(title: "Week", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .week
-			self.performSegue(withIdentifier: "toEntryTable", sender: self)
-		}
-		let byDay = UIAlertAction(title: "Day", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .day
-			self.performSegue(withIdentifier: "toEntryTable", sender: self)
-		}
-		let byEntry = UIAlertAction(title: "All", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .all
-			self.performSegue(withIdentifier: "toEntryTable", sender: self)
-		}
-		let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-		alertController.addAction(byYear)
-		alertController.addAction(byMonth)
-		alertController.addAction(byWeek)
-		alertController.addAction(byDay)
-		alertController.addAction(byEntry)
-		alertController.addAction(cancel)
-		self.present(alertController, animated: true, completion: nil)
 	}
 }

@@ -13,6 +13,9 @@ class EntryTableViewController: UITableViewController {
 	@IBOutlet weak var titleLabel: UINavigationItem!
 	
 	var entriesByDateStyle = CardController.shared.entriesByDateStyle()
+	
+	var card: Card?
+	var dateStyle: EntryDateStyles?
 
     override func viewDidLoad() {
         super.viewDidLoad()
