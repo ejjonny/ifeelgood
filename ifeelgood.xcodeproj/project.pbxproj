@@ -27,6 +27,8 @@
 		CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306BA220D4FAC00C3229F /* CardController.swift */; };
 		CAD16FF7222DE7D4000A881E /* CardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD16FF6222DE7D4000A881E /* CardTableViewController.swift */; };
 		CAD16FFA222DE876000A881E /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD16FF9222DE876000A881E /* CardTableViewCell.swift */; };
+		CAD17038222EFCD2000A881E /* InsightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD17037222EFCD2000A881E /* InsightViewController.swift */; };
+		CAD1703A222F18CA000A881E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD17039222F18CA000A881E /* Constants.swift */; };
 		CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9702204EF04008625C4 /* ifeelgood.xcdatamodeld */; };
 		CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9732204F16D008625C4 /* CoreDataStack.swift */; };
 		CAE3F9762204F1B1008625C4 /* FactorType+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9752204F1B1008625C4 /* FactorType+Convenience.swift */; };
@@ -62,6 +64,8 @@
 		CAC306BA220D4FAC00C3229F /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		CAD16FF6222DE7D4000A881E /* CardTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewController.swift; sourceTree = "<group>"; };
 		CAD16FF9222DE876000A881E /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
+		CAD17037222EFCD2000A881E /* InsightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightViewController.swift; sourceTree = "<group>"; };
+		CAD17039222F18CA000A881E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CAE3F9712204EF04008625C4 /* ifeelgood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ifeelgood.xcdatamodel; sourceTree = "<group>"; };
 		CAE3F9732204F16D008625C4 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		CAE3F9752204F1B1008625C4 /* FactorType+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactorType+Convenience.swift"; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 				CA8148E922154C4D00AA7111 /* GraphView.swift */,
 				CAC30678220C072D00C3229F /* ShakeExtension.swift */,
 				CA7164FE221A56D100C38029 /* DateAsString.swift */,
+				CA8148EB22154D9B00AA7111 /* GraphFunction.swift */,
+				CAD17039222F18CA000A881E /* Constants.swift */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -184,7 +190,7 @@
 			children = (
 				CAD16FF8222DE7E2000A881E /* SettingsVCs */,
 				CA1F713122059A1A0094A12A /* MainViewController.swift */,
-				CA8148EB22154D9B00AA7111 /* GraphFunction.swift */,
+				CAD17037222EFCD2000A881E /* InsightViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 				CAE740BF2224F46F00CA6C66 /* ReminderTableViewCell.swift in Sources */,
 				CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */,
 				CAE740C52224F5AB00CA6C66 /* Reminder+Convenience.swift in Sources */,
+				CAD1703A222F18CA000A881E /* Constants.swift in Sources */,
 				CAE3F9762204F1B1008625C4 /* FactorType+Convenience.swift in Sources */,
 				CA1016F4222B89E60066B2B5 /* NotificationManager.swift in Sources */,
 				CAD16FFA222DE876000A881E /* CardTableViewCell.swift in Sources */,
@@ -305,6 +312,7 @@
 				CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */,
 				CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */,
 				CA164FDE2216125300205AE9 /* FactorMark+Convenience.swift in Sources */,
+				CAD17038222EFCD2000A881E /* InsightViewController.swift in Sources */,
 				CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */,
 				CA7164FB221A4C5C00C38029 /* EntryTableViewController.swift in Sources */,
 				CA85E573222BC9C1003BE157 /* ReminderControlView.swift in Sources */,

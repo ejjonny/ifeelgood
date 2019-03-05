@@ -13,6 +13,7 @@ class GraphView: UIView {
 	var path: UIBezierPath?
 	
 	override func draw(_ rect: CGRect) {
+		super.draw(rect)
 		let shapeLayer = CAShapeLayer()
 		guard let graphPath = self.path else { print("Path is nil - no graph drawn."); return }
 		shapeLayer.path = graphPath.cgPath
@@ -22,8 +23,9 @@ class GraphView: UIView {
 		shapeLayer.lineCap = .round
 		self.layer.addSublayer(shapeLayer)
 	}
-
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		self.layer.cornerRadius = 10
 	}
 }

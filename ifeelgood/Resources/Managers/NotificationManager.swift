@@ -9,11 +9,6 @@
 import Foundation
 import UserNotifications
 
-enum Frequency: Int16 {
-	case daily
-	case weekly
-}
-
 class NotificationManager {
 	
 	static func setUpRecurringNotification(title: String, body: String, reminder: Reminder, completion: @escaping (Bool) -> Void) {

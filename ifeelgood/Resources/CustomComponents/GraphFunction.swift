@@ -8,10 +8,11 @@
 
 import UIKit
 
-extension MainViewController {
+extension UIViewController {
 	/** Graph data relative to parent view. Stroke width above 10 may cause cutoff.
 	- Parameter YValues: The data points you want to graph.
-	- Parameter smoothing: Controls the smoothing factor. This should be between 0.0 & 1.0
+	- Parameter smoothing: Controls the smoothing factor. This should be between 0.0 & 1.0.
+	- Parameter inset: Edge insets to prevent clipping due to stroke width.
 	*/
 	func bezierWithValues(onView view: UIView, YValues: [CGFloat], smoothing: CGFloat, inset: CGFloat) -> UIBezierPath {
 		// Init path
@@ -59,7 +60,7 @@ extension MainViewController {
 	*/
 	func XRelativeTo(view: UIView, data: [CGFloat], index: Int, inset: CGFloat) -> CGFloat {
 		// Width (minus stroke to avoid cutoff) divided by points in data and multiplied by the index of the point being plotted. Values adjusted by 10 to center
-		return ((view.bounds.width - (inset * 2)) / CGFloat(data.count - 1)) * (CGFloat(index)) + inset
+		return ((view.frame.width - (inset * 2)) / CGFloat(data.count - 1)) * (CGFloat(index)) + inset
 	}
 	
 	/** Calculates Y coord based on the max value & view height
@@ -69,6 +70,6 @@ extension MainViewController {
 	*/
 	func YRelativeTo(view: UIView, value: CGFloat, data: [CGFloat], inset: CGFloat) -> CGFloat {
 		// Proportion of value to max of data is applied to rect height minus stroke width to avoid cutoff on the edges. Values are adjusted by 10 to center points.
-		return (view.bounds.height - ((view.bounds.height - (inset * 2)) * (value / (data.max() ?? 0)))) - inset
+		return (view.frame.height - ((view.frame.height - (inset * 2)) * (value / (data.max() ?? 0)))) - inset
 	}
 }

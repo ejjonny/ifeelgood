@@ -25,7 +25,7 @@ class CardController {
 		
 		// Make sure datasource has cards, if not make a default card.
 		if cards.isEmpty {
-			return createCard(named: "My new card")
+			return createCard(named: "My New Card")
 		}
 
 		if activeArray.count > 1 || activeArray.count == 0 {
@@ -174,9 +174,8 @@ class CardController {
 		CoreDataManager.saveToPersistentStore()
 	}
 	
-	func replaceFactorType(_ factorType: FactorType, withName name: String) {
-		CoreDataStack.context.delete(factorType)
-		createFactorType(withName: name)
+	func renameFactorType(_ factorType: FactorType, withName name: String) {
+		factorType.name = name
 		CoreDataManager.saveToPersistentStore()
 	}
 	
@@ -195,13 +194,18 @@ class CardController {
 		// TODO: - Delete factor marks here
 	}
 	
-	// MARK: - Entry functions
+	// MARK: - Entry control
 	func createEntry(ofRating rating: Double, factorMarks: [FactorType]) {
 		let entry = Entry(rating: rating, onCard: activeCard)
 		for mark in factorMarks {
 			guard let name = mark.name else { print("Name on factor type was nil. Mark not created."); return }
 			FactorMark(name: name, entry: entry)
 		}
+		CoreDataManager.saveToPersistentStore()
+	}
+	
+	func delete(entry: Entry) {
+		CoreDataStack.context.delete(entry)
 		CoreDataManager.saveToPersistentStore()
 	}
 }

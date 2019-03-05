@@ -117,7 +117,6 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 	
 	// Mark: - TableView delegate
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		// Changes made on editor should change that reminder's data.
 		guard let cell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell else { return }
 		// If the cell is already selected just deselect all, hide control, and return
 		if cell.reminderSelected {
@@ -128,8 +127,11 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		// Otherwise select cell and show control
 		activeIndex = indexPath
 		guard let activeIndex = activeIndex else { return }
+		let reminder = ReminderController.shared.reminders[activeIndex.row]
 		guard let reminderTime = ReminderController.shared.reminders[activeIndex.row].timeOfDay else { return }
+		
 		containerVC?.reminderTimePicker.date = reminderTime
+		containerVC?.frequencySegmentedControl.selectedSegmentIndex = Int(reminder.frequency)
 	}
 	
 	func hideControl() {

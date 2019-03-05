@@ -9,16 +9,6 @@
 import UIKit
 import SpriteKit
 
-let chillBlue: UIColor = UIColor(red: 0.91, green: 0.94, blue: 1.00, alpha: 1.0)
-
-enum EntryDateStyles {
-	case all
-	case day
-	case week
-	case month
-	case year
-}
-
 class MainViewController: UIViewController {
 	
 	// MARK: - Outlets
@@ -27,6 +17,10 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var topBarInsetView: UIView!
 	@IBOutlet weak var welcomeLabel: UILabel!
 	
+	// Mark: - Params
+	var insightContainer: InsightViewController?
+	
+	// Mark: - Lifecycle
 	override func viewDidLoad() {
         super.viewDidLoad()
 		cardView.delegate = self
@@ -73,10 +67,20 @@ class MainViewController: UIViewController {
 	
 	// MARK: - Navigation
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "toInsight" {
+			guard let destination = segue.destination as? InsightViewController else { return }
+			destination.delegate = self
+			insightContainer = destination
+		}
 	}
 }
 
-// MARK: - Entry page delegate
+// Mark: - InsightView delegate
+extension MainViewController: InsightViewControllerDelegate {
+	
+}
+
+// MARK: - CardView delegate
 extension MainViewController: CardViewDelegate {
 	
 	// Mark: Animation handling
@@ -108,7 +112,8 @@ extension MainViewController: CardViewDelegate {
 		self.autoAnimate(view: self.cardView, edge: self.cardView.frame.minY, to: cardTarget, completion: nil)
 		
 		let topBarTarget: CGFloat = 0
-		self.autoAnimate(view: self.topBarView, edge: self.cardView.frame.maxY, to: topBarTarget, completion: nil)
+		self.autoAnimate(view: self.topBarView, edge: self.topBarView.frame.maxY, to: topBarTarget, completion: nil)
+		insightViewFadeIn()
 	}
 	
 	func autoShow() {
@@ -116,8 +121,9 @@ extension MainViewController: CardViewDelegate {
 		let cardTarget = self.view.frame.maxY - self.view.safeAreaInsets.bottom
 		self.autoAnimate(view: self.cardView, edge: self.cardView.frame.maxY, to: cardTarget, completion: nil)
 		
-		let topBarTarget: CGFloat = self.view.safeAreaInsets.top
+		let topBarTarget: CGFloat = self.view.safeAreaInsets.top - (self.topBarView.frame.height / 2)
 		self.autoAnimate(view: self.topBarView, edge: self.topBarView.frame.minY, to: topBarTarget, completion: nil)
+		insightViewFadeOut()
 	}
 	
 	func hideCard() {
@@ -127,6 +133,7 @@ extension MainViewController: CardViewDelegate {
 
 		let topBarTarget: CGFloat = 0
 		self.userInteractionAnimate(view: self.topBarView, edge: self.topBarView.frame.maxY, to: topBarTarget, velocity: self.cardView.panGesture.velocity(in: self.cardView).y)
+		insightViewFadeIn()
 	}
 	
 	func showCard() {
@@ -134,13 +141,29 @@ extension MainViewController: CardViewDelegate {
 		let target = self.view.frame.maxY - self.view.safeAreaInsets.bottom
 		self.userInteractionAnimate(view: self.cardView, edge: self.cardView.frame.maxY, to: target, velocity: self.cardView.panGesture.velocity(in: self.cardView).y)
 		
-		let topBarTarget: CGFloat = self.view.safeAreaInsets.top
+		let topBarTarget: CGFloat = self.view.safeAreaInsets.top - (self.topBarView.frame.height / 2)
 		self.userInteractionAnimate(view: self.topBarView, edge: self.topBarView.frame.minY, to: topBarTarget, velocity: self.cardView.panGesture.velocity(in: self.cardView).y)
+		insightViewFadeOut()
+	}
+	
+	func insightViewFadeOut() {
+		UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.97, initialSpringVelocity: 0.01, options: .curveEaseOut , animations: {
+			self.insightContainer!.view.alpha = 0
+		}, completion: nil)
+	}
+	
+	func insightViewFadeIn() {
+		UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.97, initialSpringVelocity: 0.01, options: .curveEaseOut , animations: {
+			self.insightContainer!.view.alpha = 1
+		}, completion: nil)
 	}
 	
 	func userInteractionAnimate(view: UIView, edge: CGFloat, to target: CGFloat, velocity: CGFloat) {
 		let distanceToTranslate = target - edge
-		UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.97, initialSpringVelocity: abs(velocity) * 0.01, options: .curveEaseOut , animations: {view.frame =  view.frame.offsetBy(dx: 0, dy: distanceToTranslate)}, completion: nil)
+		UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.97, initialSpringVelocity: abs(velocity) * 0.01, options: .curveEaseOut , animations: {
+			view.frame =  view.frame.offsetBy(dx: 0, dy: distanceToTranslate)
+			
+		}, completion: nil)
 	}
 	
 	func autoAnimate(view: UIView, edge: CGFloat, to target: CGFloat, completion: ((Bool) -> Void)?) {

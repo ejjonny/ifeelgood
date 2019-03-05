@@ -78,7 +78,7 @@ extension MainViewController {
 		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		let renameFactor = UIAlertAction(title: "Rename factor", style: .default) { (_) in
 			self.createDefaultAlert(withPrompt: "Rename this factor", message: nil, textFieldPlaceholder: nil, confirmActionName: "Rename", completion: { (input) in
-				CardController.shared.replaceFactorType(factor, withName: input)
+				CardController.shared.renameFactorType(factor, withName: input)
 				self.loadCard(card: CardController.shared.activeCard)
 			})
 		}
