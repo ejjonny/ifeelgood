@@ -10,11 +10,11 @@ import UIKit
 
 class GraphView: UIView {
 
+	let shapeLayer = CAShapeLayer()
 	var path: UIBezierPath?
 	
 	override func draw(_ rect: CGRect) {
 		super.draw(rect)
-		let shapeLayer = CAShapeLayer()
 		guard let graphPath = self.path else { print("Path is nil - no graph drawn."); return }
 		shapeLayer.path = graphPath.cgPath
 		shapeLayer.fillColor = UIColor.clear.cgColor
@@ -26,6 +26,7 @@ class GraphView: UIView {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		self.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
 		self.layer.cornerRadius = 10
 	}
 }

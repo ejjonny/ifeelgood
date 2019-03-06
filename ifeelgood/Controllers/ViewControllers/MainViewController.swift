@@ -73,6 +73,12 @@ class MainViewController: UIViewController {
 			insightContainer = destination
 		}
 	}
+	
+	func loadInsight() {
+		insightContainer?.customizeInsightPageForCard {
+			print("Done")
+		}
+	}
 }
 
 // Mark: - InsightView delegate
@@ -91,12 +97,14 @@ extension MainViewController: CardViewDelegate {
 		
 		if velocity > 500 {
 			self.hideCard()
+			loadInsight()
 		} else if velocity < -500 {
 			self.showCard()
 		} else if aboveHalfWay {
 			self.autoShow()
 		} else if !aboveHalfWay {
 			self.autoHide()
+			loadInsight()
 		}
 	}
 	

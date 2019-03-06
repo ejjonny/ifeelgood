@@ -12,7 +12,7 @@ class EntryTableViewController: UITableViewController {
 	
 	@IBOutlet weak var titleLabel: UINavigationItem!
 	
-	var entriesByDateStyle = CardController.shared.entriesByDateStyle()
+	var entriesByDateStyle = CardController.shared.entriesWithDateStyle()
 	
 	var card: Card?
 	var dateStyle: EntryDateStyles?

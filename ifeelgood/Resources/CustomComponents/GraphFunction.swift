@@ -14,7 +14,7 @@ extension UIViewController {
 	- Parameter smoothing: Controls the smoothing factor. This should be between 0.0 & 1.0.
 	- Parameter inset: Edge insets to prevent clipping due to stroke width.
 	*/
-	func bezierWithValues(onView view: UIView, YValues: [CGFloat], smoothing: CGFloat, inset: CGFloat) -> UIBezierPath {
+	func bezierWithValues(onView view: UIView, YValues: [CGFloat], smoothing: CGFloat, inset: CGFloat, completion: @escaping (UIBezierPath) -> ()) {
 		// Init path
 		let graphPath: UIBezierPath = UIBezierPath()
 		
@@ -46,11 +46,7 @@ extension UIViewController {
 			// Set the previous point to the current point before next iteration
 			pointZero = pointOne
 		}
-		graphPath.lineWidth = 10.0
-		graphPath.lineCapStyle = .round
-		UIColor.black.setStroke()
-		graphPath.stroke()
-		return graphPath
+		completion(graphPath)
 	}
 	
 	/** Calculates X coord based on number of datapoints & view width

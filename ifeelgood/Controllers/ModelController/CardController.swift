@@ -12,12 +12,17 @@ import CoreData
 
 class CardController {
 	
-	var entryDateStyle: EntryDateStyles = .day
+	var entryDateStyle: EntryDateStyles = .all
 		
 	// Singleton
 	static var shared = CardController()
 	
 	var cards: [Card] = []
+	
+	var activeCardEntries: [Entry] {
+		guard let entries = activeCard.entries?.array as? [Entry] else { print("There was an error with OrderedSet to Array conversion") ; return []}
+		return entries
+	}
 	
 	var activeCard: Card {
 		
@@ -59,7 +64,7 @@ class CardController {
 	}
 	
 	
-	func entriesByDateStyle() -> [EntryStats] {
+	func entriesWithDateStyle() -> [EntryStats] {
 		
 		guard let entries = self.activeCard.entries else { return [] }
 		let calendar = Calendar.current

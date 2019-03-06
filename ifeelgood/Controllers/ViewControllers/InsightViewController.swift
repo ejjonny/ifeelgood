@@ -18,6 +18,7 @@ class InsightViewController: UIViewController {
 	@IBOutlet weak var insightScrollView: UIScrollView!
 	@IBOutlet weak var insightPageControl: UIPageControl!
 	@IBOutlet weak var noDataLabel: UILabel!
+	@IBOutlet weak var graphInsetView: UIView!
 	
 	// Mark: - Params
 	weak var delegate: InsightViewControllerDelegate?
@@ -29,32 +30,44 @@ class InsightViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		setUpViews()
-		customizeInsightPageForCard()
     }
 	
 	@IBAction func dateStyleButtonTapped(_ sender: Any) {
 	}
 	
 	func setUpViews() {
-		graphView.layer.cornerRadius = 30
+		graphInsetView.layer.cornerRadius = 10
 		dateStyleButton.layer.cornerRadius = 5
 		nameLabel.layer.cornerRadius = 5
 		dateStartedLabel.layer.cornerRadius = 5
 	}
 	
-	func customizeInsightPageForCard() {
-		let entries = CardController.shared.entriesByDateStyle()
-		if !entries.isEmpty {
-			noDataLabel.text = ""
-			//			entries.map{ CGFloat($0.averageRating)}
-			let graphPath = bezierWithValues(onView: graphView, YValues: [1,2,1,5], smoothing: 0.3, inset: 10)
-			self.graphView.path = graphPath
-		} else {
-			noDataLabel.text = "No Data"
+	func customizeInsightPageForCard(_ completion: @escaping () -> ()) {
+		switch CardController.shared.entryDateStyle {
+		case .all:
+			let entries = CardController.shared.activeCardEntries
+			if !entries.isEmpty {
+				noDataLabel.text = ""
+				bezierWithValues(onView: graphView, YValues: entries.map{ CGFloat($0.rating) }, smoothing: 0.3, inset: 10) { (path) in
+					self.graphView.path = path
+					self.graphView.setNeedsDisplay()
+				}
+			}
+		default:
+			let entries = CardController.shared.entriesWithDateStyle()
+			if !entries.isEmpty {
+				noDataLabel.text = ""
+				bezierWithValues(onView: graphView, YValues: entries.compactMap{ CGFloat($0.averageRating)}, smoothing: 0.3, inset: 10) { path in
+					self.graphView.path = path
+					self.graphView.setNeedsDisplay()
+				}
+			} else {
+				noDataLabel.text = "No Data"
+			}
 		}
 		nameLabel.text = card.name
 		dateStartedLabel.text = card.startDate?.asString()
-		var dateButtonText = ""
+		var dateButtonText: String
 		switch CardController.shared.entryDateStyle {
 		case .all:
 			dateButtonText = "All"
