@@ -931,10 +931,10 @@
                                         <rect key="frame" x="0.0" y="69" width="373" height="247"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6KC-If-e0U" customClass="GraphView" customModule="ifeelgood" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="373" height="247"/>
+                                                <rect key="frame" x="20" y="0.0" width="353" height="227"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cl3-3M-n6x">
-                                                        <rect key="frame" x="130.5" y="104.5" width="112" height="38.5"/>
+                                                        <rect key="frame" x="120.5" y="94.5" width="112" height="38.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <color key="textColor" red="0.73795255469999999" green="0.83775661450000005" blue="0.99889332060000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -949,9 +949,9 @@
                                         <color key="backgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="6KC-If-e0U" firstAttribute="top" secondItem="c6Q-Fy-NE5" secondAttribute="top" id="2Ss-Pl-JsN"/>
-                                            <constraint firstAttribute="bottom" secondItem="6KC-If-e0U" secondAttribute="bottom" id="IZr-Pf-bJu"/>
+                                            <constraint firstAttribute="bottom" secondItem="6KC-If-e0U" secondAttribute="bottom" constant="20" id="IZr-Pf-bJu"/>
                                             <constraint firstAttribute="trailing" secondItem="6KC-If-e0U" secondAttribute="trailing" id="YQv-CK-Lz0"/>
-                                            <constraint firstItem="6KC-If-e0U" firstAttribute="leading" secondItem="c6Q-Fy-NE5" secondAttribute="leading" id="gwZ-wt-2x4"/>
+                                            <constraint firstItem="6KC-If-e0U" firstAttribute="leading" secondItem="c6Q-Fy-NE5" secondAttribute="leading" constant="20" id="gwZ-wt-2x4"/>
                                         </constraints>
                                     </view>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhE-G6-5Zz">

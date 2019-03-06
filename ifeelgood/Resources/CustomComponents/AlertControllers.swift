@@ -48,6 +48,39 @@ extension UIViewController {
 		
 		self.present(alertController, animated: true, completion: nil)
 	}
+	
+	func dateStyleAlert(_ completion: @escaping () -> ()) {
+		let alertController = UIAlertController(title: "How do you want to view entry data?", message: nil, preferredStyle: .actionSheet)
+		let byYear = UIAlertAction(title: "Year", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .year
+			completion()
+		}
+		let byMonth = UIAlertAction(title: "Month", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .month
+			completion()
+		}
+		let byWeek = UIAlertAction(title: "Week", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .week
+			completion()
+		}
+		let byDay = UIAlertAction(title: "Day", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .day
+			completion()
+		}
+		let byEntry = UIAlertAction(title: "All", style: .default) { (_) in
+			CardController.shared.entryDateStyle = .all
+			completion()
+		}
+		let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+		alertController.addAction(byYear)
+		alertController.addAction(byMonth)
+		alertController.addAction(byWeek)
+		alertController.addAction(byDay)
+		alertController.addAction(byEntry)
+		alertController.addAction(cancel)
+		self.present(alertController, animated: true, completion: nil)
+	}
+
 }
 
 extension MainViewController {

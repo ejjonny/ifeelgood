@@ -12,7 +12,7 @@ import CoreData
 
 class CardController {
 	
-	var entryDateStyle: EntryDateStyles = .all
+	var entryDateStyle: EntryDateStyles = .day
 		
 	// Singleton
 	static var shared = CardController()

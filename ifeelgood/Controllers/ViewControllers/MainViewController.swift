@@ -75,9 +75,7 @@ class MainViewController: UIViewController {
 	}
 	
 	func loadInsight() {
-		insightContainer?.customizeInsightPageForCard {
-			print("Done")
-		}
+		insightContainer?.graphCurrentEntryData{}
 	}
 }
 

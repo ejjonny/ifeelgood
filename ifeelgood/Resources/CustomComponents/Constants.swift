@@ -8,7 +8,8 @@
 
 import UIKit
 
-let chillBlue: UIColor = UIColor(red: 0.91, green: 0.94, blue: 1.00, alpha: 1.0)
+let chillBlue: UIColor = #colorLiteral(red: 0.9126966596, green: 0.9402826428, blue: 0.998428762, alpha: 1)
+let deepChillBlue: UIColor = #colorLiteral(red: 0.7379525547, green: 0.8377566145, blue: 0.9988933206, alpha: 1)
 
 enum EntryDateStyles {
 	case all

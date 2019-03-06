@@ -10,23 +10,31 @@ import UIKit
 
 class GraphView: UIView {
 
-	let shapeLayer = CAShapeLayer()
+	// Mark: - Params
+	var shapeLayer: CAShapeLayer? = CAShapeLayer()
 	var path: UIBezierPath?
 	
 	override func draw(_ rect: CGRect) {
 		super.draw(rect)
 		guard let graphPath = self.path else { print("Path is nil - no graph drawn."); return }
-		shapeLayer.path = graphPath.cgPath
-		shapeLayer.fillColor = UIColor.clear.cgColor
-		shapeLayer.strokeColor = UIColor.black.cgColor
-		shapeLayer.lineWidth = 5
-		shapeLayer.lineCap = .round
-		self.layer.addSublayer(shapeLayer)
+		guard let layer = shapeLayer else { return }
+		layer.path = graphPath.cgPath
+		layer.fillColor = UIColor.clear.cgColor
+		layer.strokeColor = UIColor.black.cgColor
+		layer.lineWidth = 5
+		layer.lineCap = .round
+		self.layer.addSublayer(layer)
 	}
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		self.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
 		self.layer.cornerRadius = 10
+	}
+	
+	func clearGraph() {
+		shapeLayer?.removeFromSuperlayer()
+		self.path = nil
+		self.setNeedsDisplay()
 	}
 }

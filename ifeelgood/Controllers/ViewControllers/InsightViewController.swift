@@ -33,40 +33,23 @@ class InsightViewController: UIViewController {
     }
 	
 	@IBAction func dateStyleButtonTapped(_ sender: Any) {
+		dateStyleAlert{
+			self.graphCurrentEntryData{
+				self.updateDateStyleLabel()
+			}
+		}
 	}
 	
 	func setUpViews() {
 		graphInsetView.layer.cornerRadius = 10
+		graphView.layer.borderWidth = 0.3
+		graphView.layer.borderColor = deepChillBlue.cgColor
 		dateStyleButton.layer.cornerRadius = 5
 		nameLabel.layer.cornerRadius = 5
 		dateStartedLabel.layer.cornerRadius = 5
 	}
 	
-	func customizeInsightPageForCard(_ completion: @escaping () -> ()) {
-		switch CardController.shared.entryDateStyle {
-		case .all:
-			let entries = CardController.shared.activeCardEntries
-			if !entries.isEmpty {
-				noDataLabel.text = ""
-				bezierWithValues(onView: graphView, YValues: entries.map{ CGFloat($0.rating) }, smoothing: 0.3, inset: 10) { (path) in
-					self.graphView.path = path
-					self.graphView.setNeedsDisplay()
-				}
-			}
-		default:
-			let entries = CardController.shared.entriesWithDateStyle()
-			if !entries.isEmpty {
-				noDataLabel.text = ""
-				bezierWithValues(onView: graphView, YValues: entries.compactMap{ CGFloat($0.averageRating)}, smoothing: 0.3, inset: 10) { path in
-					self.graphView.path = path
-					self.graphView.setNeedsDisplay()
-				}
-			} else {
-				noDataLabel.text = "No Data"
-			}
-		}
-		nameLabel.text = card.name
-		dateStartedLabel.text = card.startDate?.asString()
+	fileprivate func updateDateStyleLabel() {
 		var dateButtonText: String
 		switch CardController.shared.entryDateStyle {
 		case .all:
@@ -81,6 +64,39 @@ class InsightViewController: UIViewController {
 			dateButtonText = "Yearly"
 		}
 		dateStyleButton.setTitle(dateButtonText, for: .normal)
+	}
+	
+	func graphCurrentEntryData(_ completion: @escaping () -> ()) {
+		switch CardController.shared.entryDateStyle {
+		case .all:
+			let entries = CardController.shared.activeCardEntries
+			if entries.count > 1 {
+				noDataLabel.text = ""
+				bezierWithValues(onView: graphView, YValues: entries.compactMap{ CGFloat($0.rating) }, smoothing: 0.3, inset: 10) { (path) in
+					self.graphView.path = path
+					self.graphView.setNeedsDisplay()
+				}
+			} else {
+				noDataLabel.text = "No Data"
+				self.graphView.clearGraph()
+			}
+		default:
+			let entries = CardController.shared.entriesWithDateStyle()
+			if entries.count > 1 {
+				noDataLabel.text = ""
+				bezierWithValues(onView: graphView, YValues: entries.compactMap{ CGFloat($0.averageRating)}, smoothing: 0.3, inset: 10) { path in
+					self.graphView.path = path
+					self.graphView.setNeedsDisplay()
+				}
+			} else {
+				noDataLabel.text = "No Data"
+				self.graphView.clearGraph()
+			}
+		}
+		nameLabel.text = card.name
+		dateStartedLabel.text = card.startDate?.asString()
+		updateDateStyleLabel()
+		completion()
 	}
 }
 
