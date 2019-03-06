@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIViewController {
+extension UIView {
 	/** Graph data relative to parent view. Stroke width above 10 may cause cutoff.
 	- Parameter YValues: The data points you want to graph.
 	- Parameter smoothing: Controls the smoothing factor. This should be between 0.0 & 1.0.

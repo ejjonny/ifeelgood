@@ -931,10 +931,10 @@
                                         <rect key="frame" x="0.0" y="69" width="373" height="247"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6KC-If-e0U" customClass="GraphView" customModule="ifeelgood" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="0.0" width="353" height="227"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="373" height="227"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cl3-3M-n6x">
-                                                        <rect key="frame" x="120.5" y="94.5" width="112" height="38.5"/>
+                                                        <rect key="frame" x="130.5" y="94.5" width="112" height="38.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <color key="textColor" red="0.73795255469999999" green="0.83775661450000005" blue="0.99889332060000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -951,16 +951,28 @@
                                             <constraint firstItem="6KC-If-e0U" firstAttribute="top" secondItem="c6Q-Fy-NE5" secondAttribute="top" id="2Ss-Pl-JsN"/>
                                             <constraint firstAttribute="bottom" secondItem="6KC-If-e0U" secondAttribute="bottom" constant="20" id="IZr-Pf-bJu"/>
                                             <constraint firstAttribute="trailing" secondItem="6KC-If-e0U" secondAttribute="trailing" id="YQv-CK-Lz0"/>
-                                            <constraint firstItem="6KC-If-e0U" firstAttribute="leading" secondItem="c6Q-Fy-NE5" secondAttribute="leading" constant="20" id="gwZ-wt-2x4"/>
+                                            <constraint firstItem="6KC-If-e0U" firstAttribute="leading" secondItem="c6Q-Fy-NE5" secondAttribute="leading" id="gwZ-wt-2x4"/>
                                         </constraints>
                                     </view>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhE-G6-5Zz">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAY-C8-aZR">
                                         <rect key="frame" x="0.0" y="326" width="373" height="246.5"/>
-                                    </scrollView>
+                                        <subviews>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhE-G6-5Zz">
+                                                <rect key="frame" x="0.0" y="0.0" width="373" height="246.5"/>
+                                            </scrollView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="fhE-G6-5Zz" secondAttribute="bottom" id="0O0-fz-kjs"/>
+                                            <constraint firstItem="fhE-G6-5Zz" firstAttribute="leading" secondItem="oAY-C8-aZR" secondAttribute="leading" id="RK2-27-cWf"/>
+                                            <constraint firstItem="fhE-G6-5Zz" firstAttribute="top" secondItem="oAY-C8-aZR" secondAttribute="top" id="mys-t6-hpy"/>
+                                            <constraint firstAttribute="trailing" secondItem="fhE-G6-5Zz" secondAttribute="trailing" id="ohA-YC-v7J"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="tNk-MR-8bU" firstAttribute="width" secondItem="YuA-MN-AuS" secondAttribute="width" multiplier="0.22" id="FRo-Hh-tIf"/>
-                                    <constraint firstItem="c6Q-Fy-NE5" firstAttribute="height" secondItem="fhE-G6-5Zz" secondAttribute="height" id="SYQ-sQ-4hU"/>
+                                    <constraint firstItem="oAY-C8-aZR" firstAttribute="height" secondItem="c6Q-Fy-NE5" secondAttribute="height" id="ySg-D8-nJu"/>
                                 </constraints>
                             </stackView>
                             <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="tHV-vE-yfO">
@@ -989,6 +1001,7 @@
                         <outlet property="insightScrollView" destination="fhE-G6-5Zz" id="iyl-8I-Eaj"/>
                         <outlet property="nameLabel" destination="8qW-CK-PLd" id="vbJ-tN-2oN"/>
                         <outlet property="noDataLabel" destination="cl3-3M-n6x" id="eg0-pQ-PYR"/>
+                        <outlet property="scrollInsetView" destination="oAY-C8-aZR" id="If3-55-mJ9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PNn-oN-tpX" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -65,7 +65,6 @@ class CardController {
 	
 	
 	func entriesWithDateStyle() -> [EntryStats] {
-		
 		guard let entries = self.activeCard.entries else { return [] }
 		let calendar = Calendar.current
 		var stats: [EntryStats] = []

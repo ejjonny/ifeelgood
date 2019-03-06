@@ -28,10 +28,41 @@ class GraphView: UIView {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		self.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
-		self.layer.cornerRadius = 10
 	}
 	
+	func graphCurrentEntryData(_ completion: @escaping (Bool) -> ()) {
+		switch CardController.shared.entryDateStyle {
+		case .all:
+			let entries = CardController.shared.activeCardEntries
+			if entries.count > 1 {
+				self.bezierWithValues(onView: self, YValues: entries.compactMap{ CGFloat($0.rating) }, smoothing: 0.3, inset: 10) { (path) in
+					self.path = path
+					self.setNeedsDisplay()
+					completion(true)
+					return
+				}
+			} else {
+				self.clearGraph()
+				completion(false)
+				return
+			}
+		default:
+			let entries = CardController.shared.entriesWithDateStyle()
+			if entries.count > 1 {
+				bezierWithValues(onView: self, YValues: entries.compactMap{ CGFloat($0.averageRating)}, smoothing: 0.3, inset: 10) { path in
+					self.path = path
+					self.setNeedsDisplay()
+					completion(true)
+					return
+				}
+			} else {
+				self.clearGraph()
+				completion(false)
+				return
+			}
+		}
+	}
+
 	func clearGraph() {
 		shapeLayer?.removeFromSuperlayer()
 		self.path = nil

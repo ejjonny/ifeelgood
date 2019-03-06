@@ -19,6 +19,7 @@ class InsightViewController: UIViewController {
 	@IBOutlet weak var insightPageControl: UIPageControl!
 	@IBOutlet weak var noDataLabel: UILabel!
 	@IBOutlet weak var graphInsetView: UIView!
+	@IBOutlet weak var scrollInsetView: UIView!
 	
 	// Mark: - Params
 	weak var delegate: InsightViewControllerDelegate?
@@ -34,16 +35,18 @@ class InsightViewController: UIViewController {
 	
 	@IBAction func dateStyleButtonTapped(_ sender: Any) {
 		dateStyleAlert{
-			self.graphCurrentEntryData{
+			self.customizeInsightPageForActiveCard{
 				self.updateDateStyleLabel()
 			}
 		}
 	}
 	
 	func setUpViews() {
+		scrollInsetView.layer.cornerRadius = 10
 		graphInsetView.layer.cornerRadius = 10
-		graphView.layer.borderWidth = 0.3
+		graphView.layer.borderWidth = 1
 		graphView.layer.borderColor = deepChillBlue.cgColor
+		graphView.layer.cornerRadius = 10
 		dateStyleButton.layer.cornerRadius = 5
 		nameLabel.layer.cornerRadius = 5
 		dateStartedLabel.layer.cornerRadius = 5
@@ -66,37 +69,14 @@ class InsightViewController: UIViewController {
 		dateStyleButton.setTitle(dateButtonText, for: .normal)
 	}
 	
-	func graphCurrentEntryData(_ completion: @escaping () -> ()) {
-		switch CardController.shared.entryDateStyle {
-		case .all:
-			let entries = CardController.shared.activeCardEntries
-			if entries.count > 1 {
-				noDataLabel.text = ""
-				bezierWithValues(onView: graphView, YValues: entries.compactMap{ CGFloat($0.rating) }, smoothing: 0.3, inset: 10) { (path) in
-					self.graphView.path = path
-					self.graphView.setNeedsDisplay()
-				}
-			} else {
-				noDataLabel.text = "No Data"
-				self.graphView.clearGraph()
-			}
-		default:
-			let entries = CardController.shared.entriesWithDateStyle()
-			if entries.count > 1 {
-				noDataLabel.text = ""
-				bezierWithValues(onView: graphView, YValues: entries.compactMap{ CGFloat($0.averageRating)}, smoothing: 0.3, inset: 10) { path in
-					self.graphView.path = path
-					self.graphView.setNeedsDisplay()
-				}
-			} else {
-				noDataLabel.text = "No Data"
-				self.graphView.clearGraph()
-			}
+	func customizeInsightPageForActiveCard(_ completion: @escaping () -> ()) {
+		graphView.graphCurrentEntryData { (graphed) in
+			self.noDataLabel.text = graphed ? "" : "No Data"
+			self.nameLabel.text = self.card.name
+			self.dateStartedLabel.text = self.card.startDate?.asString()
+			self.updateDateStyleLabel()
+			completion()
 		}
-		nameLabel.text = card.name
-		dateStartedLabel.text = card.startDate?.asString()
-		updateDateStyleLabel()
-		completion()
 	}
 }
 
