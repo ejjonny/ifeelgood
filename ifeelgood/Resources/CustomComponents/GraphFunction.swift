@@ -9,17 +9,20 @@
 import UIKit
 
 extension UIView {
-	/** Graph data relative to parent view. Stroke width above 10 may cause cutoff.
+	/** Graph data relative to a view. Inset should be adjusted proportional to stroke width to avoid clipping. When calling on background thread completion will be called on main.
 	- Parameter YValues: The data points you want to graph.
 	- Parameter smoothing: Controls the smoothing factor. This should be between 0.0 & 1.0.
 	- Parameter inset: Edge insets to prevent clipping due to stroke width.
 	*/
-	func bezierWithValues(onView view: UIView, YValues: [CGFloat], smoothing: CGFloat, inset: CGFloat, completion: @escaping (UIBezierPath) -> ()) {
+	func bezierWithValues(onView view: UIView, YValues: [CGFloat], smoothing: CGFloat, inset: CGFloat, completion: @escaping (UIBezierPath) -> (Void)) {
 		// Init path
 		let graphPath: UIBezierPath = UIBezierPath()
 		
 		// Calculate smoothing relative to segment width
-		let smoothingRelativeToSegment = (view.frame.width / CGFloat(YValues.count - 1)) * smoothing
+		var smoothingRelativeToSegment = CGFloat()
+		DispatchQueue.main.sync {
+			smoothingRelativeToSegment = (view.frame.width / CGFloat(YValues.count - 1)) * smoothing
+		}
 		
 		// Set initial value for loop to use in first iteration
 		var pointZero = CGPoint(x: XRelativeTo(view: view, data: YValues, index: 0, inset: inset), y: YRelativeTo(view: view, value: YValues[0], data: YValues, inset: inset))
@@ -46,7 +49,9 @@ extension UIView {
 			// Set the previous point to the current point before next iteration
 			pointZero = pointOne
 		}
-		completion(graphPath)
+		DispatchQueue.main.async {
+			completion(graphPath)
+		}
 	}
 	
 	/** Calculates X coord based on number of datapoints & view width
@@ -56,7 +61,11 @@ extension UIView {
 	*/
 	func XRelativeTo(view: UIView, data: [CGFloat], index: Int, inset: CGFloat) -> CGFloat {
 		// Width (minus stroke to avoid cutoff) divided by points in data and multiplied by the index of the point being plotted. Values adjusted by 10 to center
-		return ((view.frame.width - (inset * 2)) / CGFloat(data.count - 1)) * (CGFloat(index)) + inset
+		var returnValue = CGFloat()
+		DispatchQueue.main.sync {
+			returnValue = ((view.frame.width - (inset * 2)) / CGFloat(data.count - 1)) * (CGFloat(index)) + inset
+		}
+		return returnValue
 	}
 	
 	/** Calculates Y coord based on the max value & view height
@@ -66,6 +75,10 @@ extension UIView {
 	*/
 	func YRelativeTo(view: UIView, value: CGFloat, data: [CGFloat], inset: CGFloat) -> CGFloat {
 		// Proportion of value to max of data is applied to rect height minus stroke width to avoid cutoff on the edges. Values are adjusted by 10 to center points.
-		return (view.frame.height - ((view.frame.height - (inset * 2)) * (value / (data.max() ?? 0)))) - inset
+		var returnValue = CGFloat()
+		DispatchQueue.main.sync {
+			returnValue = (view.frame.height - ((view.frame.height - (inset * 2)) * (value / (data.max() ?? 0)))) - inset
+		}
+		return returnValue
 	}
 }

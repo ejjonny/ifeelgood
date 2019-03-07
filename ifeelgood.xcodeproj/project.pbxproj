@@ -153,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				CA3F5845220FA1000049752A /* AlertControllers.swift */,
-				CA8148E922154C4D00AA7111 /* GraphView.swift */,
 				CAC30678220C072D00C3229F /* ShakeExtension.swift */,
 				CA7164FE221A56D100C38029 /* DateAsString.swift */,
 				CA8148EB22154D9B00AA7111 /* GraphFunction.swift */,
@@ -181,6 +180,7 @@
 				CA85E572222BC9C1003BE157 /* ReminderControlView.swift */,
 				CAE740BE2224F46F00CA6C66 /* ReminderTableViewCell.swift */,
 				CA1F712F2205981F0094A12A /* CardView.swift */,
+				CA8148E922154C4D00AA7111 /* GraphView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

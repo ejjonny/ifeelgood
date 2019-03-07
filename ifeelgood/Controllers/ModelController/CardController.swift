@@ -63,7 +63,7 @@ class CardController {
 		return array
 	}
 	
-	
+	/// Call on background thread to avoid stalling UI.
 	func entriesWithDateStyle() -> [EntryStats] {
 		guard let entries = self.activeCard.entries else { return [] }
 		let calendar = Calendar.current

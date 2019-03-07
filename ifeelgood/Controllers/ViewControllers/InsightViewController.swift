@@ -70,13 +70,15 @@ class InsightViewController: UIViewController {
 	}
 	
 	func customizeInsightPageForActiveCard(_ completion: @escaping () -> ()) {
-		graphView.graphCurrentEntryData { (graphed) in
-			self.noDataLabel.text = graphed ? "" : "No Data"
-			self.nameLabel.text = self.card.name
-			self.dateStartedLabel.text = self.card.startDate?.asString()
-			self.updateDateStyleLabel()
-			completion()
+		DispatchQueue.global().async {
+			self.graphView.graphCurrentEntryData { (graph) in
+					self.noDataLabel.text = graph ? "" : "No Data"
+			}
 		}
+		self.nameLabel.text = self.card.name
+		self.dateStartedLabel.text = self.card.startDate?.asString()
+		self.updateDateStyleLabel()
+		completion()
 	}
 }
 
