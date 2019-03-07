@@ -63,8 +63,13 @@ class CardController {
 		return array
 	}
 	
+	func entriesWith(graphViewStyle: GraphViewStyles) -> [EntryStats] {
+		// TODO: - Return a usable segment of Entry stats by relevant dateStyle (This will be graphed & shouldn't have too many x values ex. Jan, Feb, March)
+		return []
+	}
+	
 	/// Call on background thread to avoid stalling UI.
-	func entriesWithDateStyle() -> [EntryStats] {
+	func entriesWith(dateStyle: EntryDateStyles) -> [EntryStats] {
 		guard let entries = self.activeCard.entries else { return [] }
 		let calendar = Calendar.current
 		var stats: [EntryStats] = []
@@ -72,9 +77,9 @@ class CardController {
 		var entryGroup: [Entry] = []
 		
 		for entry in entries {
-			switch self.entryDateStyle {
+			switch dateStyle {
 			case .all:
-				break
+				stats = entries.compactMap{ $0 as? Entry }.map{ EntryStats(name: $0.date?.asString() ?? "date", ratingCount: 1, averageRating: $0.rating) }
 			case .day:
 				guard let entryObject = entry as? Entry else { print("Found nil while unwrapping entry.");return [] }
 				guard let entryObjectDate = entryObject.date else { print("Found nil while unwrapping entry date."); return []}

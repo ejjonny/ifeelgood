@@ -12,10 +12,16 @@ class EntryTableViewController: UITableViewController {
 	
 	@IBOutlet weak var titleLabel: UINavigationItem!
 	
-	var entriesByDateStyle = CardController.shared.entriesWithDateStyle()
 	
 	var card: Card?
 	var dateStyle: EntryDateStyles?
+	var entryStats: [EntryStats] {
+		if let style = dateStyle {
+			return CardController.shared.entriesWith(dateStyle: style)
+		} else {
+			return []
+		}
+	}
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +39,7 @@ class EntryTableViewController: UITableViewController {
 		case .all:
 			return CardController.shared.activeCard.entries?.count ?? 0
 		default:
-			return entriesByDateStyle.count
+			return entryStats.count
 		}
     }
 
@@ -50,9 +56,9 @@ class EntryTableViewController: UITableViewController {
 			cell.detailTextLabel?.text = entry.date?.asString()
 			return cell
 		case .day:
-			let index = entriesByDateStyle.count - indexPath.row - 1
-			cell.textLabel?.text = String("\(entriesByDateStyle[index].ratingCount) entries with an average of \(round(entriesByDateStyle[index].averageRating * 100) / 100)")
-			cell.detailTextLabel?.text = entriesByDateStyle[index].name
+			let index = entryStats.count - indexPath.row - 1
+			cell.textLabel?.text = String("\(entryStats[index].ratingCount) entries with an average of \(round(entryStats[index].averageRating * 100) / 100)")
+			cell.detailTextLabel?.text = entryStats[index].name
 			return cell
 		default:
 			return UITableViewCell()

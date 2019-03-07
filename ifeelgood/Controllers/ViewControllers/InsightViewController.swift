@@ -34,6 +34,7 @@ class InsightViewController: UIViewController {
     }
 	
 	@IBAction func dateStyleButtonTapped(_ sender: Any) {
+		// TODO: - Alert for graphViewStyle instead of dateStyle
 		dateStyleAlert{
 			self.customizeInsightPageForActiveCard{
 				self.updateDateStyleLabel()

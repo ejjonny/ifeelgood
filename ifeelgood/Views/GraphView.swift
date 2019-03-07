@@ -13,6 +13,7 @@ class GraphView: UIView {
 	// Mark: - Params
 	var shapeLayer: CAShapeLayer? = CAShapeLayer()
 	var path: UIBezierPath?
+	var dateStyle: GraphViewStyles?
 	
 	override func draw(_ rect: CGRect) {
 		super.draw(rect)
@@ -31,43 +32,21 @@ class GraphView: UIView {
 	}
 	
 	func graphCurrentEntryData(_ completion: @escaping (Bool) -> ()) {
-//		switch CardController.shared.entryDateStyle {
-//		case .all:
-//			let entries = CardController.shared.activeCardEntries
-//			if entries.count > 1 {
-//				self.bezierWithValues(onView: self, YValues: entries.compactMap{ CGFloat($0.rating) }, smoothing: 0.3, inset: 10) { (path) in
-//					self.path = path
-//					self.setNeedsDisplay()
-//					completion(true)
-//					return
-//				}
-//			} else {
-//				self.clearGraph()
-//				completion(false)
-//				return
-//			}
-//		default:
-//			let entries = CardController.shared.entriesWithDateStyle()
-//			if entries.count > 1 {
-//				bezierWithValues(onView: self, YValues: entries.compactMap{ CGFloat($0.averageRating)}, smoothing: 0.3, inset: 10) { path in
-//					self.path = path
-//					self.setNeedsDisplay()
-//					completion(true)
-//					return
-//				}
-//			} else {
-//				self.clearGraph()
-//				completion(false)
-//				return
-//			}
-//		}
+
 		DispatchQueue.global().sync {
-			CardController.shared.entryDateStyle = .day
-			let entries = CardController.shared.entriesWithDateStyle()
-			let valuesToMap = entries.compactMap{ CGFloat($0.averageRating) }
-			self.bezierWithValues(onView: self, YValues: valuesToMap, smoothing: 0.3, inset: 10) { path in
-				self.path = path
-				self.setNeedsDisplay()
+			let entries: [EntryStats]
+			if let style = self.dateStyle {
+				entries = CardController.shared.entriesWith(graphViewStyle: style)
+			} else {
+				entries = CardController.shared.entriesWith(graphViewStyle: GraphViewStyles.allTime)
+			}
+			if !entries.isEmpty {
+				let valuesToMap = entries.compactMap{ CGFloat($0.averageRating) }
+				self.bezierWithValues(onView: self, YValues: valuesToMap, smoothing: 0.3, inset: 10) { path in
+					self.shapeLayer?.path = nil
+					self.path = path
+					self.setNeedsDisplay()
+				}
 			}
 		}
 	}

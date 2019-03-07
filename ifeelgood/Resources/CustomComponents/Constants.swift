@@ -19,6 +19,13 @@ enum EntryDateStyles {
 	case year
 }
 
+enum GraphViewStyles {
+	case allTime
+	case thisWeek
+	case thisMonth
+	case thisYear
+}
+
 enum Frequency: Int16 {
 	case daily
 	case weekly
