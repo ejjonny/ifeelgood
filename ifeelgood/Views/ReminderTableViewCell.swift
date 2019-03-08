@@ -36,7 +36,7 @@ class ReminderTableViewCell: UITableViewCell {
 	
 	func updateViews() {
 		guard let reminder = reminder else { return }
-		self.timeLabel.text = reminder.timeOfDay?.asTime()
+		self.timeLabel.text = reminder.timeOfDay?.asTimeSpecificString()
 		switch reminder.frequency {
 		case 0:
 			self.frequencyLabel.text = "Daily"

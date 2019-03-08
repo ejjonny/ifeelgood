@@ -63,73 +63,83 @@ class CardController {
 		return array
 	}
 	
-	func entriesWith(graphViewStyle: GraphViewStyles) -> [EntryStats] {
-		// TODO: - Return a usable segment of Entry stats by relevant dateStyle (This will be graphed & shouldn't have too many x values ex. Jan, Feb, March)
-		return []
+	/// Should be used for getting the last week / month / year of entries
+	func entriesWith(graphViewStyle: GraphRangeOptions) -> [Entry] {
+		switch graphViewStyle {
+		case .allTime:
+			guard let group = entriesGroupedBy(dateStyle: .all).last else { return [] }
+			return group
+		case .today:
+			guard let group = entriesGroupedBy(dateStyle: .day).last else { return [] }
+			return group
+		case .thisWeek:
+			guard let group = entriesGroupedBy(dateStyle: .week).last else { return [] }
+			return group
+		case .thisMonth:
+			guard let group = entriesGroupedBy(dateStyle: .month).last else { return [] }
+			return group
+		case .thisYear:
+			guard let group = entriesGroupedBy(dateStyle: .year).last else { return [] }
+			return group
+		}
 	}
 	
-	/// Call on background thread to avoid stalling UI.
+	/// Should be used for getting grouped statistics.
 	func entriesWith(dateStyle: EntryDateStyles) -> [EntryStats] {
-		guard let entries = self.activeCard.entries else { return [] }
-		let calendar = Calendar.current
 		var stats: [EntryStats] = []
-		var lastEntry: Entry?
-		var entryGroup: [Entry] = []
-		
-		for entry in entries {
+		for group in entriesGroupedBy(dateStyle: dateStyle) {
+			let totalRatings = group.map{ $0.rating }.reduce(0, +)
+			let average = totalRatings / Double(group.count)
+			var name = ""
+			guard let date = group.first?.date else { print("Error compiling entries by date") ; return [] }
 			switch dateStyle {
 			case .all:
-				stats = entries.compactMap{ $0 as? Entry }.map{ EntryStats(name: $0.date?.asString() ?? "date", ratingCount: 1, averageRating: $0.rating) }
+				name = date.asTimeSpecificString()
 			case .day:
-				guard let entryObject = entry as? Entry else { print("Found nil while unwrapping entry.");return [] }
-				guard let entryObjectDate = entryObject.date else { print("Found nil while unwrapping entry date."); return []}
-				let entryDateComponents = calendar.dateComponents([.day, .month, .year], from: entryObjectDate)
-				
-				// If it's not the first one
-				if let last = lastEntry {
-					guard let lastEntryDate = last.date else { print("Found nil while unwrapping an entry's date."); return []}
-					let lastEntryComponents = calendar.dateComponents([.day, .month, .year], from: lastEntryDate)
-					guard let lastEntryDay = lastEntryComponents.day,
-						let lastEntryMonth = lastEntryComponents.month,
-						let lastEntryYear = lastEntryComponents.year,
-						let entryDay = entryDateComponents.day,
-						let entryMonth = entryDateComponents.month,
-						let entryYear = entryDateComponents.year else { print("Found nil while unwrapping entry date components."); return [] }
-					// New group
-					if entryDay > lastEntryDay || entryMonth != lastEntryMonth || entryYear != lastEntryYear && entries.index(of: entry) != entries.count - 1 {
-						var averageRating: Double?
-						for entryObject in entryGroup {
-							guard averageRating != nil else { averageRating = entryGroup.first?.rating; continue }
-							averageRating = (averageRating! + entryObject.rating) / 2
-						}
-						guard let average = averageRating else { print("Found nil while unwrapping a rating."); return []}
-						stats.append(EntryStats(name: "\(lastEntry?.date?.asString() ?? "Date")", ratingCount: entryGroup.count, averageRating: average))
-						entryGroup = []
-						averageRating = 0
-					}
-				}
-				// If first
-				entryGroup.append(entryObject)
-				lastEntry = entryObject
-				// If last
-				if entries.index(of: entry) == entries.count - 1 {
-					var averageRating: Double?
-					for entryObject in entryGroup {
-						guard averageRating != nil else { averageRating = entryGroup.first?.rating; continue }
-						averageRating = (averageRating! + entryObject.rating) / 2
-					}
-					guard let average = averageRating else { print("Found nil while unwrapping a rating."); return []}
-					stats.append(EntryStats(name: "\(lastEntry?.date?.asString() ?? "Date")", ratingCount: entryGroup.count, averageRating: average))
-				}
-			case .week:
-				break
+				name = date.asString()
 			case .month:
+				name = date.asMonthSpecificString()
+			case .week:
 				break
 			case .year:
 				break
 			}
+			stats.append(EntryStats(name: name, ratingCount: group.count, averageRating: average ))
 		}
 		return stats
+	}
+	
+	func entriesGroupedBy(dateStyle: EntryDateStyles) -> [[Entry]] {
+		guard let entries = activeCard.entries else { return [[]] }
+		let calendar = Calendar.current
+		let grouped: [DateComponents:[Entry]]
+		switch dateStyle {
+		case .all:
+			grouped = Dictionary(grouping: entries.map{ $0 as! Entry }, by: {
+				calendar.dateComponents([.second,.minute,.day,.month,.year], from: $0.date!)
+			})
+		case .day:
+			grouped = Dictionary(grouping: entries.map{ $0 as! Entry }, by: {
+				calendar.dateComponents([.day, .month, .year], from: $0.date!)
+			})
+		case .week:
+			grouped = Dictionary(grouping: entries.map{ $0 as! Entry }, by: {
+				calendar.dateComponents([.weekOfYear], from: $0.date!)
+			})
+		case .month:
+			grouped = Dictionary(grouping: entries.map{ $0 as! Entry }, by: {
+				calendar.dateComponents([.month, .year], from: $0.date!)
+			})
+		case .year:
+			grouped = Dictionary(grouping: entries.map{ $0 as! Entry }, by: {
+				calendar.dateComponents([.year], from: $0.date!)
+			})
+		}
+		return grouped.map{ $0.value }.sorted(by: { (arrayOne, arrayTwo) -> Bool in
+			guard let firstDate = arrayOne.first?.date,
+				let secondDate = arrayTwo.first?.date else { print("Failed to sort") ; return true }
+			return firstDate.compare(secondDate) == ComparisonResult.orderedAscending
+		})
 	}
 	
 	func formatDateAsString(date: Date) -> String {

@@ -23,6 +23,6 @@ class CardTableViewCell: UITableViewCell {
 		guard let card = card else { return }
 		guard let startDate = card.startDate else { return }
 		nameLabel.text = card.name
-		dateCreatedLabel.text = "Started: \(startDate.asString())"
+		dateCreatedLabel.text = "Started \(startDate.asString())"
 	}
 }

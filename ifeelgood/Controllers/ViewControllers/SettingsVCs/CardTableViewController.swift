@@ -10,7 +10,7 @@ import UIKit
 
 class CardTableViewController: UITableViewController {
 	
-	var dateStyle: EntryDateStyles = .all
+	var dateStyle: EntryDateStyles?
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,7 +39,8 @@ class CardTableViewController: UITableViewController {
 	}
 		
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		dateStyleAlert {
+		dateStyleAlert { style in
+			self.dateStyle = style
 			self.performSegue(withIdentifier: "toEntries", sender: self)
 		}
 	}
@@ -51,7 +52,7 @@ class CardTableViewController: UITableViewController {
 			guard let index = tableView.indexPathForSelectedRow else { return }
 			guard let destination = segue.destination as? EntryTableViewController else { return }
 			destination.card = CardController.shared.cards[index.row]
-			destination.dateStyle = dateStyle
+			destination.dateStyle = self.dateStyle
 		}
     }
 }

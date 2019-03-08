@@ -893,20 +893,20 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YuA-MN-AuS">
                                 <rect key="frame" x="20.5" y="74" width="373" height="572.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xUZ-DR-5K1">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xUZ-DR-5K1">
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="59"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FWM-TY-gKG">
-                                                <rect key="frame" x="0.0" y="0.0" width="283" height="59"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="FWM-TY-gKG">
+                                                <rect key="frame" x="0.0" y="18" width="234.5" height="41"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="cardName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qW-CK-PLd">
-                                                        <rect key="frame" x="0.0" y="0.0" width="283" height="21.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="234.5" height="24"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Started: dateStarted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7U-5o-AC2">
-                                                        <rect key="frame" x="0.0" y="21.5" width="283" height="37.5"/>
+                                                        <rect key="frame" x="0.0" y="24" width="234.5" height="17"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -915,14 +915,14 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tNk-MR-8bU">
-                                                <rect key="frame" x="291" y="0.0" width="82" height="59"/>
+                                                <rect key="frame" x="242.5" y="25" width="130.5" height="34"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                                <state key="normal" title="Monthly">
+                                                <state key="normal" title="range">
                                                     <color key="titleColor" red="0.58339891249999998" green="0.78707212500000001" blue="0.99889332060000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="dateStyleButtonTapped:" destination="sTY-pb-gda" eventType="touchUpInside" id="Xab-KR-2mB"/>
+                                                    <action selector="graphStyleButtonTapped:" destination="sTY-pb-gda" eventType="touchUpInside" id="M0g-ER-34u"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -956,22 +956,11 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAY-C8-aZR">
                                         <rect key="frame" x="0.0" y="326" width="373" height="246.5"/>
-                                        <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhE-G6-5Zz">
-                                                <rect key="frame" x="0.0" y="0.0" width="373" height="246.5"/>
-                                            </scrollView>
-                                        </subviews>
                                         <color key="backgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="fhE-G6-5Zz" secondAttribute="bottom" id="0O0-fz-kjs"/>
-                                            <constraint firstItem="fhE-G6-5Zz" firstAttribute="leading" secondItem="oAY-C8-aZR" secondAttribute="leading" id="RK2-27-cWf"/>
-                                            <constraint firstItem="fhE-G6-5Zz" firstAttribute="top" secondItem="oAY-C8-aZR" secondAttribute="top" id="mys-t6-hpy"/>
-                                            <constraint firstAttribute="trailing" secondItem="fhE-G6-5Zz" secondAttribute="trailing" id="ohA-YC-v7J"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="tNk-MR-8bU" firstAttribute="width" secondItem="YuA-MN-AuS" secondAttribute="width" multiplier="0.22" id="FRo-Hh-tIf"/>
+                                    <constraint firstItem="tNk-MR-8bU" firstAttribute="width" secondItem="YuA-MN-AuS" secondAttribute="width" multiplier="0.35" id="FRo-Hh-tIf"/>
                                     <constraint firstItem="oAY-C8-aZR" firstAttribute="height" secondItem="c6Q-Fy-NE5" secondAttribute="height" id="ySg-D8-nJu"/>
                                 </constraints>
                             </stackView>
@@ -998,7 +987,6 @@
                         <outlet property="graphInsetView" destination="c6Q-Fy-NE5" id="W7M-5h-EYB"/>
                         <outlet property="graphView" destination="6KC-If-e0U" id="J75-uc-ieB"/>
                         <outlet property="insightPageControl" destination="tHV-vE-yfO" id="VXo-Sc-8oh"/>
-                        <outlet property="insightScrollView" destination="fhE-G6-5Zz" id="iyl-8I-Eaj"/>
                         <outlet property="nameLabel" destination="8qW-CK-PLd" id="vbJ-tN-2oN"/>
                         <outlet property="noDataLabel" destination="cl3-3M-n6x" id="eg0-pQ-PYR"/>
                         <outlet property="scrollInsetView" destination="oAY-C8-aZR" id="If3-55-mJ9"/>

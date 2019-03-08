@@ -26,6 +26,7 @@ class InsightViewController: UIViewController {
 	var card: Card {
 		return CardController.shared.activeCard
 	}
+	var graphRange: GraphRangeOptions? = .today
 	
 	// Mark: - Lifecycle
 	override func viewDidLoad() {
@@ -33,12 +34,10 @@ class InsightViewController: UIViewController {
 		setUpViews()
     }
 	
-	@IBAction func dateStyleButtonTapped(_ sender: Any) {
-		// TODO: - Alert for graphViewStyle instead of dateStyle
-		dateStyleAlert{
-			self.customizeInsightPageForActiveCard{
-				self.updateDateStyleLabel()
-			}
+	@IBAction func graphStyleButtonTapped(_ sender: Any) {
+		graphRangeAlert { (range) -> (Void) in
+			self.graphRange = range
+			self.customizeInsightPageForActiveCard{}
 		}
 	}
 	
@@ -51,29 +50,37 @@ class InsightViewController: UIViewController {
 		dateStyleButton.layer.cornerRadius = 5
 		nameLabel.layer.cornerRadius = 5
 		dateStartedLabel.layer.cornerRadius = 5
+		updateDateStyleLabel()
 	}
 	
 	fileprivate func updateDateStyleLabel() {
 		var dateButtonText: String
-		switch CardController.shared.entryDateStyle {
-		case .all:
-			dateButtonText = "All"
-		case .day:
-			dateButtonText = "Daily"
-		case .week:
-			dateButtonText = "Weekly"
-		case .month:
-			dateButtonText = "Monthly"
-		case .year:
-			dateButtonText = "Yearly"
+		guard let range = self.graphRange else { return }
+		switch range {
+		case .allTime :
+			dateButtonText = "All Time"
+		case .thisYear:
+			dateButtonText = "Past Year"
+		case .thisMonth:
+			dateButtonText = "Past Month"
+		case .thisWeek :
+			dateButtonText = "Past Week"
+		case .today:
+			dateButtonText = "Today"
 		}
 		dateStyleButton.setTitle(dateButtonText, for: .normal)
 	}
 	
 	func customizeInsightPageForActiveCard(_ completion: @escaping () -> ()) {
 		DispatchQueue.global().async {
-			self.graphView.graphCurrentEntryData { (graph) in
-					self.noDataLabel.text = graph ? "" : "No Data"
+			if let range = self.graphRange {
+				self.graphView.graphCurrentEntryDataWith(range: range, { (success) in
+					self.noDataLabel.text = success ? "" : "No Data"
+				})
+			} else {
+				self.graphView.graphCurrentEntryDataWith(range: .allTime , { (success) in
+					self.noDataLabel.text = success ? "" : "No Data"
+				})
 			}
 		}
 		self.nameLabel.text = self.card.name

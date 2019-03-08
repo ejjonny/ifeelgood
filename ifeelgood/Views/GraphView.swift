@@ -13,7 +13,6 @@ class GraphView: UIView {
 	// Mark: - Params
 	var shapeLayer: CAShapeLayer? = CAShapeLayer()
 	var path: UIBezierPath?
-	var dateStyle: GraphViewStyles?
 	
 	override func draw(_ rect: CGRect) {
 		super.draw(rect)
@@ -31,21 +30,21 @@ class GraphView: UIView {
 		super.awakeFromNib()
 	}
 	
-	func graphCurrentEntryData(_ completion: @escaping (Bool) -> ()) {
-
+	func graphCurrentEntryDataWith(range: GraphRangeOptions,_ completion: @escaping (Bool) -> ()) {
 		DispatchQueue.global().sync {
-			let entries: [EntryStats]
-			if let style = self.dateStyle {
-				entries = CardController.shared.entriesWith(graphViewStyle: style)
-			} else {
-				entries = CardController.shared.entriesWith(graphViewStyle: GraphViewStyles.allTime)
-			}
-			if !entries.isEmpty {
-				let valuesToMap = entries.compactMap{ CGFloat($0.averageRating) }
+			let entries = CardController.shared.entriesWith(graphViewStyle: range)
+			if !entries.isEmpty, entries.count > 1 {
+				let valuesToMap = entries.compactMap{ CGFloat($0.rating) }
 				self.bezierWithValues(onView: self, YValues: valuesToMap, smoothing: 0.3, inset: 10) { path in
 					self.shapeLayer?.path = nil
 					self.path = path
 					self.setNeedsDisplay()
+					completion(true)
+				}
+			} else {
+				DispatchQueue.main.async {
+					self.clearGraph()
+					completion(false)
 				}
 			}
 		}

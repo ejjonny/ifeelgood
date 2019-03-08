@@ -12,10 +12,29 @@ extension Date {
 	
 	func asString() -> String {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .none
+		dateFormatter.dateFormat = "MMMM d', at 'h:mm a"
 		dateFormatter.locale = Locale(identifier: "en_US")
 		return dateFormatter.string(from: self)
+	}
+	
+	func asTimeSpecificString() -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+		dateFormatter.timeStyle = .short
+		dateFormatter.locale = Locale(identifier: "en_US")
+		return dateFormatter.string(from: self)
+	}
+	
+	func asMonthSpecificString() -> String {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "MMMM yyyy"
+		return formatter.string(from: self)
+	}
+	
+	func asYearSpecificString() -> String {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "yyyy"
+		return formatter.string(from: self)
 	}
 	
 	func asTime() -> String {

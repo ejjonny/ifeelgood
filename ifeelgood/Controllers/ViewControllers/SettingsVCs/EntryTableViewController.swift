@@ -10,9 +10,10 @@ import UIKit
 
 class EntryTableViewController: UITableViewController {
 	
+	// Mark: - Outlets
 	@IBOutlet weak var titleLabel: UINavigationItem!
 	
-	
+	// Mark: - Properties
 	var card: Card?
 	var dateStyle: EntryDateStyles?
 	var entryStats: [EntryStats] {
@@ -23,17 +24,18 @@ class EntryTableViewController: UITableViewController {
 		}
 	}
 
+	// Mark: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 		titleLabel.title = CardController.shared.activeCard.name
 	}
 
+	// Mark: - Actions
 	@IBAction func doneButtonTapped(_ sender: Any) {
 		self.dismiss(animated: true, completion: nil)
 	}
 	
 	// MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch CardController.shared.entryDateStyle {
 		case .all:
@@ -45,33 +47,23 @@ class EntryTableViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "entryCell", for: indexPath)
-		let card = CardController.shared.activeCard
-		// Sort from newest to oldest
-		switch CardController.shared.entryDateStyle {
-		case .all:
-			let index = (card.entries?.count)! - indexPath.row - 1
-			// Cast entry as Entry object
-			guard let entry = card.entries?[index] as? Entry else { return UITableViewCell() }
-			cell.textLabel?.text = String(round(entry.rating))
-			cell.detailTextLabel?.text = entry.date?.asString()
-			return cell
-		case .day:
-			let index = entryStats.count - indexPath.row - 1
-			cell.textLabel?.text = String("\(entryStats[index].ratingCount) entries with an average of \(round(entryStats[index].averageRating * 100) / 100)")
-			cell.detailTextLabel?.text = entryStats[index].name
-			return cell
-		default:
-			return UITableViewCell()
+		let stat = entryStats[indexPath.row]
+		cell.detailTextLabel?.text = stat.name
+		let roundedRating = round(stat.averageRating * 100) / 100
+		if dateStyle != .all {
+			cell.textLabel?.text = stat.ratingCount == 1 ? "\(stat.ratingCount) entry: rating: \(stat.averageRating)." : "\(stat.ratingCount) entries: Average rating of \(roundedRating)"
+		} else {
+			cell.textLabel?.text = "Rating: \(roundedRating)"
 		}
+		return cell
 	}
 
-    // Override to support editing the table view.
-	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-			guard let entry = CardController.shared.activeCard.entries?[indexPath.row] as? Entry else { return }
-			CardController.shared.delete(entry: entry)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-	}
+//	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            // Delete the row from the data source
+//			guard let entry = CardController.shared.activeCard.entries?[indexPath.row] as? Entry else { return }
+//			CardController.shared.delete(entry: entry)
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
+//	}
 }

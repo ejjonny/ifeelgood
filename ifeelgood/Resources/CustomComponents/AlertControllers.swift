@@ -49,27 +49,22 @@ extension UIViewController {
 		self.present(alertController, animated: true, completion: nil)
 	}
 	
-	func dateStyleAlert(_ completion: @escaping () -> ()) {
+	func dateStyleAlert(_ completion: @escaping (EntryDateStyles) -> (Void)) {
 		let alertController = UIAlertController(title: "How do you want to view entry data?", message: nil, preferredStyle: .actionSheet)
 		let byYear = UIAlertAction(title: "Year", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .year
-			completion()
+			completion(.year)
 		}
 		let byMonth = UIAlertAction(title: "Month", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .month
-			completion()
+			completion(.month)
 		}
 		let byWeek = UIAlertAction(title: "Week", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .week
-			completion()
+			completion(.week)
 		}
 		let byDay = UIAlertAction(title: "Day", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .day
-			completion()
+			completion(.day)
 		}
 		let byEntry = UIAlertAction(title: "All", style: .default) { (_) in
-			CardController.shared.entryDateStyle = .all
-			completion()
+			completion(.all)
 		}
 		let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 		alertController.addAction(byYear)
@@ -80,7 +75,33 @@ extension UIViewController {
 		alertController.addAction(cancel)
 		self.present(alertController, animated: true, completion: nil)
 	}
-
+	
+	func graphRangeAlert(_ completion: @escaping (GraphRangeOptions) -> (Void)) {
+		let alertController = UIAlertController(title: "Choose the range of dates you want to view.", message: nil, preferredStyle: .actionSheet)
+		let allTime = UIAlertAction(title: "All Time", style: .default) { (_) in
+			completion(.allTime)
+		}
+		let today = UIAlertAction(title: "Today", style: .default) { (_) in
+			completion(.today)
+		}
+		let lastWeek = UIAlertAction(title: "Past Week", style: .default) { (_) in
+			completion(.thisWeek)
+		}
+		let lastMonth = UIAlertAction(title: "Past Month", style: .default) { (_) in
+			completion(.thisMonth)
+		}
+		let lastYear = UIAlertAction(title: "Past Year", style: .default) { (_) in
+			completion(.thisYear)
+		}
+		let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+		alertController.addAction(allTime)
+		alertController.addAction(today)
+		alertController.addAction(lastWeek)
+		alertController.addAction(lastYear)
+		alertController.addAction(lastMonth)
+		alertController.addAction(cancel)
+		self.present(alertController, animated: true, completion: nil)
+	}
 }
 
 extension MainViewController {
