@@ -72,16 +72,14 @@ class InsightViewController: UIViewController {
 	}
 	
 	func customizeInsightPageForActiveCard(_ completion: @escaping () -> ()) {
-		DispatchQueue.global().async {
-			if let range = self.graphRange {
-				self.graphView.graphCurrentEntryDataWith(range: range, { (success) in
-					self.noDataLabel.text = success ? "" : "No Data"
-				})
-			} else {
-				self.graphView.graphCurrentEntryDataWith(range: .allTime , { (success) in
-					self.noDataLabel.text = success ? "" : "No Data"
-				})
-			}
+		if let range = self.graphRange {
+			self.graphView.graphCurrentEntryDataWith(range: range, { (success) in
+				self.noDataLabel.text = success ? "" : "No Data"
+			})
+		} else {
+			self.graphView.graphCurrentEntryDataWith(range: .allTime , { (success) in
+				self.noDataLabel.text = success ? "" : "No Data"
+			})
 		}
 		self.nameLabel.text = self.card.name
 		self.dateStartedLabel.text = self.card.startDate?.asString()

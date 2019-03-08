@@ -14,7 +14,7 @@ extension UIView {
 	- Parameter smoothing: Controls the smoothing factor. This should be between 0.0 & 1.0.
 	- Parameter inset: Edge insets to prevent clipping due to stroke width.
 	*/
-	func bezierWithValues(onView view: UIView, YValues: [CGFloat], smoothing: CGFloat, inset: CGFloat, completion: @escaping (UIBezierPath) -> (Void)) {
+	func bezierWithValues(onView view: UIView, YValues: [CGFloat], maxY: CGFloat, minY: CGFloat, smoothing: CGFloat, inset: CGFloat, completion: @escaping (UIBezierPath) -> (Void)) {
 		// Init path
 		let graphPath: UIBezierPath = UIBezierPath()
 		
@@ -25,7 +25,7 @@ extension UIView {
 		}
 		
 		// Set initial value for loop to use in first iteration
-		var pointZero = CGPoint(x: XRelativeTo(view: view, data: YValues, index: 0, inset: inset), y: YRelativeTo(view: view, value: YValues[0], data: YValues, inset: inset))
+		var pointZero = CGPoint(x: XRelativeTo(view: view, data: YValues, index: 0, inset: inset), y: YRelativeTo(view: view, value: YValues[0], maxY: maxY, minY: minY, inset: inset))
 		
 		// Set origin of path
 		graphPath.move(to: pointZero)
@@ -33,7 +33,7 @@ extension UIView {
 		// Loop through array and graph points
 		for (index, YValue) in YValues.enumerated() {
 			// Point that will be graphed
-			let pointOne = CGPoint(x: XRelativeTo(view: view, data: YValues, index: index, inset: inset), y: YRelativeTo(view: view, value: YValue, data: YValues, inset: inset))
+			let pointOne = CGPoint(x: XRelativeTo(view: view, data: YValues, index: index, inset: inset), y: YRelativeTo(view: view, value: YValue, maxY: maxY, minY: minY, inset: inset))
 			// First and last index points will be graphed with different curves
 			if index + 1 < YValues.count && index != 0 {
 				// If not last & not first
@@ -49,9 +49,7 @@ extension UIView {
 			// Set the previous point to the current point before next iteration
 			pointZero = pointOne
 		}
-		DispatchQueue.main.async {
-			completion(graphPath)
-		}
+		completion(graphPath)
 	}
 	
 	/** Calculates X coord based on number of datapoints & view width
@@ -73,11 +71,11 @@ extension UIView {
 	- Parameter value: The Y value being plotted.
 	- Parameter data: The data set being plotted.
 	*/
-	func YRelativeTo(view: UIView, value: CGFloat, data: [CGFloat], inset: CGFloat) -> CGFloat {
-		// Proportion of value to max of data is applied to rect height minus stroke width to avoid cutoff on the edges. Values are adjusted by 10 to center points.
+	func YRelativeTo(view: UIView, value: CGFloat, maxY: CGFloat, minY: CGFloat, inset: CGFloat) -> CGFloat {
+		// Proportion of value to max Y value is applied to rect height minus stroke width to avoid cutoff on the edges. Values are adjusted by 10 to center points.
 		var returnValue = CGFloat()
 		DispatchQueue.main.sync {
-			returnValue = (view.frame.height - ((view.frame.height - (inset * 2)) * (value / (data.max() ?? 0)))) - inset
+			returnValue = (view.frame.height - ((view.frame.height - (inset * 2)) * ((value - minY) / (maxY - minY)))) - inset
 		}
 		return returnValue
 	}

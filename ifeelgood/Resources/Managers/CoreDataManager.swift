@@ -65,7 +65,7 @@ class CoreDataManager {
 		}
 	}
 	
-	// MARK: FetchResultsController
+	// MARK: FetchResultsControllers
 	private static let cardFetchResultsController: NSFetchedResultsController<Card> = {
 		let request = NSFetchRequest<Card>(entityName: "Card")
 		let dateSort = NSSortDescriptor(key: "startDate", ascending: true)
