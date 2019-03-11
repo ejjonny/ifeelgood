@@ -81,7 +81,7 @@ extension UIViewController {
 		let allTime = UIAlertAction(title: "All Time", style: .default) { (_) in
 			completion(.allTime)
 		}
-		let today = UIAlertAction(title: "Today", style: .default) { (_) in
+		let today = UIAlertAction(title: "Past 24 Hours", style: .default) { (_) in
 			completion(.today)
 		}
 		let lastWeek = UIAlertAction(title: "Past Week", style: .default) { (_) in

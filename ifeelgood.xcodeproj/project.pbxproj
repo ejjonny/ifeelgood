@@ -33,6 +33,8 @@
 		CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9732204F16D008625C4 /* CoreDataStack.swift */; };
 		CAE3F9762204F1B1008625C4 /* FactorType+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9752204F1B1008625C4 /* FactorType+Convenience.swift */; };
 		CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */; };
+		CAE4E72222360AC60018DEF6 /* InsightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE4E72122360AC60018DEF6 /* InsightCollectionViewCell.swift */; };
+		CAE4E72422360B600018DEF6 /* Insight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE4E72322360B600018DEF6 /* Insight.swift */; };
 		CAE740BF2224F46F00CA6C66 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE740BE2224F46F00CA6C66 /* ReminderTableViewCell.swift */; };
 		CAE740C32224F52B00CA6C66 /* ReminderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE740C22224F52B00CA6C66 /* ReminderController.swift */; };
 		CAE740C52224F5AB00CA6C66 /* Reminder+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE740C42224F5AB00CA6C66 /* Reminder+Convenience.swift */; };
@@ -70,6 +72,8 @@
 		CAE3F9732204F16D008625C4 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		CAE3F9752204F1B1008625C4 /* FactorType+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactorType+Convenience.swift"; sourceTree = "<group>"; };
 		CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+Convenience.swift"; sourceTree = "<group>"; };
+		CAE4E72122360AC60018DEF6 /* InsightCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightCollectionViewCell.swift; sourceTree = "<group>"; };
+		CAE4E72322360B600018DEF6 /* Insight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insight.swift; sourceTree = "<group>"; };
 		CAE740BE2224F46F00CA6C66 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		CAE740C22224F52B00CA6C66 /* ReminderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderController.swift; sourceTree = "<group>"; };
 		CAE740C42224F5AB00CA6C66 /* Reminder+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+Convenience.swift"; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 				CAE740BE2224F46F00CA6C66 /* ReminderTableViewCell.swift */,
 				CA1F712F2205981F0094A12A /* CardView.swift */,
 				CA8148E922154C4D00AA7111 /* GraphView.swift */,
+				CAE4E72122360AC60018DEF6 /* InsightCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,6 +209,7 @@
 				CA164FDD2216125300205AE9 /* FactorMark+Convenience.swift */,
 				CAE740C42224F5AB00CA6C66 /* Reminder+Convenience.swift */,
 				CA716502221CD93A00C38029 /* EntryStats.swift */,
+				CAE4E72322360B600018DEF6 /* Insight.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -289,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA3F5846220FA1000049752A /* AlertControllers.swift in Sources */,
+				CAE4E72422360B600018DEF6 /* Insight.swift in Sources */,
 				CA1F71302205981F0094A12A /* CardView.swift in Sources */,
 				CAE740BF2224F46F00CA6C66 /* ReminderTableViewCell.swift in Sources */,
 				CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */,
@@ -303,6 +310,7 @@
 				CAE740C72224F6FC00CA6C66 /* CoreDataManager.swift in Sources */,
 				CAE740C32224F52B00CA6C66 /* ReminderController.swift in Sources */,
 				CA4E437722041885002C329F /* AppDelegate.swift in Sources */,
+				CAE4E72222360AC60018DEF6 /* InsightCollectionViewCell.swift in Sources */,
 				CA7164FF221A56D100C38029 /* DateAsString.swift in Sources */,
 				CAF353562223C2BA00F614B8 /* SettingsTableViewController.swift in Sources */,
 				CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */,
