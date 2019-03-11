@@ -97,8 +97,8 @@ extension UIViewController {
 		alertController.addAction(allTime)
 		alertController.addAction(today)
 		alertController.addAction(lastWeek)
-		alertController.addAction(lastYear)
 		alertController.addAction(lastMonth)
+		alertController.addAction(lastYear)
 		alertController.addAction(cancel)
 		self.present(alertController, animated: true, completion: nil)
 	}

@@ -37,6 +37,12 @@ extension Date {
 		return formatter.string(from: self)
 	}
 	
+	func weekSpecific() -> String {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "M/d"
+		return formatter.string(from: self)
+	}
+	
 	func asTime() -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .none

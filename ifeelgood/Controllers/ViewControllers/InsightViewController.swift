@@ -20,6 +20,7 @@ class InsightViewController: UIViewController {
 	@IBOutlet weak var noDataLabel: UILabel!
 	@IBOutlet weak var graphInsetView: UIView!
 	@IBOutlet weak var scrollInsetView: UIView!
+	@IBOutlet weak var insightBottomConstraint: NSLayoutConstraint!
 	
 	// Mark: - Params
 	weak var delegate: InsightViewControllerDelegate?
@@ -37,11 +38,13 @@ class InsightViewController: UIViewController {
 	@IBAction func graphStyleButtonTapped(_ sender: Any) {
 		graphRangeAlert { (range) -> (Void) in
 			self.graphRange = range
+			self.graphView.graphRange = range
 			self.customizeInsightPageForActiveCard{}
 		}
 	}
 	
 	func setUpViews() {
+		insightBottomConstraint.constant = self.view.bounds.height * 0.2
 		scrollInsetView.layer.cornerRadius = 10
 		graphInsetView.layer.cornerRadius = 10
 		graphView.layer.borderWidth = 1
@@ -82,7 +85,9 @@ class InsightViewController: UIViewController {
 			})
 		}
 		self.nameLabel.text = self.card.name
-		self.dateStartedLabel.text = self.card.startDate?.asString()
+		if let date = self.card.startDate {
+			self.dateStartedLabel.text = "Started \(date.asString())."
+		}
 		self.updateDateStyleLabel()
 		completion()
 	}
