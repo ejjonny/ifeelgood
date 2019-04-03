@@ -10,7 +10,7 @@ import UIKit
 
 class InsightViewController: UIViewController {
 	
-	// Mark: - Outlets
+	// MARK: - Outlets
 	@IBOutlet weak var graphView: GraphView!
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var dateStartedLabel: UILabel!
@@ -18,28 +18,33 @@ class InsightViewController: UIViewController {
 	@IBOutlet weak var insightPageControl: UIPageControl!
 	@IBOutlet weak var noDataLabel: UILabel!
 	@IBOutlet weak var graphInsetView: UIView!
-	@IBOutlet weak var scrollInsetView: UIView!
-	@IBOutlet weak var insightBottomConstraint: NSLayoutConstraint!
 	@IBOutlet weak var factorTypeOneColor: UIView!
 	@IBOutlet weak var factorTypeTwoColor: UIView!
 	@IBOutlet weak var factorTypeThreeColor: UIView!
 	@IBOutlet weak var factorTypeOneLabel: UILabel!
 	@IBOutlet weak var factorTypeTwoLabel: UILabel!
 	@IBOutlet weak var factorTypeThreeLabel: UILabel!
+	@IBOutlet weak var insightCollectionView: UICollectionView!
 	
-	// Mark: - Params
+	// MARK: - Params
 	weak var delegate: InsightViewControllerDelegate?
 	var card: Card {
 		return CardController.shared.activeCard
 	}
 	var graphRange: GraphRangeOptions? = .today
 	
-	// Mark: - Lifecycle
+	// MARK: - Lifecycle
 	override func viewDidLoad() {
         super.viewDidLoad()
 		setUpViews()
     }
 	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		insightCollectionView.reloadData()
+	}
+	
+	// MARK: - Actions
 	@IBAction func graphStyleButtonTapped(_ sender: Any) {
 		graphRangeAlert { (range) -> (Void) in
 			self.graphRange = range
@@ -48,15 +53,15 @@ class InsightViewController: UIViewController {
 		}
 	}
 	
+	// MARK: - Functions
 	func setUpViews() {
-		insightBottomConstraint.constant = self.view.bounds.height * 0.2
 		factorTypeOneColor.backgroundColor = #colorLiteral(red: 0.7883887887, green: 0.7393109202, blue: 1, alpha: 1)
 		factorTypeOneColor.layer.cornerRadius = factorTypeOneColor.bounds.width / 2
 		factorTypeTwoColor.backgroundColor = #colorLiteral(red: 1, green: 0.8194651824, blue: 0.894031874, alpha: 1)
 		factorTypeTwoColor.layer.cornerRadius = factorTypeTwoColor.bounds.width / 2
 		factorTypeThreeColor.backgroundColor = #colorLiteral(red: 1, green: 0.9575231352, blue: 0.7737829244, alpha: 1)
 		factorTypeThreeColor.layer.cornerRadius = factorTypeThreeColor.bounds.width / 2
-		scrollInsetView.layer.cornerRadius = 10
+		insightCollectionView.layer.cornerRadius = 10
 		graphInsetView.layer.cornerRadius = 10
 		graphView.layer.borderWidth = 1
 		graphView.layer.borderColor = deepChillBlue.cgColor
@@ -113,21 +118,40 @@ class InsightViewController: UIViewController {
 	}
 }
 
+// MARK: - InsightVCDelegate
 protocol InsightViewControllerDelegate: class {
 	
 }
 
-extension InsightViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK: - Collection View control
+extension InsightViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return 3
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "insightCell", for: indexPath) as? InsightCollectionViewCell else { return UICollectionViewCell()}
-		cell.frame = CGRect(origin: cell.frame.origin, size: CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height))
-		cell.layer.borderColor = UIColor.blue.cgColor
-		cell.layer.borderWidth = 10
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "insightCell", for: indexPath)
+		cell.layer.cornerRadius = 10
+		cell.addSoftShadow()
 		return cell
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return CGSize(width: self.view.bounds.width * 0.9, height: collectionView.bounds.height - 20)
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+		return self.view.bounds.width * 0.1
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+		return UIEdgeInsets(top: 0, left: self.view.bounds.width * 0.05, bottom: 0, right: self.view.bounds.width * 0.05)
+	}
+	
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let cellWidth = scrollView.frame.width
+		let offset = scrollView.contentOffset.x
+		insightPageControl.currentPage = Int(offset + cellWidth / 2) / Int(cellWidth)
 	}
 }

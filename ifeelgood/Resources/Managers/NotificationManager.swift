@@ -36,7 +36,7 @@ class NotificationManager {
 			let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
 			UNUserNotificationCenter.current().add(request) { (error) in
 				if let error = error {
-					print("Error scheduling local notification: \(error, error.localizedDescription)")
+					print("Error scheduling local notification: \((error, error.localizedDescription))")
 					completion(false)
 					return
 				}

@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func requestAuth(completion: @escaping (Bool) -> Void) {
 		UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
 			if let error = error {
-				print("Error requesting notification auth from user: \(error, error.localizedDescription)")
+				print("Error requesting notification auth from user: \((error, error.localizedDescription))")
 				completion(false)
 				return
 			}

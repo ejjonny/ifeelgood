@@ -10,11 +10,11 @@ import UIKit
 
 class ReminderViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ReminderControlViewDelegate {
 
-	// Mark: - Outlets
+	// MARK: - Outlets
 	@IBOutlet weak var reminderControlView: UIView!
 	@IBOutlet weak var reminderTableView: UITableView!
 	
-	// Mark: - Properties
+	// MARK: - Properties
 	var containerVC: ReminderControlView?
 	var activeIndex: IndexPath? {
 		didSet {
@@ -32,12 +32,12 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		}
 	}
 	
-	// Mark: - Lifecycle
+	// MARK: - Lifecycle
 	override func viewDidLoad() {
         super.viewDidLoad()
     }
 	
-	// Mark: - TableView data source
+	// MARK: - TableView data source
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return ReminderController.shared.reminders.count
 	}
@@ -68,7 +68,7 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		}
 	}
 	
-	// Mark: - Actions
+	// MARK: - Actions
 	@IBAction func addReminderButtonTapped(_ sender: Any) {
 		ReminderController.shared.createReminderWith(date: Date(), frequency: Frequency.daily) { (success) in
 			if success {
@@ -81,7 +81,7 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		}
 	}
 	
-	// Mark: - Container segue
+	// MARK: - Container segue
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "toReminderControl" {
 			guard let destination = segue.destination as? ReminderControlView else { return }
@@ -90,7 +90,7 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		}
 	}
 	
-	// Mark: - Control view delegate functions
+	// MARK: - Control view delegate functions
 	func timePickerChangedWith(date: Date) {
 		updateSelectedReminderWith(date: date, frequency: nil)
 	}
@@ -115,7 +115,7 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		}
 	}
 	
-	// Mark: - TableView delegate
+	// MARK: - TableView delegate
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		guard let cell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell else { return }
 		// If the cell is already selected just deselect all, hide control, and return

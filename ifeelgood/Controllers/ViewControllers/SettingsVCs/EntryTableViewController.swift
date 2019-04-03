@@ -10,10 +10,10 @@ import UIKit
 
 class EntryTableViewController: UITableViewController {
 	
-	// Mark: - Outlets
+	// MARK: - Outlets
 	@IBOutlet weak var titleLabel: UINavigationItem!
 	
-	// Mark: - Properties
+	// MARK: - Properties
 	var card: Card?
 	var dateStyle: EntryDateStyles?
 	var entryStats: [EntryStats] {
@@ -24,13 +24,13 @@ class EntryTableViewController: UITableViewController {
 		}
 	}
 
-	// Mark: - Lifecycle
+	// MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 		titleLabel.title = CardController.shared.activeCard.name
 	}
 
-	// Mark: - Actions
+	// MARK: - Actions
 	@IBAction func doneButtonTapped(_ sender: Any) {
 		self.dismiss(animated: true, completion: nil)
 	}

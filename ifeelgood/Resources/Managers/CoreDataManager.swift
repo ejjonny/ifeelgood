@@ -34,7 +34,7 @@ class CoreDataManager {
 	
 	static func loadFromPersistentStore() {
 		
-		// Mark: Reminder fetch controller
+		// MARK: Reminder fetch controller
 		do {
 			try reminderFetchResultsController.performFetch()
 			guard let reminderResults = reminderFetchResultsController.fetchedObjects else {
@@ -48,7 +48,7 @@ class CoreDataManager {
 			ReminderController.shared.reminders = []
 		}
 		
-		// Mark: Card fetch controller
+		// MARK: Card fetch controller
 		do {
 			try cardFetchResultsController.performFetch()
 			guard let cardResults = cardFetchResultsController.fetchedObjects else {

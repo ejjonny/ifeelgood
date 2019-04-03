@@ -22,6 +22,7 @@
 		CA8148EA22154C4D00AA7111 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148E922154C4D00AA7111 /* GraphView.swift */; };
 		CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148EB22154D9B00AA7111 /* GraphFunction.swift */; };
 		CA85E573222BC9C1003BE157 /* ReminderControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85E572222BC9C1003BE157 /* ReminderControlView.swift */; };
+		CAA4C56C225558D400D147EC /* SoftShadowedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA4C56B225558D400D147EC /* SoftShadowedView.swift */; };
 		CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC30678220C072D00C3229F /* ShakeExtension.swift */; };
 		CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306B7220D360200C3229F /* Card+Convenience.swift */; };
 		CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306BA220D4FAC00C3229F /* CardController.swift */; };
@@ -61,6 +62,7 @@
 		CA8148E922154C4D00AA7111 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		CA8148EB22154D9B00AA7111 /* GraphFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphFunction.swift; sourceTree = "<group>"; };
 		CA85E572222BC9C1003BE157 /* ReminderControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderControlView.swift; sourceTree = "<group>"; };
+		CAA4C56B225558D400D147EC /* SoftShadowedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftShadowedView.swift; sourceTree = "<group>"; };
 		CAC30678220C072D00C3229F /* ShakeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeExtension.swift; sourceTree = "<group>"; };
 		CAC306B7220D360200C3229F /* Card+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Convenience.swift"; sourceTree = "<group>"; };
 		CAC306BA220D4FAC00C3229F /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				CA7164FE221A56D100C38029 /* DateAsString.swift */,
 				CA8148EB22154D9B00AA7111 /* GraphFunction.swift */,
 				CAD17039222F18CA000A881E /* Constants.swift */,
+				CAA4C56B225558D400D147EC /* SoftShadowedView.swift */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				TargetAttributes = {
 					CA4E437222041885002C329F = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -317,6 +321,7 @@
 				CA8148EA22154C4D00AA7111 /* GraphView.swift in Sources */,
 				CAD16FF7222DE7D4000A881E /* CardTableViewController.swift in Sources */,
 				CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */,
+				CAA4C56C225558D400D147EC /* SoftShadowedView.swift in Sources */,
 				CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */,
 				CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */,
 				CA164FDE2216125300205AE9 /* FactorMark+Convenience.swift in Sources */,
@@ -473,13 +478,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8Z88H6B28;
 				INFOPLIST_FILE = "$(SRCROOT)/ifeelgood/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ethansapps.ifeelgood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -491,13 +497,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8Z88H6B28;
 				INFOPLIST_FILE = "$(SRCROOT)/ifeelgood/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ethansapps.ifeelgood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

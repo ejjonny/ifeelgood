@@ -10,19 +10,19 @@ import UIKit
 
 class ReminderControlView: UIViewController {
 	
-	// Mark: - Outlets
+	// MARK: - Outlets
 	@IBOutlet weak var frequencySegmentedControl: UISegmentedControl!
 	@IBOutlet weak var reminderTimePicker: UIDatePicker!
 	
-	// Mark: - Properties
+	// MARK: - Properties
 	weak var delegate: ReminderControlViewDelegate?
 	
-	// Mark: - Lifecycle
+	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 	}
 		
-	// Mark: - Actions
+	// MARK: - Actions
 	@IBAction func reminderTimePickerChanged(_ sender: Any) {
 		delegate?.timePickerChangedWith(date: reminderTimePicker.date)
 	}

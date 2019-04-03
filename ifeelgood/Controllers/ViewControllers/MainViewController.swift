@@ -17,10 +17,10 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var topBarInsetView: UIView!
 	@IBOutlet weak var welcomeLabel: UILabel!
 	
-	// Mark: - Params
+	// MARK: - Params
 	var insightContainer: InsightViewController?
 	
-	// Mark: - Lifecycle
+	// MARK: - Lifecycle
 	override func viewDidLoad() {
         super.viewDidLoad()
 		cardView.delegate = self
@@ -79,7 +79,7 @@ class MainViewController: UIViewController {
 	}
 }
 
-// Mark: - InsightView delegate
+// MARK: - InsightView delegate
 extension MainViewController: InsightViewControllerDelegate {
 	
 }
@@ -87,7 +87,7 @@ extension MainViewController: InsightViewControllerDelegate {
 // MARK: - CardView delegate
 extension MainViewController: CardViewDelegate {
 	
-	// Mark: Animation handling
+	// MARK: Animation handling
 	func panDidEnd() {
 		// Check the state when the pan gesture ends and react accordingly with linear or velocity reactive animations.
 		let aboveHalfWay = self.cardView.frame.minY < (self.view.frame.height * 0.5)
@@ -212,7 +212,7 @@ extension MainViewController: CardViewDelegate {
 		}
 	}
 	
-	// Mark: Card view controls
+	// MARK: Card view controls
 	func editCardButtonTapped() {
 		beginEditCardOptionTree()
 	}

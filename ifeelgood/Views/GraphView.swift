@@ -10,7 +10,7 @@ import UIKit
 
 class GraphView: UIView {
 
-	// Mark: - Params
+	// MARK: - Params
 	var plottedPointsLayer = CAShapeLayer()
 	var lineLayer = CAShapeLayer()
 	var labels = [UILabel]()
@@ -70,7 +70,7 @@ class GraphView: UIView {
 			case .year:
 				title = date.asYearSpecificString()
 			}
-			createXLabel(atSegment: dataPoints.index(of: point)!, title: title)
+			createXLabel(atSegment: dataPoints.firstIndex(of: point)!, title: title)
 		}
 		for i in 0..<dataPoints.count {
 			drawVerticalLine(atSegment: i)

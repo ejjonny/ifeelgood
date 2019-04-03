@@ -10,20 +10,20 @@ import UIKit
 
 class InsightCollectionViewCell: UICollectionViewCell {
 	
-	// Mark: - Params
+	// MARK: - Params
 	var insight: Insight?
 	
-	// Mark: - Outlets
+	// MARK: - Outlets
 	@IBOutlet weak var insightTitleLabel: UILabel!
 	@IBOutlet weak var insightDescriptionLabel: UILabel!
 	
-	// Mark: - Lifecycle
+	// MARK: - Lifecycle
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		updateViews()
 	}
 	
-	// Mark: - Display control
+	// MARK: - Display control
 	func updateViews() {
 		guard let insight = insight else { return }
 		self.insightTitleLabel.text = insight.title
