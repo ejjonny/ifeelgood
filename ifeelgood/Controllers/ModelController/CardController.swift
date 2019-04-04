@@ -63,6 +63,70 @@ class CardController {
 		return array
 	}
 	
+	// MARK: - Card control
+	func createCard(named name: String) -> Card {
+		let card = Card(name: name)
+		self.setActive(card: card)
+		CoreDataManager.saveToPersistentStore()
+		return card
+	}
+	
+	func renameActiveCard(withName name: String) {
+		self.activeCard.name = name
+		CoreDataManager.saveToPersistentStore()
+	}
+	
+	func deleteActiveCard(completion: ((Bool) -> Void)?) {
+		CoreDataStack.context.delete(self.activeCard)
+		CoreDataManager.saveToPersistentStore()
+		if let completion = completion {
+			completion(true)
+		}
+	}
+	
+	func setActive(card: Card) {
+		// If there is currently an active card deactivate it.
+		for card in cards {
+			if card.isActive {
+				card.isActive = false
+			}
+		}
+		card.isActive = true
+		CoreDataManager.saveToPersistentStore()
+	}
+	
+	// MARK: - Factor control
+	func createFactorType(withName name: String) {
+		guard let factorTypeCount = activeCard.factorTypes?.count else { print("Card does not have any factor types."); return }
+		if factorTypeCount < 3 {
+			FactorType(name: name, card: activeCard)
+		} else {
+			print("ERROR: Tried to save a factor when all factors on active card were full. Factor was not saved.")
+		}
+		CoreDataManager.saveToPersistentStore()
+	}
+	
+	func renameFactorType(_ factorType: FactorType, withName name: String) {
+		factorType.name = name
+		CoreDataManager.saveToPersistentStore()
+	}
+	
+	func deleteFactorType(_ factorType: FactorType) {
+		CoreDataStack.context.delete(factorType)
+		CoreDataManager.saveToPersistentStore()
+	}
+	
+	func createFactorMark(ofType type: FactorType, onEntry entry: Entry) {
+		guard let name = type.name else { print("FactorType name was nil. Entry not created"); return }
+		FactorMark(name: name, entry: entry)
+		CoreDataManager.saveToPersistentStore()
+	}
+	
+	func deleteFactorMark(named: String, fromEntries: [Entry]) {
+		// TODO: - Delete factor marks here
+	}
+	
+	// MARK: - Entry control
 	/// Should be used for getting the last week / month / year of entries
 	func entriesWith(graphViewStyle: GraphRangeOptions) -> [Entry] {
 		switch graphViewStyle {
@@ -142,78 +206,6 @@ class CardController {
 		})
 	}
 	
-	func formatDateAsString(date: Date) -> String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .short
-		dateFormatter.locale = Locale(identifier: "en_US")
-		return dateFormatter.string(from: date)
-	}
-	
-	// MARK: - Card control
-	func createCard(named name: String) -> Card {
-		let card = Card(name: name)
-		self.setActive(card: card)
-		CoreDataManager.saveToPersistentStore()
-		return card
-	}
-	
-	func renameActiveCard(withName name: String) {
-		self.activeCard.name = name
-		CoreDataManager.saveToPersistentStore()
-	}
-	
-	func deleteActiveCard(completion: ((Bool) -> Void)?) {
-		CoreDataStack.context.delete(self.activeCard)
-		CoreDataManager.saveToPersistentStore()
-		if let completion = completion {
-			completion(true)
-		}
-	}
-	
-	func setActive(card: Card) {
-		// If there is currently an active card deactivate it.
-		for card in cards {
-			if card.isActive {
-				card.isActive = false
-			}
-		}
-		card.isActive = true
-		CoreDataManager.saveToPersistentStore()
-	}
-	
-	// MARK: - Factor control
-	func createFactorType(withName name: String) {
-		guard let factorTypeCount = activeCard.factorTypes?.count else { print("Card does not have any factor types."); return }
-		if factorTypeCount < 3 {
-			FactorType(name: name, card: activeCard)
-		} else {
-			print("ERROR: Tried to save a factor when all factors on active card were full. Factor was not saved.")
-		}
-		CoreDataManager.saveToPersistentStore()
-	}
-	
-	func renameFactorType(_ factorType: FactorType, withName name: String) {
-		factorType.name = name
-		CoreDataManager.saveToPersistentStore()
-	}
-	
-	func deleteFactorType(_ factorType: FactorType) {
-		CoreDataStack.context.delete(factorType)
-		CoreDataManager.saveToPersistentStore()
-	}
-	
-	func createFactorMark(ofType type: FactorType, onEntry entry: Entry) {
-		guard let name = type.name else { print("FactorType name was nil. Entry not created"); return }
-		FactorMark(name: name, entry: entry)
-		CoreDataManager.saveToPersistentStore()
-	}
-	
-	func deleteFactorMark(named: String, fromEntries: [Entry]) {
-		// TODO: - Delete factor marks here
-	}
-	
-	// MARK: - Entry control
 	func createEntry(ofRating rating: Double, factorMarks: [FactorType]) {
 		let entry = Entry(rating: rating, onCard: activeCard)
 		for mark in factorMarks {
