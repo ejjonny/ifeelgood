@@ -23,6 +23,8 @@
 		CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8148EB22154D9B00AA7111 /* GraphFunction.swift */; };
 		CA85E573222BC9C1003BE157 /* ReminderControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85E572222BC9C1003BE157 /* ReminderControlView.swift */; };
 		CAA4C56C225558D400D147EC /* SoftShadowedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA4C56B225558D400D147EC /* SoftShadowedView.swift */; };
+		CAA8021622565EED0000B8E2 /* InsightGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA8021522565EED0000B8E2 /* InsightGenerator.swift */; };
+		CAA802182256AD0C0000B8E2 /* CollectionAverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA802172256AD0C0000B8E2 /* CollectionAverage.swift */; };
 		CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC30678220C072D00C3229F /* ShakeExtension.swift */; };
 		CAC306B8220D360200C3229F /* Card+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306B7220D360200C3229F /* Card+Convenience.swift */; };
 		CAC306BB220D4FAC00C3229F /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC306BA220D4FAC00C3229F /* CardController.swift */; };
@@ -63,6 +65,8 @@
 		CA8148EB22154D9B00AA7111 /* GraphFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphFunction.swift; sourceTree = "<group>"; };
 		CA85E572222BC9C1003BE157 /* ReminderControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderControlView.swift; sourceTree = "<group>"; };
 		CAA4C56B225558D400D147EC /* SoftShadowedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftShadowedView.swift; sourceTree = "<group>"; };
+		CAA8021522565EED0000B8E2 /* InsightGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightGenerator.swift; sourceTree = "<group>"; };
+		CAA802172256AD0C0000B8E2 /* CollectionAverage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionAverage.swift; sourceTree = "<group>"; };
 		CAC30678220C072D00C3229F /* ShakeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeExtension.swift; sourceTree = "<group>"; };
 		CAC306B7220D360200C3229F /* Card+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Convenience.swift"; sourceTree = "<group>"; };
 		CAC306BA220D4FAC00C3229F /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 				CA8148EB22154D9B00AA7111 /* GraphFunction.swift */,
 				CAD17039222F18CA000A881E /* Constants.swift */,
 				CAA4C56B225558D400D147EC /* SoftShadowedView.swift */,
+				CAA802172256AD0C0000B8E2 /* CollectionAverage.swift */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -222,6 +227,7 @@
 			children = (
 				CAE740C22224F52B00CA6C66 /* ReminderController.swift */,
 				CAC306BA220D4FAC00C3229F /* CardController.swift */,
+				CAA8021522565EED0000B8E2 /* InsightGenerator.swift */,
 			);
 			path = ModelController;
 			sourceTree = "<group>";
@@ -315,6 +321,7 @@
 				CAE740C32224F52B00CA6C66 /* ReminderController.swift in Sources */,
 				CA4E437722041885002C329F /* AppDelegate.swift in Sources */,
 				CAE4E72222360AC60018DEF6 /* InsightCollectionViewCell.swift in Sources */,
+				CAA802182256AD0C0000B8E2 /* CollectionAverage.swift in Sources */,
 				CA7164FF221A56D100C38029 /* DateAsString.swift in Sources */,
 				CAF353562223C2BA00F614B8 /* SettingsTableViewController.swift in Sources */,
 				CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */,
@@ -330,6 +337,7 @@
 				CA7164FB221A4C5C00C38029 /* EntryTableViewController.swift in Sources */,
 				CA85E573222BC9C1003BE157 /* ReminderControlView.swift in Sources */,
 				CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */,
+				CAA8021622565EED0000B8E2 /* InsightGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

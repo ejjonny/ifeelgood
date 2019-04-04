@@ -15,7 +15,7 @@ class GraphView: UIView {
 	var lineLayer = CAShapeLayer()
 	var labels = [UILabel]()
 	var path: UIBezierPath?
-	var dataPoints: [Entry] = []
+	var dataPoints: [EntryStats] = []
 	var graphInset = 10
 	var graphRange: GraphRangeOptions = .today
 	
@@ -35,42 +35,9 @@ class GraphView: UIView {
 	}
 	
 	func drawGraph(completion: @escaping (Bool)->(Void)) {
-		guard let earliestDate = dataPoints.first?.date else { print("First dataPoint date was nil") ; return }
-		let labelStyle: EntryDateStyles
-		let delta = abs(earliestDate.timeIntervalSince(Date()))
-		// Checks the interval between the earliest date being graphed and now to be able to format graph labels appropriately.
-		if delta >= 31557600 {
-			labelStyle = .year
-		} else if delta >= 2629800 {
-			labelStyle = .month
-		} else if delta >= 604800 {
-			labelStyle = .week
-		} else if delta >= 86400 {
-			labelStyle = .day
-		} else {
-			labelStyle = .all
-		}
 		for point in dataPoints {
-			guard point != dataPoints.last else { break }
-			guard let date = point.date else {
-					print("Date was nil on graph point")
-					completion(false)
-					return
-			}
-			var title = ""
-			switch labelStyle {
-			case .all:
-				title = date.asTime()
-			case .day:
-				title = date.weekSpecific()
-			case .week:
-				title = date.weekSpecific()
-			case .month:
-				title = date.asMonthSpecificString()
-			case .year:
-				title = date.asYearSpecificString()
-			}
-			createXLabel(atSegment: dataPoints.firstIndex(of: point)!, title: title)
+			guard point != dataPoints.last! else { break }
+			createXLabel(atSegment: dataPoints.firstIndex(of: point)!, title: point.name)
 		}
 		for i in 0..<dataPoints.count {
 			drawVerticalLine(atSegment: i)
@@ -120,17 +87,10 @@ class GraphView: UIView {
 	
 	func graphCurrentEntryDataWith(range: GraphRangeOptions,_ completion: @escaping (Bool) -> ()) {
 		DispatchQueue.global().async {
-			let entries = CardController.shared.entriesWith(graphViewStyle: range)
-			if !entries.isEmpty, entries.count > 1 {
-				// This filters out entries saved with only a factor & no rating so that the graph doesn't try to graph 0.
-				self.dataPoints = entries.compactMap{ (entry) -> Entry? in
-					if CGFloat(entry.rating) != 0 {
-						return entry
-					} else {
-						return nil
-					}
-				}
-				let valuesToMap = self.dataPoints.map{ CGFloat($0.rating) }
+			let entryStats = CardController.shared.entriesWith(graphViewStyle: range)
+			if !entryStats.isEmpty, entryStats.count > 1 {
+				let valuesToMap = entryStats.map{ CGFloat($0.averageRating) }
+				self.dataPoints = entryStats
 				self.bezierWithValues(onView: self, YValues: valuesToMap, maxY: 5, minY: 1, smoothing: 0.3, inset: CGFloat(self.graphInset)) { path in
 					DispatchQueue.main.async {
 						self.clearGraph()

@@ -127,31 +127,60 @@ class CardController {
 	}
 	
 	// MARK: - Entry control
-	/// Should be used for getting the last week / month / year of entries
-	func entriesWith(graphViewStyle: GraphRangeOptions) -> [Entry] {
+	/// Should be used for getting the last day / week / month / year of entry statistics
+	func entriesWith(graphViewStyle: GraphRangeOptions) -> [EntryStats] {
+		var stats: [EntryStats] = []
+		var grouped: [[Entry]] = []
+		var name: String = ""
 		switch graphViewStyle {
 		case .allTime:
-			guard let group = entriesGroupedBy(dateStyle: .all).last else { return [] }
-			return group
-		case .today:
-			guard let group = entriesGroupedBy(dateStyle: .day).last else { return [] }
-			return group
-		case .thisWeek:
-			guard let group = entriesGroupedBy(dateStyle: .week).last else { return [] }
-			return group
+			let filtered = getRecentEntriesIn(interval: .all)
+			grouped = getEntries(entries: filtered, groupedBy: .day)
+			if let date = filtered.first?.date {
+				name = date.asString()
+			}
 		case .thisMonth:
-			guard let group = entriesGroupedBy(dateStyle: .month).last else { return [] }
-			return group
+			let filtered = getRecentEntriesIn(interval: .month)
+			grouped = getEntries(entries: filtered, groupedBy: .day)
+			if let date = filtered.first?.date {
+				name = date.asDaySpecificString()
+			}
+		case .thisWeek:
+			let filtered = getRecentEntriesIn(interval: .week)
+			grouped = getEntries(entries: filtered, groupedBy: .day)
+			if let date = filtered.first?.date {
+				name = date.asDaySpecificString()
+			}
 		case .thisYear:
-			guard let group = entriesGroupedBy(dateStyle: .year).last else { return [] }
-			return group
+			let filtered = getRecentEntriesIn(interval: .year)
+			grouped = getEntries(entries: filtered, groupedBy: .month)
+			if let date = filtered.first?.date {
+				name = date.asWeekSpecificString()
+			}
+		case .today:
+			let filtered = getRecentEntriesIn(interval: .day)
+			grouped = getEntries(entries: filtered, groupedBy: .all)
+			if let date = filtered.first?.date {
+				name = date.asTimeSpecificString()
+			}
 		}
+		for group in grouped {
+			stats.append(EntryStats(name: name, ratingCount: group.count, averageRating: group.compactMap{
+				// This filters out entries saved with only a factor & no rating so that data isn't skewed.
+				if $0.rating == 0 {
+					return nil
+				} else {
+					return $0.rating
+				}
+				}.average))
+		}
+		return stats
 	}
 	
 	/// Should be used for getting grouped statistics.
 	func entriesWith(dateStyle: EntryDateStyles) -> [EntryStats] {
 		var stats: [EntryStats] = []
-		for group in entriesGroupedBy(dateStyle: dateStyle) {
+		for group in getEntries(groupedBy: dateStyle) {
 			let totalRatings = group.map{ $0.rating }.reduce(0, +)
 			let average = totalRatings / Double(group.count)
 			var name = ""
@@ -173,29 +202,101 @@ class CardController {
 		return stats
 	}
 	
-	func entriesGroupedBy(dateStyle: EntryDateStyles) -> [[Entry]] {
-		guard let entries = activeCard.entries else { return [[]] }
+	/// For getting entries grouped by an interval relative to current date
+	/// Ex. Last 24 hours for example would need to be grouped relative to current date so that grouping at 12:01am will still include a full day rather than just the calendar day that started at 12am
+//	func entriesGroupedByInterval(dateStyle: EntryDateStyles) -> [[Entry]] {
+//		guard let entrySet = activeCard.entries else { return [[]] }
+//		let entries = entrySet.compactMap{ $0 as? Entry}
+//		var grouped: [Date :[Entry]] = [:]
+//		switch dateStyle {
+//		case .all:
+//			return [entries]
+//		case .day:
+//			grouped = group(entries: entries, byInterval: 86400)
+//		case .week:
+//			grouped = group(entries: entries, byInterval: 604800)
+//		case .month:
+//			grouped = group(entries: entries, byInterval: 2629800)
+//		case .year:
+//			grouped = group(entries: entries, byInterval: 31557600)
+//		}
+//		return grouped.map{ $0.value }.sorted(by: { (arrayOne, arrayTwo) -> Bool in
+//			guard let firstDate = arrayOne.first?.date,
+//				let secondDate = arrayTwo.first?.date else { print("Failed to sort") ; return true }
+//			return firstDate.compare(secondDate) == ComparisonResult.orderedAscending
+//		})
+//	}
+//
+//	private func group(entries: [Entry], byInterval interval: TimeInterval) -> [Date: [Entry]]{
+//		var groupedTest: [Date: [Entry]] = [:]
+//		let reversed = Array(entries.reversed())
+//		guard let firstObject = reversed.first,
+//			var firstDateInGroup = firstObject.date else { print("First Obj didn't exist or didn't have a date when grouping") ; return [:] }
+//		for i in reversed.indices {
+//			guard let date = reversed[i].date else { print("An entry was missing a date") ; return [:] }
+//			if groupedTest[firstDateInGroup] != nil, abs(date.timeIntervalSince(firstDateInGroup)) <= interval {
+//				groupedTest[firstDateInGroup]!.append(reversed[i])
+//			} else {
+//				firstDateInGroup = date
+//				groupedTest[firstDateInGroup] = [reversed[i]]
+//			}
+//		}
+//		return groupedTest
+//	}
+	
+	private func getRecentEntriesIn(interval: EntryDateStyles) -> [Entry] {
+		var period = DateInterval()
+		switch interval {
+		case .year:
+			guard let startOfInterval = Calendar.current.date(byAdding: .year, value: -1, to: Date()) else { return [] }
+			period = DateInterval(start: startOfInterval, end: Date())
+		case .month:
+			guard let startOfInterval = Calendar.current.date(byAdding: .year, value: -1, to: Date()) else { return [] }
+			period = DateInterval(start: startOfInterval, end: Date())
+		case .week:
+			guard let startOfInterval = Calendar.current.date(byAdding: .year, value: -1, to: Date()) else { return [] }
+			period = DateInterval(start: startOfInterval, end: Date())
+		case .day:
+			guard let startOfInterval = Calendar.current.date(byAdding: .year, value: -1, to: Date()) else { return [] }
+			period = DateInterval(start: startOfInterval, end: Date())
+		default:
+			break
+		}
+		return activeCardEntries.filter{
+			guard let date = $0.date else { print("An entry was missing a date") ; return false }
+			return period.contains(date)
+		}
+	}
+	
+	/// For getting entries grouped by a calendar period of time.
+	/// Ex. With .day you would recieve entries on April 25th, 26th, 27th etc. regardless of current date / time
+	func getEntries(entries: [Entry] = [], groupedBy dateStyle: EntryDateStyles) -> [[Entry]] {
+		var input = entries
+		if entries.isEmpty {
+			guard let cardEntries = activeCard.entries else { return [[]] }
+			input = cardEntries.map{ $0 as! Entry}
+		}
 		let calendar = Calendar.current
 		let grouped: [DateComponents:[Entry]]
 		switch dateStyle {
 		case .all:
-			grouped = Dictionary(grouping: entries.map{ $0 as! Entry }, by: {
+			grouped = Dictionary(grouping: input, by: {
 				calendar.dateComponents([.second,.minute,.day,.month,.year], from: $0.date!)
 			})
 		case .day:
-			grouped = Dictionary(grouping: entries.map{ $0 as! Entry }, by: {
+			grouped = Dictionary(grouping: input, by: {
 				calendar.dateComponents([.day, .month, .year], from: $0.date!)
 			})
 		case .week:
-			grouped = Dictionary(grouping: entries.map{ $0 as! Entry }, by: {
+			grouped = Dictionary(grouping: input, by: {
 				calendar.dateComponents([.weekOfYear], from: $0.date!)
 			})
 		case .month:
-			grouped = Dictionary(grouping: entries.map{ $0 as! Entry }, by: {
+			grouped = Dictionary(grouping: input, by: {
 				calendar.dateComponents([.month, .year], from: $0.date!)
 			})
 		case .year:
-			grouped = Dictionary(grouping: entries.map{ $0 as! Entry }, by: {
+			grouped = Dictionary(grouping: input, by: {
 				calendar.dateComponents([.year], from: $0.date!)
 			})
 		}

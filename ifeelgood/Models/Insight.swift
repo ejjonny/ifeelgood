@@ -9,6 +9,7 @@
 import Foundation
 
 class Insight {
+	
 	var title: String
 	var description: String
 	
@@ -17,3 +18,4 @@ class Insight {
 		self.description = description
 	}
 }
+

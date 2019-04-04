@@ -19,3 +19,10 @@ class EntryStats {
 		self.averageRating = averageRating
 	}
 }
+
+extension EntryStats: Equatable {
+	
+	static func == (lhs: EntryStats, rhs: EntryStats) -> Bool {
+		return lhs.name == rhs.name && lhs.averageRating == rhs.averageRating && lhs.ratingCount == rhs.ratingCount
+	}
+}

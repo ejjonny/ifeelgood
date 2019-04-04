@@ -37,6 +37,7 @@ class InsightViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		setUpViews()
+		InsightGenerator.shared.generateByWeek()
     }
 	
 	override func viewDidLayoutSubviews() {

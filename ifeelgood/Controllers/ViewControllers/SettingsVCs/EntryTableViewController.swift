@@ -57,13 +57,4 @@ class EntryTableViewController: UITableViewController {
 		}
 		return cell
 	}
-
-//	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            // Delete the row from the data source
-//			guard let entry = CardController.shared.activeCard.entries?[indexPath.row] as? Entry else { return }
-//			CardController.shared.delete(entry: entry)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        }
-//	}
 }
