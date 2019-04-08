@@ -53,7 +53,7 @@ class InsightViewController: UIViewController {
 			self.customizeInsightPageForActiveCard{}
 		}
 	}
-	
+		
 	// MARK: - Functions
 	func setUpViews() {
 		factorTypeOneColor.backgroundColor = #colorLiteral(red: 0.7883887887, green: 0.7393109202, blue: 1, alpha: 1)

@@ -17,9 +17,16 @@ extension Date {
 		return dateFormatter.string(from: self)
 	}
 	
+	func asGenericUseString() -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "MMMM d"
+		dateFormatter.locale = Locale(identifier: "en_US")
+		return dateFormatter.string(from: self)
+	}
+	
 	func asTimeSpecificString() -> String {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .medium
+		dateFormatter.dateStyle = .none
 		dateFormatter.timeStyle = .short
 		dateFormatter.locale = Locale(identifier: "en_US")
 		return dateFormatter.string(from: self)
@@ -27,25 +34,26 @@ extension Date {
 	
 	func asDaySpecificString() -> String {
 		let formatter = DateFormatter()
-		formatter.dateFormat = "M/d"
+		formatter.timeStyle = .short
+		formatter.locale = Locale(identifier: "en_US")
 		return formatter.string(from: self)
 	}
 	
 	func asWeekSpecificString() -> String {
 		let formatter = DateFormatter()
-		formatter.dateFormat = "M/d"
+		formatter.dateFormat = "EEE"
 		return formatter.string(from: self)
 	}
 	
 	func asMonthSpecificString() -> String {
 		let formatter = DateFormatter()
-		formatter.dateFormat = "MMMM yyyy"
+		formatter.dateFormat = "M/d"
 		return formatter.string(from: self)
 	}
 	
 	func asYearSpecificString() -> String {
 		let formatter = DateFormatter()
-		formatter.dateFormat = "yyyy"
+		formatter.dateFormat = "MMMM yyyy"
 		return formatter.string(from: self)
 	}
 }

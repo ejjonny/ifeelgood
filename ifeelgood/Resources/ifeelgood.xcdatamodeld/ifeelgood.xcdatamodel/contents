@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Card" representedClassName="Card" syncable="YES" codeGenerationType="class">
         <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -18,10 +18,12 @@
     <entity name="FactorMark" representedClassName="FactorMark" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="entry" optional="YES" maxCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="Entry" inverseName="factorMarks" inverseEntity="Entry" syncable="YES"/>
+        <relationship name="type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FactorType" inverseName="marks" inverseEntity="FactorType" syncable="YES"/>
     </entity>
     <entity name="FactorType" representedClassName="FactorType" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="factorTypes" inverseEntity="Card" syncable="YES"/>
+        <relationship name="marks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FactorMark" inverseName="type" inverseEntity="FactorMark" syncable="YES"/>
     </entity>
     <entity name="Reminder" representedClassName="Reminder" syncable="YES" codeGenerationType="class">
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -32,8 +34,8 @@
     <elements>
         <element name="Card" positionX="-188.73046875" positionY="365.64453125" width="128" height="135"/>
         <element name="Entry" positionX="37.109375" positionY="201.30859375" width="128" height="120"/>
-        <element name="FactorMark" positionX="310.6015625" positionY="396.5625" width="128" height="75"/>
-        <element name="FactorType" positionX="18" positionY="333" width="128" height="75"/>
+        <element name="FactorMark" positionX="310.6015625" positionY="396.5625" width="128" height="90"/>
+        <element name="FactorType" positionX="18" positionY="333" width="128" height="90"/>
         <element name="Reminder" positionX="18" positionY="333" width="128" height="105"/>
     </elements>
 </model>

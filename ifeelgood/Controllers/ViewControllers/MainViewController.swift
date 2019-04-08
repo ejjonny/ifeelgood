@@ -245,7 +245,7 @@ extension MainViewController: CardViewDelegate {
 			} else if cardView.factorButtons[cardView.factorZButton]! {
 				factors.append(CardController.shared.activeCardFactorTypes[2])
 			}
-			CardController.shared.createEntry(ofRating: rating, factorMarks: factors)
+			CardController.shared.createEntry(ofRating: rating, types: factors)
 			cardView.resetUI()
 		} else {
 			// If not say no

@@ -96,6 +96,31 @@ class CardController {
 	}
 	
 	// MARK: - Factor control
+	
+	func assignTypes() {
+		activeCardEntries.forEach { (entry) in
+			var marks = [Any]()
+			for mark in entry.factorMarks! {
+				marks.append(mark)
+			}
+			for mark in marks {
+				let mark2 = mark as! FactorMark
+//				print("Checking mark name", mark2.name, mark2.type)
+//				switch mark2.name {
+//				case "Nic":
+//					mark2.type = activeCardFactorTypes.filter{ $0.name == "Nic" }.first!
+//				case "Alcohol":
+//					mark2.type = activeCardFactorTypes.filter{ $0.name == "Alcohol" }.first!
+//				case "Bad Sleep":
+//					mark2.type = activeCardFactorTypes.filter{ $0.name == "Bad Sleep" }.first!
+//				default:
+//					fatalError()
+//				}
+			}
+//			CoreDataManager.saveToPersistentStore()
+		}
+	}
+	
 	func createFactorType(withName name: String) {
 		guard let factorTypeCount = activeCard.factorTypes?.count else { print("Card does not have any factor types."); return }
 		if factorTypeCount < 3 {
@@ -118,12 +143,8 @@ class CardController {
 	
 	func createFactorMark(ofType type: FactorType, onEntry entry: Entry) {
 		guard let name = type.name else { print("FactorType name was nil. Entry not created"); return }
-		FactorMark(name: name, entry: entry)
+		FactorMark(name: name, entry: entry, type: type)
 		CoreDataManager.saveToPersistentStore()
-	}
-	
-	func deleteFactorMark(named: String, fromEntries: [Entry]) {
-		// TODO: - Delete factor marks here
 	}
 	
 	// MARK: - Entry control
@@ -132,47 +153,49 @@ class CardController {
 		var stats: [EntryStats] = []
 		var grouped: [[Entry]] = []
 		var name: String = ""
+		var dateFormat: (Date) -> () -> String = Date.asString
 		switch graphViewStyle {
 		case .allTime:
 			let filtered = getRecentEntriesIn(interval: .all)
 			grouped = getEntries(entries: filtered, groupedBy: .day)
-			if let date = filtered.first?.date {
-				name = date.asString()
-			}
+			dateFormat = Date.asGenericUseString
 		case .thisMonth:
 			let filtered = getRecentEntriesIn(interval: .month)
 			grouped = getEntries(entries: filtered, groupedBy: .day)
-			if let date = filtered.first?.date {
-				name = date.asDaySpecificString()
-			}
+			dateFormat = Date.asMonthSpecificString
 		case .thisWeek:
 			let filtered = getRecentEntriesIn(interval: .week)
 			grouped = getEntries(entries: filtered, groupedBy: .day)
-			if let date = filtered.first?.date {
-				name = date.asDaySpecificString()
-			}
+			dateFormat = Date.asWeekSpecificString
 		case .thisYear:
 			let filtered = getRecentEntriesIn(interval: .year)
 			grouped = getEntries(entries: filtered, groupedBy: .month)
-			if let date = filtered.first?.date {
-				name = date.asWeekSpecificString()
-			}
+			dateFormat = Date.asYearSpecificString
 		case .today:
 			let filtered = getRecentEntriesIn(interval: .day)
 			grouped = getEntries(entries: filtered, groupedBy: .all)
-			if let date = filtered.first?.date {
-				name = date.asTimeSpecificString()
-			}
+			dateFormat = Date.asDaySpecificString
 		}
 		for group in grouped {
-			stats.append(EntryStats(name: name, ratingCount: group.count, averageRating: group.compactMap{
-				// This filters out entries saved with only a factor & no rating so that data isn't skewed.
-				if $0.rating == 0 {
-					return nil
-				} else {
-					return $0.rating
+			if let date = group.first?.date {
+				name = dateFormat(date)()
+			}
+			var ratings = [Double]()
+			var markTypes = [FactorType]()
+			group.forEach{
+				ratings.append($0.rating)
+				let marksArray = $0.factorMarks?.array as! [FactorMark]
+				for mark in marksArray {
+					guard let type = mark.type,
+						!markTypes.contains(type) else { continue }
+					markTypes.append(type)
 				}
-				}.average))
+			}
+			let stat = EntryStats(name: name, ratingCount: group.count, averageRating: group.map{ $0.rating }.average, factorTypes: markTypes)
+			// This filters out entries saved with only a factor & no rating so that data isn't skewed.
+			if stat.averageRating != 0 {
+				stats.append(stat)
+			}
 		}
 		return stats
 	}
@@ -197,7 +220,7 @@ class CardController {
 			case .year:
 				break
 			}
-			stats.append(EntryStats(name: name, ratingCount: group.count, averageRating: average ))
+			stats.append(EntryStats(name: name, ratingCount: group.count, averageRating: average, factorTypes: []))
 		}
 		return stats
 	}
@@ -251,13 +274,13 @@ class CardController {
 			guard let startOfInterval = Calendar.current.date(byAdding: .year, value: -1, to: Date()) else { return [] }
 			period = DateInterval(start: startOfInterval, end: Date())
 		case .month:
-			guard let startOfInterval = Calendar.current.date(byAdding: .year, value: -1, to: Date()) else { return [] }
+			guard let startOfInterval = Calendar.current.date(byAdding: .month, value: -1, to: Date()) else { return [] }
 			period = DateInterval(start: startOfInterval, end: Date())
 		case .week:
-			guard let startOfInterval = Calendar.current.date(byAdding: .year, value: -1, to: Date()) else { return [] }
+			guard let startOfInterval = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date()) else { return [] }
 			period = DateInterval(start: startOfInterval, end: Date())
 		case .day:
-			guard let startOfInterval = Calendar.current.date(byAdding: .year, value: -1, to: Date()) else { return [] }
+			guard let startOfInterval = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return [] }
 			period = DateInterval(start: startOfInterval, end: Date())
 		default:
 			break
@@ -307,11 +330,11 @@ class CardController {
 		})
 	}
 	
-	func createEntry(ofRating rating: Double, factorMarks: [FactorType]) {
+	func createEntry(ofRating rating: Double, types: [FactorType]) {
 		let entry = Entry(rating: rating, onCard: activeCard)
-		for mark in factorMarks {
-			guard let name = mark.name else { print("Name on factor type was nil. Mark not created."); return }
-			FactorMark(name: name, entry: entry)
+		for type in types {
+			guard let name = type.name else { print("Name on factor type was nil. Mark not created."); return }
+			FactorMark(name: name, entry: entry, type: type)
 		}
 		CoreDataManager.saveToPersistentStore()
 	}

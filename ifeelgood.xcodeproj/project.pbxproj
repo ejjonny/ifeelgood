@@ -11,6 +11,7 @@
 		CA164FDE2216125300205AE9 /* FactorMark+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA164FDD2216125300205AE9 /* FactorMark+Convenience.swift */; };
 		CA1F71302205981F0094A12A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F712F2205981F0094A12A /* CardView.swift */; };
 		CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F713122059A1A0094A12A /* MainViewController.swift */; };
+		CA3ED4022258018500C5D8EF /* ifeelgood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CA3ED4002258018500C5D8EF /* ifeelgood.xcdatamodeld */; };
 		CA3F5846220FA1000049752A /* AlertControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3F5845220FA1000049752A /* AlertControllers.swift */; };
 		CA4E437722041885002C329F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4E437622041885002C329F /* AppDelegate.swift */; };
 		CA4E437C22041885002C329F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437A22041885002C329F /* Main.storyboard */; };
@@ -32,7 +33,6 @@
 		CAD16FFA222DE876000A881E /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD16FF9222DE876000A881E /* CardTableViewCell.swift */; };
 		CAD17038222EFCD2000A881E /* InsightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD17037222EFCD2000A881E /* InsightViewController.swift */; };
 		CAD1703A222F18CA000A881E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD17039222F18CA000A881E /* Constants.swift */; };
-		CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9702204EF04008625C4 /* ifeelgood.xcdatamodeld */; };
 		CAE3F9742204F16D008625C4 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9732204F16D008625C4 /* CoreDataStack.swift */; };
 		CAE3F9762204F1B1008625C4 /* FactorType+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9752204F1B1008625C4 /* FactorType+Convenience.swift */; };
 		CAE3F9782204F1BF008625C4 /* Entry+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */; };
@@ -51,6 +51,7 @@
 		CA164FDD2216125300205AE9 /* FactorMark+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactorMark+Convenience.swift"; sourceTree = "<group>"; };
 		CA1F712F2205981F0094A12A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA1F713122059A1A0094A12A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		CA3ED4012258018500C5D8EF /* ifeelgood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ifeelgood.xcdatamodel; sourceTree = "<group>"; };
 		CA3F5845220FA1000049752A /* AlertControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllers.swift; sourceTree = "<group>"; };
 		CA4E437322041885002C329F /* ifeelgood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ifeelgood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4E437622041885002C329F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +75,6 @@
 		CAD16FF9222DE876000A881E /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		CAD17037222EFCD2000A881E /* InsightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightViewController.swift; sourceTree = "<group>"; };
 		CAD17039222F18CA000A881E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		CAE3F9712204EF04008625C4 /* ifeelgood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ifeelgood.xcdatamodel; sourceTree = "<group>"; };
 		CAE3F9732204F16D008625C4 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		CAE3F9752204F1B1008625C4 /* FactorType+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactorType+Convenience.swift"; sourceTree = "<group>"; };
 		CAE3F9772204F1BF008625C4 /* Entry+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+Convenience.swift"; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 		CA4E438822041894002C329F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CAE3F9702204EF04008625C4 /* ifeelgood.xcdatamodeld */,
+				CA3ED4002258018500C5D8EF /* ifeelgood.xcdatamodeld */,
 				CAE3F9732204F16D008625C4 /* CoreDataStack.swift */,
 				CA4E437622041885002C329F /* AppDelegate.swift */,
 				CA4E437D22041886002C329F /* Assets.xcassets */,
@@ -314,6 +314,7 @@
 				CAE3F9762204F1B1008625C4 /* FactorType+Convenience.swift in Sources */,
 				CA1016F4222B89E60066B2B5 /* NotificationManager.swift in Sources */,
 				CAD16FFA222DE876000A881E /* CardTableViewCell.swift in Sources */,
+				CA3ED4022258018500C5D8EF /* ifeelgood.xcdatamodeld in Sources */,
 				CA716503221CD93A00C38029 /* EntryStats.swift in Sources */,
 				CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */,
 				CAE740C92224FB9300CA6C66 /* ReminderViewController.swift in Sources */,
@@ -324,7 +325,6 @@
 				CAA802182256AD0C0000B8E2 /* CollectionAverage.swift in Sources */,
 				CA7164FF221A56D100C38029 /* DateAsString.swift in Sources */,
 				CAF353562223C2BA00F614B8 /* SettingsTableViewController.swift in Sources */,
-				CAE3F9722204EF04008625C4 /* ifeelgood.xcdatamodeld in Sources */,
 				CA8148EA22154C4D00AA7111 /* GraphView.swift in Sources */,
 				CAD16FF7222DE7D4000A881E /* CardTableViewController.swift in Sources */,
 				CAC30679220C072D00C3229F /* ShakeExtension.swift in Sources */,
@@ -541,12 +541,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		CAE3F9702204EF04008625C4 /* ifeelgood.xcdatamodeld */ = {
+		CA3ED4002258018500C5D8EF /* ifeelgood.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				CAE3F9712204EF04008625C4 /* ifeelgood.xcdatamodel */,
+				CA3ED4012258018500C5D8EF /* ifeelgood.xcdatamodel */,
 			);
-			currentVersion = CAE3F9712204EF04008625C4 /* ifeelgood.xcdatamodel */;
+			currentVersion = CA3ED4012258018500C5D8EF /* ifeelgood.xcdatamodel */;
 			path = ifeelgood.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
