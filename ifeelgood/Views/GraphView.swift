@@ -20,7 +20,7 @@ class GraphView: UIView {
 	var graphInset = 10
 	var graphRange: GraphRangeOptions = .thisWeek
 	var verticalSegments = 4
-	var factorColors = [#colorLiteral(red: 0.7883887887, green: 0.7393109202, blue: 1, alpha: 1), #colorLiteral(red: 1, green: 0.8194651824, blue: 0.894031874, alpha: 1), #colorLiteral(red: 1, green: 0.9575231352, blue: 0.7737829244, alpha: 1), #colorLiteral(red: 0.7617713751, green: 1, blue: 0.8736094954, alpha: 1), #colorLiteral(red: 0.9207964755, green: 0.6802755262, blue: 1, alpha: 1), #colorLiteral(red: 0.7044421855, green: 0.9814820289, blue: 1, alpha: 1)]
+	var factorColors = legendColors
 	var displayedFactorTypes: [FactorType] = []
 	
 	// MARK: - Lifecycle

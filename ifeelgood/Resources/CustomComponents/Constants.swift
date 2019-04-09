@@ -32,3 +32,8 @@ enum Frequency: Int16 {
 	case daily
 	case weekly
 }
+
+let day = TimeInterval(exactly: 86400)!
+let week = TimeInterval(exactly: 604800)!
+let month = TimeInterval(exactly: 2629800)!
+let year = TimeInterval(exactly: 31557600)!

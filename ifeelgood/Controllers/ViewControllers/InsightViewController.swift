@@ -8,6 +8,8 @@
 
 import UIKit
 
+let legendColors = [#colorLiteral(red: 0.7883887887, green: 0.7393109202, blue: 1, alpha: 1), #colorLiteral(red: 1, green: 0.8194651824, blue: 0.894031874, alpha: 1), #colorLiteral(red: 1, green: 0.9575231352, blue: 0.7737829244, alpha: 1), #colorLiteral(red: 0.7617713751, green: 1, blue: 0.8736094954, alpha: 1), #colorLiteral(red: 0.9207964755, green: 0.6802755262, blue: 1, alpha: 1), #colorLiteral(red: 0.7044421855, green: 0.9814820289, blue: 1, alpha: 1)]
+
 class InsightViewController: UIViewController {
 	
 	// MARK: - Outlets
@@ -37,7 +39,8 @@ class InsightViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		setUpViews()
-		InsightGenerator.shared.generateByWeek()
+		InsightGenerator.shared.generate { insights in
+		}
     }
 	
 	override func viewDidLayoutSubviews() {
@@ -56,11 +59,11 @@ class InsightViewController: UIViewController {
 		
 	// MARK: - Functions
 	func setUpViews() {
-		factorTypeOneColor.backgroundColor = #colorLiteral(red: 0.7883887887, green: 0.7393109202, blue: 1, alpha: 1)
+		factorTypeOneColor.backgroundColor = legendColors[0]
 		factorTypeOneColor.layer.cornerRadius = factorTypeOneColor.bounds.width / 2
-		factorTypeTwoColor.backgroundColor = #colorLiteral(red: 1, green: 0.8194651824, blue: 0.894031874, alpha: 1)
+		factorTypeTwoColor.backgroundColor = legendColors[1]
 		factorTypeTwoColor.layer.cornerRadius = factorTypeTwoColor.bounds.width / 2
-		factorTypeThreeColor.backgroundColor = #colorLiteral(red: 1, green: 0.9575231352, blue: 0.7737829244, alpha: 1)
+		factorTypeThreeColor.backgroundColor = legendColors[2]
 		factorTypeThreeColor.layer.cornerRadius = factorTypeThreeColor.bounds.width / 2
 		insightCollectionView.layer.cornerRadius = 10
 		graphInsetView.layer.cornerRadius = 10

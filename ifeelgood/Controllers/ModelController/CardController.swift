@@ -227,45 +227,45 @@ class CardController {
 	
 	/// For getting entries grouped by an interval relative to current date
 	/// Ex. Last 24 hours for example would need to be grouped relative to current date so that grouping at 12:01am will still include a full day rather than just the calendar day that started at 12am
-//	func entriesGroupedByInterval(dateStyle: EntryDateStyles) -> [[Entry]] {
-//		guard let entrySet = activeCard.entries else { return [[]] }
-//		let entries = entrySet.compactMap{ $0 as? Entry}
-//		var grouped: [Date :[Entry]] = [:]
-//		switch dateStyle {
-//		case .all:
-//			return [entries]
-//		case .day:
-//			grouped = group(entries: entries, byInterval: 86400)
-//		case .week:
-//			grouped = group(entries: entries, byInterval: 604800)
-//		case .month:
-//			grouped = group(entries: entries, byInterval: 2629800)
-//		case .year:
-//			grouped = group(entries: entries, byInterval: 31557600)
-//		}
-//		return grouped.map{ $0.value }.sorted(by: { (arrayOne, arrayTwo) -> Bool in
-//			guard let firstDate = arrayOne.first?.date,
-//				let secondDate = arrayTwo.first?.date else { print("Failed to sort") ; return true }
-//			return firstDate.compare(secondDate) == ComparisonResult.orderedAscending
-//		})
-//	}
-//
-//	private func group(entries: [Entry], byInterval interval: TimeInterval) -> [Date: [Entry]]{
-//		var groupedTest: [Date: [Entry]] = [:]
-//		let reversed = Array(entries.reversed())
-//		guard let firstObject = reversed.first,
-//			var firstDateInGroup = firstObject.date else { print("First Obj didn't exist or didn't have a date when grouping") ; return [:] }
-//		for i in reversed.indices {
-//			guard let date = reversed[i].date else { print("An entry was missing a date") ; return [:] }
-//			if groupedTest[firstDateInGroup] != nil, abs(date.timeIntervalSince(firstDateInGroup)) <= interval {
-//				groupedTest[firstDateInGroup]!.append(reversed[i])
-//			} else {
-//				firstDateInGroup = date
-//				groupedTest[firstDateInGroup] = [reversed[i]]
-//			}
-//		}
-//		return groupedTest
-//	}
+	func entriesGroupedByInterval(dateStyle: EntryDateStyles) -> [[Entry]] {
+		guard let entrySet = activeCard.entries else { return [[]] }
+		let entries = entrySet.compactMap{ $0 as? Entry}
+		var grouped: [Date :[Entry]] = [:]
+		switch dateStyle {
+		case .all:
+			return [entries]
+		case .day:
+			grouped = group(entries: entries, byInterval: day)
+		case .week:
+			grouped = group(entries: entries, byInterval: week)
+		case .month:
+			grouped = group(entries: entries, byInterval: month)
+		case .year:
+			grouped = group(entries: entries, byInterval: year)
+		}
+		return grouped.map{ $0.value }.sorted(by: { (arrayOne, arrayTwo) -> Bool in
+			guard let firstDate = arrayOne.first?.date,
+				let secondDate = arrayTwo.first?.date else { print("Failed to sort") ; return true }
+			return firstDate.compare(secondDate) == ComparisonResult.orderedAscending
+		})
+	}
+
+	private func group(entries: [Entry], byInterval interval: TimeInterval) -> [Date: [Entry]]{
+		var grouped: [Date: [Entry]] = [:]
+		let reversed = Array(entries.reversed())
+		guard let firstObject = reversed.first,
+			var firstDateInGroup = firstObject.date else { print("First Obj didn't exist or didn't have a date when grouping") ; return [:] }
+		for i in reversed.indices {
+			guard let date = reversed[i].date else { print("An entry was missing a date") ; return [:] }
+			if grouped[firstDateInGroup] != nil, abs(date.timeIntervalSince(firstDateInGroup)) <= interval {
+				grouped[firstDateInGroup]!.append(reversed[i])
+			} else {
+				firstDateInGroup = date
+				grouped[firstDateInGroup] = [reversed[i]]
+			}
+		}
+		return grouped
+	}
 	
 	private func getRecentEntriesIn(interval: EntryDateStyles) -> [Entry] {
 		var period = DateInterval()
