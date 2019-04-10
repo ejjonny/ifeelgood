@@ -158,50 +158,88 @@
                                                                     <constraint firstItem="ea0-3h-mz6" firstAttribute="width" secondItem="ea0-3h-mz6" secondAttribute="height" multiplier="1:1" id="kDH-ha-7a3"/>
                                                                 </constraints>
                                                             </stackView>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vxI-Aj-D7E">
-                                                                <rect key="frame" x="0.0" y="81" width="394" height="41.5"/>
-                                                                <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCB-Ez-Iet">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="124.5" height="41.5"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="SCB-Ez-Iet" secondAttribute="height" multiplier="3:1" id="GuH-it-AwM"/>
-                                                                        </constraints>
-                                                                        <state key="normal" title="factor">
-                                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        </state>
-                                                                        <connections>
-                                                                            <action selector="factorXButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="Uqz-ao-d3C"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYd-pu-Psh">
-                                                                        <rect key="frame" x="134.5" y="0.0" width="125" height="41.5"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="tYd-pu-Psh" secondAttribute="height" multiplier="3:1" id="waG-3J-5ae"/>
-                                                                        </constraints>
-                                                                        <state key="normal" title="factor">
-                                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        </state>
-                                                                        <connections>
-                                                                            <action selector="factorYButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="KSw-Mo-DJI"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBx-FP-N1N">
-                                                                        <rect key="frame" x="269.5" y="0.0" width="124.5" height="41.5"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="pBx-FP-N1N" secondAttribute="height" multiplier="3:1" id="7xc-Kz-r3n"/>
-                                                                        </constraints>
-                                                                        <state key="normal" title="factor">
-                                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        </state>
-                                                                        <connections>
-                                                                            <action selector="factorZButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="FlF-gq-WNj"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                </subviews>
-                                                            </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P9S-8K-oFc">
-                                                                <rect key="frame" x="0.0" y="132.5" width="394" height="335.5"/>
+                                                                <rect key="frame" x="0.0" y="81" width="394" height="387"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="imY-fG-FEH">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="394" height="63.5"/>
+                                                                        <color key="backgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                        <state key="normal" title="Add Factors">
+                                                                            <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <action selector="addFactorButtonTappedWithSender:" destination="wha-vi-MeG" eventType="touchUpInside" id="FgS-hI-Ovq"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="y3Q-8z-RRp">
+                                                                        <rect key="frame" x="0.0" y="63.5" width="394" height="300"/>
+                                                                        <color key="backgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="300" id="iDS-bq-DyM"/>
+                                                                        </constraints>
+                                                                        <color key="separatorColor" red="0.73795255469999999" green="0.83775661450000005" blue="0.99889332060000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                                                        <color key="sectionIndexBackgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <view key="tableFooterView" contentMode="scaleToFill" id="OZV-i3-uZD">
+                                                                            <rect key="frame" x="0.0" y="91" width="394" height="137"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <color key="backgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        </view>
+                                                                        <prototypes>
+                                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="factorCell" rowHeight="63" id="VkP-eI-DxM" customClass="FactorTableViewCell" customModule="ifeelgood" customModuleProvider="target">
+                                                                                <rect key="frame" x="0.0" y="28" width="394" height="63"/>
+                                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VkP-eI-DxM" id="hWO-Nq-bs5">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="394" height="62.5"/>
+                                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                                    <subviews>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="factorName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqh-4w-bnO">
+                                                                                            <rect key="frame" x="16" y="23" width="76" height="17"/>
+                                                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                            <nil key="highlightedColor"/>
+                                                                                        </label>
+                                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uzy-R5-8UC">
+                                                                                            <rect key="frame" x="331.5" y="0.0" width="62.5" height="62.5"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="height" constant="62.5" id="L1t-0R-vyb"/>
+                                                                                                <constraint firstAttribute="width" secondItem="Uzy-R5-8UC" secondAttribute="height" multiplier="1:1" id="eJL-5p-aiX"/>
+                                                                                            </constraints>
+                                                                                            <inset key="imageEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
+                                                                                            <state key="normal" image="Unchecked"/>
+                                                                                            <connections>
+                                                                                                <action selector="checkButtonTapped:" destination="VkP-eI-DxM" eventType="touchUpInside" id="MSp-tb-NZv"/>
+                                                                                            </connections>
+                                                                                        </button>
+                                                                                    </subviews>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="trailing" secondItem="Uzy-R5-8UC" secondAttribute="trailing" id="VYx-IR-o2s"/>
+                                                                                        <constraint firstItem="kqh-4w-bnO" firstAttribute="leading" secondItem="hWO-Nq-bs5" secondAttribute="leading" constant="16" id="dY4-sw-ceT"/>
+                                                                                        <constraint firstAttribute="bottom" secondItem="Uzy-R5-8UC" secondAttribute="bottom" id="m2y-BU-IGh"/>
+                                                                                        <constraint firstItem="Uzy-R5-8UC" firstAttribute="top" secondItem="hWO-Nq-bs5" secondAttribute="top" id="nbe-xV-Cme"/>
+                                                                                        <constraint firstItem="Uzy-R5-8UC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kqh-4w-bnO" secondAttribute="trailing" constant="8" id="qBf-ro-4q6"/>
+                                                                                        <constraint firstItem="kqh-4w-bnO" firstAttribute="centerY" secondItem="hWO-Nq-bs5" secondAttribute="centerY" id="wts-8e-Y17"/>
+                                                                                    </constraints>
+                                                                                </tableViewCellContentView>
+                                                                                <color key="backgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                <connections>
+                                                                                    <outlet property="checkButton" destination="Uzy-R5-8UC" id="22v-xv-2Nn"/>
+                                                                                    <outlet property="factorLabel" destination="kqh-4w-bnO" id="OAp-KI-E1i"/>
+                                                                                </connections>
+                                                                            </tableViewCell>
+                                                                        </prototypes>
+                                                                    </tableView>
+                                                                </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="trailing" secondItem="imY-fG-FEH" secondAttribute="trailing" id="R7r-gX-zho"/>
+                                                                    <constraint firstItem="y3Q-8z-RRp" firstAttribute="top" secondItem="imY-fG-FEH" secondAttribute="bottom" id="SF5-HG-xub"/>
+                                                                    <constraint firstItem="imY-fG-FEH" firstAttribute="leading" secondItem="P9S-8K-oFc" secondAttribute="leading" id="X1q-FV-Yuz"/>
+                                                                    <constraint firstItem="y3Q-8z-RRp" firstAttribute="leading" secondItem="P9S-8K-oFc" secondAttribute="leading" id="a2R-6K-Nhk"/>
+                                                                    <constraint firstItem="imY-fG-FEH" firstAttribute="top" secondItem="P9S-8K-oFc" secondAttribute="top" id="quo-cN-PV2"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="y3Q-8z-RRp" secondAttribute="trailing" id="wtX-Jd-8AZ"/>
+                                                                </constraints>
                                                             </view>
                                                         </subviews>
                                                     </stackView>
@@ -237,6 +275,9 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="imY-fG-FEH" firstAttribute="height" secondItem="2wo-ZB-djl" secondAttribute="height" id="fKh-OL-vaG"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -250,9 +291,9 @@
                                     <constraint firstItem="SR9-wg-Hdj" firstAttribute="height" secondItem="wha-vi-MeG" secondAttribute="height" multiplier="0.12" id="uS4-Hm-MhL"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="factorXButton" destination="SCB-Ez-Iet" id="egP-hq-4on"/>
-                                    <outlet property="factorYButton" destination="tYd-pu-Psh" id="WHF-X5-qPg"/>
-                                    <outlet property="factorZButton" destination="pBx-FP-N1N" id="LdN-P4-ypK"/>
+                                    <outlet property="addFactorButton" destination="imY-fG-FEH" id="A3H-9s-ybG"/>
+                                    <outlet property="factorTableView" destination="y3Q-8z-RRp" id="gBh-s6-BoX"/>
+                                    <outlet property="factorView" destination="P9S-8K-oFc" id="tAv-g4-bBt"/>
                                     <outlet property="mindBadButton" destination="Pbs-Yc-VpF" id="c9I-bd-h4Y"/>
                                     <outlet property="mindGoodButton" destination="bm2-Ma-7Ah" id="dMq-cu-IuS"/>
                                     <outlet property="mindNeutralButton" destination="53H-EF-usV" id="jN9-D2-N84"/>
@@ -345,7 +386,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1852" y="1288"/>
+            <point key="canvasLocation" x="1850.7246376811595" y="1287.7232142857142"/>
         </scene>
         <!--Settings-->
         <scene sceneID="N9r-BO-fzB">
@@ -1134,5 +1175,6 @@
         <image name="NI" width="483" height="483"/>
         <image name="SBI" width="483" height="483"/>
         <image name="SGI" width="483" height="483"/>
+        <image name="Unchecked" width="328" height="328"/>
     </resources>
 </document>

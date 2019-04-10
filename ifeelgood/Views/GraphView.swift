@@ -104,15 +104,7 @@ class GraphView: UIView {
 	}
 	
 	private func drawGraphLinesAndLabels(completion: @escaping (Bool) -> (Void)) {
-		var densityReduction = 1
-		switch graphRange {
-		case .allTime:
-			densityReduction = Int(dataPoints.count / 5)
-		case .thisMonth:
-			densityReduction = 5
-		default:
-			break
-		}
+		let densityReduction = dataPoints.count / 5
 		for i in 0..<(dataPoints.count / densityReduction) {
 			guard dataPoints.indices.contains(i * densityReduction),
 				dataPoints[i * densityReduction] != dataPoints.last else { continue }
