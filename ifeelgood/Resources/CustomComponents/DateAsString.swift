@@ -56,4 +56,10 @@ extension Date {
 		formatter.dateFormat = "MMMM yyyy"
 		return formatter.string(from: self)
 	}
+	
+	func asWeekDayTimeSpecificString() -> String {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "EEE h:mm a"
+		return formatter.string(from: self)
+	}
 }

@@ -34,12 +34,16 @@ class InsightViewController: UIViewController {
 		return CardController.shared.activeCard
 	}
 	var graphRange: GraphRangeOptions? = .today
+	var insights = [Insight]()
 	
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
         super.viewDidLoad()
 		setUpViews()
-		InsightGenerator.shared.generate { insights in
+		InsightGenerator.shared.generate { (insights) in
+			self.insights = insights
+			self.insightCollectionView.reloadData()
+			self.insightPageControl.numberOfPages = insights.count
 		}
     }
 	
@@ -131,13 +135,14 @@ protocol InsightViewControllerDelegate: class {
 extension InsightViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return 3
+		return insights.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "insightCell", for: indexPath)
+		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "insightCell", for: indexPath) as? InsightCollectionViewCell else { print("Unable to correctly cast cell") ; return UICollectionViewCell()}
 		cell.layer.cornerRadius = 10
 		cell.addSoftShadow()
+		cell.insight = self.insights[indexPath.row]
 		return cell
 	}
 	

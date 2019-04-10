@@ -97,14 +97,14 @@ class CardController {
 	
 	// MARK: - Factor control
 	
-	func assignTypes() {
-		activeCardEntries.forEach { (entry) in
-			var marks = [Any]()
-			for mark in entry.factorMarks! {
-				marks.append(mark)
-			}
-			for mark in marks {
-				let mark2 = mark as! FactorMark
+//	func assignTypes() {
+//		activeCardEntries.forEach { (entry) in
+//			var marks = [Any]()
+//			for mark in entry.factorMarks! {
+//				marks.append(mark)
+//			}
+//			for mark in marks {
+//				let mark2 = mark as! FactorMark
 //				print("Checking mark name", mark2.name, mark2.type)
 //				switch mark2.name {
 //				case "Nic":
@@ -116,11 +116,11 @@ class CardController {
 //				default:
 //					fatalError()
 //				}
-			}
+//			}
 //			CoreDataManager.saveToPersistentStore()
-		}
-	}
-	
+//		}
+//	}
+
 	func createFactorType(withName name: String) {
 		guard let factorTypeCount = activeCard.factorTypes?.count else { print("Card does not have any factor types."); return }
 		if factorTypeCount < 3 {
@@ -267,7 +267,7 @@ class CardController {
 		return grouped
 	}
 	
-	private func getRecentEntriesIn(interval: EntryDateStyles) -> [Entry] {
+	func getRecentEntriesIn(interval: EntryDateStyles) -> [Entry] {
 		var period = DateInterval()
 		switch interval {
 		case .year:

@@ -12,12 +12,12 @@ let chillBlue: UIColor = #colorLiteral(red: 0.9126966596, green: 0.9402826428, b
 let deepChillBlue: UIColor = #colorLiteral(red: 0.7379525547, green: 0.8377566145, blue: 0.9988933206, alpha: 1)
 let middleChillBlue: UIColor = #colorLiteral(red: 0.8476651309, green: 0.9208347701, blue: 0.9988933206, alpha: 1)
 
-enum EntryDateStyles {
-	case all
-	case day
-	case week
-	case month
-	case year
+enum EntryDateStyles: String {
+	case all = "all"
+	case day = "day"
+	case week = "week"
+	case month = "month"
+	case year = "year"
 }
 
 enum GraphRangeOptions {

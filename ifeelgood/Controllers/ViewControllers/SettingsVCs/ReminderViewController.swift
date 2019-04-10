@@ -70,7 +70,8 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 	
 	// MARK: - Actions
 	@IBAction func addReminderButtonTapped(_ sender: Any) {
-		ReminderController.shared.createReminderWith(date: Date(), frequency: Frequency.daily) { (success) in
+		// New reminder at 7 AM
+		ReminderController.shared.createReminderWith(date: Date(timeIntervalSince1970: 1554901258)) { (success) in
 			if success {
 				DispatchQueue.main.async {
 					let index = ReminderController.shared.reminders.count - 1
@@ -92,23 +93,13 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 	
 	// MARK: - Control view delegate functions
 	func timePickerChangedWith(date: Date) {
-		updateSelectedReminderWith(date: date, frequency: nil)
+		updateSelectedReminderWith(date: date)
 	}
 	
-	func frequencySegmentedControlChangedWith(frequencyInt: Int) {
-		guard let frequency = Frequency(rawValue: Int16(frequencyInt)) else { print("Reminder not updated") ; return }
-		updateSelectedReminderWith(date: nil, frequency: frequency)
-	}
-	
-	func updateSelectedReminderWith(date: Date?, frequency: Frequency?) {
+	func updateSelectedReminderWith(date: Date) {
 		guard let index = activeIndex else { print("Unable to unwrap active index") ; return }
 		let reminder = ReminderController.shared.reminders[index.row]
-		guard let reminderTime = reminder.timeOfDay else { return }
-		guard let reminderFrequency = Frequency(rawValue: reminder.frequency) else { return }
-		let date = date != nil ? date : reminder.timeOfDay
-		
-		// Depending on what is passed in the reminder's values will be updated.
-		ReminderController.shared.update(reminder: reminder, isOn: reminder.isOn, timeOfDay: date != nil ? date! : reminderTime, frequency: frequency != nil ? frequency! : reminderFrequency) { (success) in
+		ReminderController.shared.update(reminder: reminder, timeOfDay: date) { (success) in
 			DispatchQueue.main.async {
 				self.reminderTableView.reloadRows(at: [index], with: .none)
 			}
@@ -128,10 +119,9 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 		activeIndex = indexPath
 		guard let activeIndex = activeIndex else { return }
 		let reminder = ReminderController.shared.reminders[activeIndex.row]
-		guard let reminderTime = ReminderController.shared.reminders[activeIndex.row].timeOfDay else { return }
+		guard let reminderTime = reminder.timeOfDay else { return }
 		
 		containerVC?.reminderTimePicker.date = reminderTime
-		containerVC?.frequencySegmentedControl.selectedSegmentIndex = Int(reminder.frequency)
 	}
 	
 	func hideControl() {

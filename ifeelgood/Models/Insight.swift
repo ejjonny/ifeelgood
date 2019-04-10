@@ -25,14 +25,14 @@ class IntervalAnalysis {
 	var avgRating: Double
 	var factorInvolved: FactorType
 	var intervalEntries: [Entry]
-	var factorPresent: Bool
+	var factorRecorded: Int
 	var score: Double
 	
-	init(avgRating: Double, forFactor: FactorType, intervalEntries: [Entry], factorPresent: Bool, reliability: Double) {
+	init(avgRating: Double, forFactor: FactorType, intervalEntries: [Entry], factorRecorded: Int, reliability: Double) {
 		self.avgRating = avgRating
 		self.factorInvolved = forFactor
 		self.intervalEntries = intervalEntries
-		self.factorPresent = factorPresent
+		self.factorRecorded = factorRecorded
 		self.score = reliability
 	}
 }

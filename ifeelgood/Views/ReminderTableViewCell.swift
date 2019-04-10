@@ -13,7 +13,6 @@ class ReminderTableViewCell: UITableViewCell {
 	@IBOutlet weak var activeMarkView: UIView!
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var reminderSwitch: UISwitch!
-	@IBOutlet weak var frequencyLabel: UILabel!
 	
 	var reminderSelected = false {
 		didSet {
@@ -30,6 +29,7 @@ class ReminderTableViewCell: UITableViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		self.activeMarkView.layer.cornerRadius = 10
+		self.updateViews()
 	}
 	
 	weak var delegate: ReminderCellDelegate?
@@ -37,14 +37,6 @@ class ReminderTableViewCell: UITableViewCell {
 	func updateViews() {
 		guard let reminder = reminder else { return }
 		self.timeLabel.text = reminder.timeOfDay?.asTimeSpecificString()
-		switch reminder.frequency {
-		case 0:
-			self.frequencyLabel.text = "Daily"
-		case 1:
-			self.frequencyLabel.text = "Weekly"
-		default:
-			break
-		}
 		self.reminderSwitch.isOn = reminder.isOn
 	}
 	
