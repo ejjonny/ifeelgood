@@ -123,7 +123,7 @@ class CardController {
 
 	func createFactorType(withName name: String) {
 		guard let factorTypeCount = activeCard.factorTypes?.count else { print("Card does not have any factor types."); return }
-		if factorTypeCount < 3 {
+		if factorTypeCount < 6 {
 			FactorType(name: name, card: activeCard)
 		} else {
 			print("ERROR: Tried to save a factor when all factors on active card were full. Factor was not saved.")

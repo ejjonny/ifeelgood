@@ -176,8 +176,8 @@ extension MainViewController {
 	}
 	
 	func showNewFactorOptions() {
-		if CardController.shared.activeCardFactorTypes.count >= 3 {
-			self.createConfirmDeleteAlert(withPrompt: "There are already 3 factors on this card. Do you want to replace one?", message: nil, confirmActionName: "Edit factors", confirmActionStyle: .default) { (confirmed) in
+		if CardController.shared.activeCardFactorTypes.count >= 6 {
+			self.createConfirmDeleteAlert(withPrompt: "There are already 6 factors on this card. Do you want to replace one?", message: nil, confirmActionName: "Edit factors", confirmActionStyle: .default) { (confirmed) in
 				self.chooseFactor()
 			}
 		} else {

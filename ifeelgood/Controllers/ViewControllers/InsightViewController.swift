@@ -10,6 +10,11 @@ import UIKit
 
 let legendColors = [#colorLiteral(red: 0.7883887887, green: 0.7393109202, blue: 1, alpha: 1), #colorLiteral(red: 1, green: 0.8194651824, blue: 0.894031874, alpha: 1), #colorLiteral(red: 1, green: 0.9575231352, blue: 0.7737829244, alpha: 1), #colorLiteral(red: 0.7617713751, green: 1, blue: 0.8736094954, alpha: 1), #colorLiteral(red: 0.9207964755, green: 0.6802755262, blue: 1, alpha: 1), #colorLiteral(red: 0.7044421855, green: 0.9814820289, blue: 1, alpha: 1)]
 
+fileprivate enum FactorPage {
+	case first
+	case second
+}
+
 class InsightViewController: UIViewController {
 	
 	// MARK: - Outlets
@@ -27,6 +32,7 @@ class InsightViewController: UIViewController {
 	@IBOutlet weak var factorTypeTwoLabel: UILabel!
 	@IBOutlet weak var factorTypeThreeLabel: UILabel!
 	@IBOutlet weak var insightCollectionView: UICollectionView!
+	@IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
 	
 	// MARK: - Params
 	weak var delegate: InsightViewControllerDelegate?
@@ -35,16 +41,15 @@ class InsightViewController: UIViewController {
 	}
 	var graphRange: GraphRangeOptions? = .today
 	var insights = [Insight]()
+	var factorInfo: [(UIView, UILabel)] = []
+	var allFactors = [FactorType]()
+	fileprivate var factorPage: FactorPage = .first
 	
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
         super.viewDidLoad()
 		setUpViews()
-		InsightGenerator.shared.generate { (insights) in
-			self.insights = insights
-			self.insightCollectionView.reloadData()
-			self.insightPageControl.numberOfPages = insights.count
-		}
+		factorInfo = [(factorTypeOneColor, factorTypeOneLabel), (factorTypeTwoColor, factorTypeTwoLabel), (factorTypeThreeColor, factorTypeThreeLabel)]
     }
 	
 	override func viewDidLayoutSubviews() {
@@ -60,7 +65,16 @@ class InsightViewController: UIViewController {
 			self.customizeInsightPageForActiveCard{}
 		}
 	}
-		
+	
+	@IBAction func tapRecognized(_ sender: UITapGestureRecognizer) {
+		if factorPage == .first {
+			factorPage = .second
+		} else {
+			factorPage = .first
+		}
+		displayFactors()
+	}
+	
 	// MARK: - Functions
 	func setUpViews() {
 		factorTypeOneColor.backgroundColor = legendColors[0]
@@ -78,6 +92,28 @@ class InsightViewController: UIViewController {
 		nameLabel.layer.cornerRadius = 5
 		dateStartedLabel.layer.cornerRadius = 5
 		updateDateStyleLabel()
+	}
+	
+	func displayFactors() {
+		var range = 0...2
+		switch factorPage {
+		case .first:
+			break
+		case .second:
+			range = 3...5
+		}
+		for i in range {
+			let info = factorInfo[i > 2 ? i - 3 : i]
+			if allFactors.indices.contains(i) {
+				info.0.backgroundColor = legendColors[i]
+				info.1.text = allFactors[i].name
+				info.1.backgroundColor = .clear
+			} else {
+				info.0.backgroundColor = middleChillBlue
+				info.1.text = "                 "
+				info.1.backgroundColor = middleChillBlue
+			}
+		}
 	}
 	
 	fileprivate func updateDateStyleLabel() {
@@ -101,27 +137,26 @@ class InsightViewController: UIViewController {
 	func customizeInsightPageForActiveCard(_ completion: @escaping () -> ()) {
 		if let range = self.graphRange {
 			self.graphView.graphCurrentEntryDataWith(range: range, { (success) in
-				self.noDataLabel.text = success ? "" : "No Data"
+				self.noDataLabel.text = success ? "" : "Not Enough Data"
 			})
 		} else {
 			self.graphView.graphCurrentEntryDataWith(range: .allTime , { (success) in
-				self.noDataLabel.text = success ? "" : "No Data"
+				self.noDataLabel.text = success ? "" : "Not Enough Data"
 			})
 		}
 		self.nameLabel.text = self.card.name
 		if let date = self.card.startDate {
 			self.dateStartedLabel.text = "Started \(date.asString())."
 		}
-		if CardController.shared.activeCardFactorTypes.indices.contains(0) {
-			self.factorTypeOneLabel.text = CardController.shared.activeCardFactorTypes[0].name
-		}
-		if CardController.shared.activeCardFactorTypes.indices.contains(1) {
-			self.factorTypeTwoLabel.text = CardController.shared.activeCardFactorTypes[1].name
-		}
-		if CardController.shared.activeCardFactorTypes.indices.contains(2) {
-			self.factorTypeThreeLabel.text = CardController.shared.activeCardFactorTypes[2].name
-		}
 		self.updateDateStyleLabel()
+		allFactors = CardController.shared.activeCardFactorTypes
+		self.factorPage = .first
+		displayFactors()
+		InsightGenerator.shared.generate { (insights) in
+			self.insights = insights
+			self.insightCollectionView.reloadData()
+			self.insightPageControl.numberOfPages = insights.count
+		}
 		completion()
 	}
 }

@@ -182,7 +182,7 @@
                                                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                                                         <color key="sectionIndexBackgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <view key="tableFooterView" contentMode="scaleToFill" id="OZV-i3-uZD">
-                                                                            <rect key="frame" x="0.0" y="91" width="394" height="137"/>
+                                                                            <rect key="frame" x="0.0" y="91" width="394" height="14"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <color key="backgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </view>
@@ -949,8 +949,8 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6KC-If-e0U" customClass="GraphView" customModule="ifeelgood" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="373" height="214"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cl3-3M-n6x">
-                                                        <rect key="frame" x="130.5" y="88" width="112" height="38.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Enough Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cl3-3M-n6x">
+                                                        <rect key="frame" x="69.5" y="88" width="234.5" height="38.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <color key="textColor" red="0.73795255469999999" green="0.83775661450000005" blue="0.99889332060000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1049,6 +1049,10 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="hmq-Vp-cr9" appends="YES" id="KBL-Bz-Mla"/>
+                                                </connections>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1159,9 +1163,15 @@
                         <outlet property="insightPageControl" destination="tHV-vE-yfO" id="VXo-Sc-8oh"/>
                         <outlet property="nameLabel" destination="8qW-CK-PLd" id="vbJ-tN-2oN"/>
                         <outlet property="noDataLabel" destination="cl3-3M-n6x" id="eg0-pQ-PYR"/>
+                        <outlet property="tapGestureRecognizer" destination="hmq-Vp-cr9" id="8Gi-sm-5B1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PNn-oN-tpX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="hmq-Vp-cr9">
+                    <connections>
+                        <action selector="tapRecognized:" destination="sTY-pb-gda" id="5Vl-7M-hZg"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2960.8695652173915" y="1623.8839285714284"/>
         </scene>
