@@ -26,7 +26,7 @@ class MainViewController: UIViewController {
 		cardView.delegate = self
 		loadCard(card: CardController.shared.activeCard)
 		
-		topBarView.layer.cornerRadius = 15
+		topBarView.layer.cornerRadius = 20
 		topBarView.layer.shadowColor = UIColor.black.cgColor
 		topBarView.layer.shadowOpacity = 0.08
 		topBarView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
@@ -38,6 +38,10 @@ class MainViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		loadCard(card: CardController.shared.activeCard)
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 		self.cardView.initializeUI()
 	}
 	
@@ -132,6 +136,7 @@ extension MainViewController: CardViewDelegate {
 	}
 	
 	func hideCard() {
+		cardView.contractFactorList()
 		// Sets target locations of views & then animates.
 		let cardTarget = self.view.frame.maxY - self.view.safeAreaInsets.bottom - (self.cardView.frame.height / 5)
 		self.userInteractionAnimate(view: self.cardView, edge: self.cardView.frame.minY, to: cardTarget, velocity: self.cardView.panGesture.velocity(in: self.cardView).y, insightAlphaTarget: 1)
@@ -142,7 +147,6 @@ extension MainViewController: CardViewDelegate {
 	
 	func showCard() {
 		// Sets target locations of views & then animates.
-		cardView.contractFactorList()
 		let target = self.view.frame.maxY - self.view.safeAreaInsets.bottom
 		self.userInteractionAnimate(view: self.cardView, edge: self.cardView.frame.maxY, to: target, velocity: self.cardView.panGesture.velocity(in: self.cardView).y, insightAlphaTarget: 0)
 		

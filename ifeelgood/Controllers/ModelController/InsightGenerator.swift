@@ -15,14 +15,18 @@ class InsightGenerator {
 	
 	func generate(completion: @escaping ([Insight]) -> Void) {
 		guard allEntries.count > 10 else { completion([]) ; return  }
-		var insights = [Insight]()
-		insights.append(contentsOf: generateOverallAnalysis())
-		insights.append(contentsOf: averageFactorFrequency())
-		insights.append(contentsOf: getMainProgress())
-		// Time since last mark. Ex. It's been 18 days & 5 hours since you recorded (A)
-		// Progress. Ex. This week (Main) has improved by 20% / (Main) has gotten 8% worse. How to decide the interval to look at?
-		let filteredByScore = insights.filter{ $0.score > 20 }
-		completion(filteredByScore)
+		DispatchQueue.global().async {
+			var insights = [Insight]()
+			insights.append(contentsOf: self.generateOverallAnalysis())
+			insights.append(contentsOf: self.averageFactorFrequency())
+			insights.append(contentsOf: self.getMainProgress())
+			// Time since last mark. Ex. It's been 18 days & 5 hours since you recorded (A)
+			// Progress. Ex. This week (Main) has improved by 20% / (Main) has gotten 8% worse. How to decide the interval to look at?
+			let filteredByScore = insights.filter{ $0.score > 20 }
+			DispatchQueue.main.async {
+				completion(filteredByScore)
+			}
+		}
 	}
 	
 	private func getMainProgress() -> [Insight] {
@@ -30,8 +34,9 @@ class InsightGenerator {
 		let month = CardController.shared.getRecentEntriesIn(interval: .month)
 		let weekRatings = week.map{ $0.rating }
 		let monthRatings = month.map{ $0.rating }
-		let percentDifference = ((monthRatings.average / weekRatings.average - 1 * 1000).rounded()) / 100
-		var description = "This week \(CardController.shared.activeCard.name ?? "Card") is \(abs(percentDifference))% \(percentDifference > 0 ? "better" : "worse") than this month's average"
+		let percentDifference = (weekRatings.average - monthRatings.average) / monthRatings.average
+		let rounded = ((percentDifference * 10000).rounded()) / 100
+		var description = "This week \(CardController.shared.activeCard.name ?? "Card") is \(abs(rounded))% \(rounded > 0 ? "better" : "worse") than this month's average"
 		if abs(percentDifference) == 0 {
 			description = "Looks like this week is about the same as the rest of the month for \(CardController.shared.activeCard.name ?? "Card")"
 		}

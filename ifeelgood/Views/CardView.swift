@@ -38,7 +38,7 @@ class CardView: UIView {
 		ratings = [superBadButton, mindBadButton, mindNeutralButton, mindGoodButton, superGoodButton]
 		activeRatingImages = [#imageLiteral(resourceName: "SBA"), #imageLiteral(resourceName: "BA"), #imageLiteral(resourceName: "NA"), #imageLiteral(resourceName: "GA"), #imageLiteral(resourceName: "SGA")]
 		inactiveRatingImages = [#imageLiteral(resourceName: "SBI"), #imageLiteral(resourceName: "BI"), #imageLiteral(resourceName: "NI"), #imageLiteral(resourceName: "GI"), #imageLiteral(resourceName: "SGI")]
-		self.layer.cornerRadius = 15
+		self.layer.cornerRadius = 20
 		self.layer.shadowColor = UIColor.black.cgColor
 		self.layer.shadowOpacity = 0.08
 		self.layer.shadowOffset = CGSize(width: 0.0, height: -5.0)
@@ -50,6 +50,7 @@ class CardView: UIView {
 		factorTableView.roundBottom(radius: 10)
 		addFactorButton.round(radius: 10)
 		factorTableView.frame = CGRect(origin: factorTableView.frame.origin, size: CGSize(width: factorTableView.bounds.width, height: 0))
+		
 		factorTableView.delegate = self
 		factorTableView.dataSource = self
 		factorTableView.reloadData()
@@ -183,6 +184,7 @@ extension CardView: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "factorCell", for: indexPath) as! FactorTableViewCell
 		cell.factor = cardConfiguration?.factors[indexPath.row]
+		cell.legendColor = legendColors[indexPath.row]
 		cell.delegate = self
 		return cell
 	}

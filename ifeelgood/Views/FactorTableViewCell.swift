@@ -11,13 +11,18 @@ import UIKit
 class FactorTableViewCell: UITableViewCell {
 	
 	@IBOutlet weak var checkButton: UIButton!
-	@IBOutlet weak var factorLabel: UILabel!
 	
 	weak var delegate: FactorTableViewCellDelegate?
 	var factor: (FactorType, Bool)? {
 		didSet {
 			updateViews()
 		}
+	}
+	var legendColor: UIColor?
+	
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		checkButton.layer.cornerRadius = 10
 	}
 	
 	@IBAction func checkButtonTapped(_ sender: UIButton) {
@@ -28,8 +33,8 @@ class FactorTableViewCell: UITableViewCell {
 	
 	func updateViews() {
 		guard let factor = factor else { print("Type not set") ; return }
-		factorLabel.text = factor.0.name
-		checkButton.setImage(factor.1 ? #imageLiteral(resourceName: "Checked") : #imageLiteral(resourceName: "Unchecked"), for: .normal)
+		checkButton.setTitle(factor.0.name, for: .normal)
+		checkButton.backgroundColor = factor.1 ? legendColor : .clear
 	}
 }
 

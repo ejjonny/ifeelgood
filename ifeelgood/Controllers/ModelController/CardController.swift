@@ -222,7 +222,7 @@ class CardController {
 			}
 			stats.append(EntryStats(name: name, ratingCount: group.count, averageRating: average, factorTypes: []))
 		}
-		return stats
+		return stats.reversed()
 	}
 	
 	/// For getting entries grouped by an interval relative to current date

@@ -23,7 +23,7 @@
     <entity name="FactorType" representedClassName="FactorType" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="factorTypes" inverseEntity="Card" syncable="YES"/>
-        <relationship name="marks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FactorMark" inverseName="type" inverseEntity="FactorMark" syncable="YES"/>
+        <relationship name="marks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FactorMark" inverseName="type" inverseEntity="FactorMark" syncable="YES"/>
     </entity>
     <entity name="Reminder" representedClassName="Reminder" syncable="YES" codeGenerationType="class">
         <attribute name="isOn" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>

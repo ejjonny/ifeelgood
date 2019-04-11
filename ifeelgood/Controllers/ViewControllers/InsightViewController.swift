@@ -33,6 +33,7 @@ class InsightViewController: UIViewController {
 	@IBOutlet weak var factorTypeThreeLabel: UILabel!
 	@IBOutlet weak var insightCollectionView: UICollectionView!
 	@IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
+	@IBOutlet weak var insightNoDataLabel: UILabel!
 	
 	// MARK: - Params
 	weak var delegate: InsightViewControllerDelegate?
@@ -137,11 +138,11 @@ class InsightViewController: UIViewController {
 	func customizeInsightPageForActiveCard(_ completion: @escaping () -> ()) {
 		if let range = self.graphRange {
 			self.graphView.graphCurrentEntryDataWith(range: range, { (success) in
-				self.noDataLabel.text = success ? "" : "Not Enough Data"
+				self.noDataLabel.text = success ? "" : "Not enough data..."
 			})
 		} else {
 			self.graphView.graphCurrentEntryDataWith(range: .allTime , { (success) in
-				self.noDataLabel.text = success ? "" : "Not Enough Data"
+				self.noDataLabel.text = success ? "" : "Not enough data..."
 			})
 		}
 		self.nameLabel.text = self.card.name
@@ -153,6 +154,12 @@ class InsightViewController: UIViewController {
 		self.factorPage = .first
 		displayFactors()
 		InsightGenerator.shared.generate { (insights) in
+			guard insights.count > 0 else {
+				self.insightNoDataLabel.text = "I don't have enough info to generate any insights yet... check back in soon!"
+				self.insightPageControl.numberOfPages = 0
+				return
+			}
+			self.insightNoDataLabel.text = ""
 			self.insights = insights
 			self.insightCollectionView.reloadData()
 			self.insightPageControl.numberOfPages = insights.count
