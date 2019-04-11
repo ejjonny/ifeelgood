@@ -22,8 +22,8 @@ class ReminderController {
 		return self.reminders.filter{ $0.isOn == true }
 	}
 	
-	func createReminderWith(date: Date, frequency: Frequency, completion: @escaping (Bool) -> Void) {
-		let reminder = Reminder(isOn: true, timeOfDay: date, frequency: frequency)
+	func createReminderWith(date: Date, completion: @escaping (Bool) -> Void) {
+		let reminder = Reminder(isOn: true, timeOfDay: date)
 		NotificationManager.setUpRecurringNotification(title: title, body: body, reminder: reminder) { (success) in
 			if success {
 				CoreDataManager.saveToPersistentStore()
@@ -58,10 +58,10 @@ class ReminderController {
 		}
 	}
 	
-	func update(reminder: Reminder, isOn: Bool, timeOfDay: Date, frequency: Frequency, completion: @escaping (Bool) -> Void) {
-		reminder.isOn = isOn
-		reminder.timeOfDay = timeOfDay
-		reminder.frequency = frequency.rawValue
+	func update(reminder: Reminder, timeOfDay: Date?, completion: @escaping (Bool) -> Void) {
+		if let timeOfDay = timeOfDay {
+			reminder.timeOfDay = timeOfDay
+		}
 		NotificationManager.removeRecurringNotificationFor(reminder: reminder) { (success) in
 			if success {
 				NotificationManager.setUpRecurringNotification(title: self.title, body: self.body, reminder: reminder, completion: { (success) in

@@ -11,17 +11,15 @@ import UIKit
 class InsightCollectionViewCell: UICollectionViewCell {
 	
 	// MARK: - Params
-	var insight: Insight?
+	var insight: Insight? {
+		didSet {
+			self.updateViews()
+		}
+	}
 	
 	// MARK: - Outlets
 	@IBOutlet weak var insightTitleLabel: UILabel!
 	@IBOutlet weak var insightDescriptionLabel: UILabel!
-	
-	// MARK: - Lifecycle
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		updateViews()
-	}
 	
 	// MARK: - Display control
 	func updateViews() {

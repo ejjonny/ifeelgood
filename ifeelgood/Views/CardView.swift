@@ -20,24 +20,25 @@ class CardView: UIView {
 	@IBOutlet weak var submitButton: UIButton!
 	@IBOutlet weak var ratingCardTitleView: UIView!
 	@IBOutlet weak var panGesture: UIPanGestureRecognizer!
-	@IBOutlet weak var factorXButton: UIButton!
-	@IBOutlet weak var factorYButton: UIButton!
-	@IBOutlet weak var factorZButton: UIButton!
-	
-	var ratingButtons: [UIButton: Bool] = [:]
-	var factorButtons: [UIButton: Bool] = [:]
+	@IBOutlet weak var addFactorButton: UIButton!
+	@IBOutlet weak var factorTableView: UITableView!
+	@IBOutlet weak var factorView: UIView!
 	
 	weak var delegate: CardViewDelegate?
-	
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		ratingButtons = [superBadButton: false, mindBadButton: false, mindNeutralButton: false, mindGoodButton: false, superGoodButton: false]
-		factorButtons = [factorXButton: false, factorYButton: false, factorZButton: false]
-		initializeUI()
+	var cardConfiguration: CardConfiguration? {
+		didSet {
+			updateViews()
+		}
 	}
+	var ratings = [UIButton]()
+	var activeRatingImages = [UIImage]()
+	var inactiveRatingImages = [UIImage]()
 	
 	func initializeUI() {
-		self.layer.cornerRadius = 10
+		ratings = [superBadButton, mindBadButton, mindNeutralButton, mindGoodButton, superGoodButton]
+		activeRatingImages = [#imageLiteral(resourceName: "SBA"), #imageLiteral(resourceName: "BA"), #imageLiteral(resourceName: "NA"), #imageLiteral(resourceName: "GA"), #imageLiteral(resourceName: "SGA")]
+		inactiveRatingImages = [#imageLiteral(resourceName: "SBI"), #imageLiteral(resourceName: "BI"), #imageLiteral(resourceName: "NI"), #imageLiteral(resourceName: "GI"), #imageLiteral(resourceName: "SGI")]
+		self.layer.cornerRadius = 20
 		self.layer.shadowColor = UIColor.black.cgColor
 		self.layer.shadowOpacity = 0.08
 		self.layer.shadowOffset = CGSize(width: 0.0, height: -5.0)
@@ -46,103 +47,94 @@ class CardView: UIView {
 		ratingCardTitle.layer.masksToBounds = true
 		ratingCardTitle.layer.cornerRadius = 10
 		ratingCardTitleView.layer.cornerRadius = 10
-		factorXButton.layer.cornerRadius = 10
-		factorYButton.layer.cornerRadius = 10
-		factorZButton.layer.cornerRadius = 10
-		factorXButton.setTitle("", for: .normal)
-		factorYButton.setTitle("", for: .normal)
-		factorZButton.setTitle("", for: .normal)
+		factorTableView.roundBottom(radius: 10)
+		addFactorButton.round(radius: 10)
+		factorTableView.frame = CGRect(origin: factorTableView.frame.origin, size: CGSize(width: factorTableView.bounds.width, height: 0))
+		
+		factorTableView.delegate = self
+		factorTableView.dataSource = self
+		factorTableView.reloadData()
 	}
 	
-	func updateButtonStatuses(for button: UIButton) {
-		if self.ratingButtons[button]! {
-			// If an active rating is tapped all should be set to false
-			self.ratingButtons[button] = false
-		} else {
-			// If an inactive rating is tapped all will be set to false except for the tapped button
-			for (key, _) in self.ratingButtons {
-				self.ratingButtons[key] = key == button ? true : false
+	func updateViews() {
+		guard let cardConfiguration = cardConfiguration else { print("No card config") ; return }
+		factorTableView.reloadData()
+		self.ratingCardTitle.text = cardConfiguration.name
+		for i in ratings.indices {
+			if cardConfiguration.activeRating == i {
+				ratings[i].setImage(activeRatingImages[i], for: .normal)
+			} else {
+				ratings[i].setImage(inactiveRatingImages[i], for: .normal)
 			}
 		}
 	}
 	
-	func toggleActive(for sender: UIButton) {
-		self.factorButtons[sender] = !self.factorButtons[sender]!
+	func clear() {
+		cardConfiguration?.activeRating = nil
+		guard let cardConfig = cardConfiguration else { return }
+		for i in cardConfig.factors.indices {
+			cardConfig.factors[i].1 = false
+		}
+		updateViews()
 	}
 	
 	// MARK: - Actions
-	
 	@IBAction func superBadButtonTapper(sender: UIButton) {
-		animateTapFor(sender)
-		updateButtonStatuses(for: sender)
-		updateViews()
+		sender.depress()
 		delegate?.userDidInteractWithCard()
-	}
-	
-	@IBAction func superGoodButtonTapped(sender: UIButton) {
-		animateTapFor(sender)
-		updateButtonStatuses(for: sender)
+		delegate?.ratingTapped(index: 0)
 		updateViews()
-		delegate?.userDidInteractWithCard()
 	}
-	
 	@IBAction func badButtonTapped(sender: UIButton) {
-		animateTapFor(sender)
-		updateButtonStatuses(for: sender)
-		updateViews()
+		sender.depress()
 		delegate?.userDidInteractWithCard()
+		delegate?.ratingTapped(index: 1)
+		updateViews()
 	}
 	@IBAction func neutralButtonTapped(sender: UIButton) {
-		animateTapFor(sender)
-		updateButtonStatuses(for: sender)
-		updateViews()
+		sender.depress()
 		delegate?.userDidInteractWithCard()
+		delegate?.ratingTapped(index: 2)
+		updateViews()
 	}
 	@IBAction func goodButtonTapped(sender: UIButton) {
-		animateTapFor(sender)
-		updateButtonStatuses(for: sender)
+		sender.depress()
+		delegate?.userDidInteractWithCard()
+		delegate?.ratingTapped(index: 3)
 		updateViews()
-		delegate?.userDidInteractWithCard()
 	}
-	@IBAction func factorXButtonTapped(sender: UIButton) {
-		animateTapFor(sender)
-		if CardController.shared.activeCardFactorTypes.indices.contains(0) {
-			self.toggleActive(for: sender)
-			updateViews()
-		}
+	@IBAction func superGoodButtonTapped(sender: UIButton) {
+		sender.depress()
 		delegate?.userDidInteractWithCard()
+		delegate?.ratingTapped(index: 4)
+		updateViews()
 	}
-	@IBAction func factorYButtonTapped(sender: UIButton) {
-		animateTapFor(sender)
-		if CardController.shared.activeCardFactorTypes.indices.contains(1) {
-			self.toggleActive(for: sender)
-			updateViews()
-		}
-		delegate?.userDidInteractWithCard()
-	}
-	@IBAction func factorZButtonTapped(sender: UIButton) {
-		animateTapFor(sender)
-		if CardController.shared.activeCardFactorTypes.indices.contains(2) {
-			self.toggleActive(for: sender)
-			updateViews()
-		}
-		delegate?.userDidInteractWithCard()
-	}
+	
 	@IBAction func saveButtonTapped(sender: UIButton) {
-		animateTapFor(sender)
+		sender.depress()
 		delegate?.saveButtonTapped()
-		resetUI()
 		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func addCardButtonTapped(sender: UIButton) {
-		animateTapFor(sender)
+		sender.depress()
 		delegate?.addCardButtonTapped()
 		delegate?.userDidInteractWithCard()
 	}
 	@IBAction func editCardButtonTapped(sender: UIButton) {
-		animateTapFor(sender)
+		sender.depress()
 		delegate?.editCardButtonTapped()
 		delegate?.userDidInteractWithCard()
+	}
+	@IBAction func addFactorButtonTapped(sender: UIButton) {
+		guard let cardConfig = cardConfiguration else { print("No card config") ; return }
+		cardConfig.factorsExpanded = !cardConfig.factorsExpanded
+		if cardConfig.factorsExpanded {
+			// Expand
+			self.expandFactorList()
+		} else {
+			// Contract
+			self.contractFactorList()
+		}
 	}
 	@IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
 		switch panGesture.state {
@@ -160,37 +152,59 @@ class CardView: UIView {
 		}
 	}
 	
-	func updateViews() {
-		ratingCardTitle.text = CardController.shared.activeCard.name
-		superBadButton.setImage(ratingButtons[superBadButton]! ? UIImage(named: "SBA") : UIImage(named: "SBI"), for: .normal)
-		mindBadButton.setImage(ratingButtons[mindBadButton]! ? UIImage(named: "BA") : UIImage(named: "BI"), for: .normal)
-		mindNeutralButton.setImage(ratingButtons[mindNeutralButton]! ? UIImage(named: "NA") : UIImage(named: "NI"), for: .normal)
-		mindGoodButton.setImage(ratingButtons[mindGoodButton]! ? UIImage(named: "GA") : UIImage(named: "GI"), for: .normal)
-		superGoodButton.setImage(ratingButtons[superGoodButton]! ? UIImage(named: "SGA") : UIImage(named: "SGI"), for: .normal)
-		factorXButton.backgroundColor = factorButtons[factorXButton]! ? chillBlue : UIColor.clear
-		factorYButton.backgroundColor = factorButtons[factorYButton]! ? chillBlue : UIColor.clear
-		factorZButton.backgroundColor = factorButtons[factorZButton]! ? chillBlue : UIColor.clear
+	func expandFactorList() {
+		cardConfiguration?.factorsExpanded = true
+		UIView.animate(withDuration: 0.1, animations: {
+			self.addFactorButton.roundTop(radius: 10)
+		}) { _ in
+			UIView.animate(withDuration: 0.2) {
+				self.factorTableView.frame = CGRect(origin: self.factorTableView.frame.origin, size: CGSize(width: self.factorTableView.bounds.width, height: self.factorView.frame.height - self.addFactorButton.frame.height - 10))
+				self.factorTableView.roundBottom(radius: 10)
+			}
+		}
 	}
 	
-	func resetUI() {
-		// Iterate through all the values and set them to false
-		for (key, _) in self.ratingButtons {
-			self.ratingButtons[key] = false
+	func contractFactorList() {
+		cardConfiguration?.factorsExpanded = false
+		UIView.animate(withDuration: 0.2, animations: {
+			self.factorTableView.frame = CGRect(origin: self.factorTableView.frame.origin, size: CGSize(width: self.factorTableView.bounds.width, height: 0))
+		}) { _ in
+			UIView.animate(withDuration: 0.1) {
+				self.addFactorButton.round(radius: 10)
+			}
 		}
-		for (key, _) in self.factorButtons {
-			self.factorButtons[key] = false
-		}
-		updateViews()
+	}
+}
+
+extension CardView: UITableViewDataSource, UITableViewDelegate {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return cardConfiguration?.factors.count ?? 0
 	}
 	
-	func animateTapFor(_ button: UIButton) {
-		// Depress animation for buttons
-		CardView.animate( withDuration: 0.002, animations: { button.transform = CGAffineTransform(scaleX: 0.9, y: 0.9) }, completion: { _ in UIView.animate(withDuration: 0.1) { button.transform = CGAffineTransform.identity}})
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "factorCell", for: indexPath) as! FactorTableViewCell
+		cell.factor = cardConfiguration?.factors[indexPath.row]
+		cell.legendColor = legendColors[indexPath.row]
+		cell.delegate = self
+		return cell
+	}
+	
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		factorTableView.roundBottom(radius: 10)
+	}
+}
+
+extension CardView: FactorTableViewCellDelegate {
+	func factorTapped(cell: FactorTableViewCell) {
+		let index = factorTableView.indexPath(for: cell)
+		cell.factor!.1 = !cell.factor!.1
+		cardConfiguration?.factors[(index?.row)!].1 = cell.factor!.1
 	}
 }
 
 // MARK: - Delegate functions
 protocol CardViewDelegate: class {
+	func ratingTapped(index: Int?)
 	func saveButtonTapped()
 	func addCardButtonTapped()
 	func editCardButtonTapped()

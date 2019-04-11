@@ -15,14 +15,8 @@ class NotificationManager {
 		
 		let components: DateComponents
 		guard let date = reminder.timeOfDay else { print("Failed to schedule notification. Reminder date was nil.") ; return }
-		guard let frequency = Frequency(rawValue: reminder.frequency) else { print("Failed to schedule notification. Frequency was nil") ; return }
 		guard let id = reminder.uuid?.uuidString else { print("Failed to schedule notification. Reminder uuid nil.") ; return }
-		switch frequency {
-		case .daily:
-			components = Calendar.current.dateComponents([.hour, .minute], from: date)
-		case .weekly:
-			components = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date)
-		}
+		components = Calendar.current.dateComponents([.hour, .minute], from: date)
 
 		UNUserNotificationCenter.current().getNotificationSettings { (settings) in
 			guard settings.authorizationStatus == .authorized else { print("There was an issue scheduling a notification"); completion(false) ; return }

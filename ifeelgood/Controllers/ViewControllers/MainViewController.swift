@@ -26,7 +26,7 @@ class MainViewController: UIViewController {
 		cardView.delegate = self
 		loadCard(card: CardController.shared.activeCard)
 		
-		topBarView.layer.cornerRadius = 10
+		topBarView.layer.cornerRadius = 20
 		topBarView.layer.shadowColor = UIColor.black.cgColor
 		topBarView.layer.shadowOpacity = 0.08
 		topBarView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
@@ -38,6 +38,11 @@ class MainViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		loadCard(card: CardController.shared.activeCard)
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		self.cardView.initializeUI()
 	}
 	
 	func setWelcomePhrase() {
@@ -131,6 +136,7 @@ extension MainViewController: CardViewDelegate {
 	}
 	
 	func hideCard() {
+		cardView.contractFactorList()
 		// Sets target locations of views & then animates.
 		let cardTarget = self.view.frame.maxY - self.view.safeAreaInsets.bottom - (self.cardView.frame.height / 5)
 		self.userInteractionAnimate(view: self.cardView, edge: self.cardView.frame.minY, to: cardTarget, velocity: self.cardView.panGesture.velocity(in: self.cardView).y, insightAlphaTarget: 1)
@@ -172,31 +178,8 @@ extension MainViewController: CardViewDelegate {
 		let target = self.view.frame.height
 		CardController.shared.setActive(card: card)
 		self.autoAnimate(view: self.cardView, edge: self.cardView.bounds.minY, to: target, insightAlphaTarget: 0) { (_) in
-			if !CardController.shared.activeCardFactorTypes.isEmpty {
-				// Selectively update factor labels
-				if CardController.shared.activeCardFactorTypes.indices.contains(0) {
-					self.cardView.factorXButton.setTitle(CardController.shared.activeCardFactorTypes[0].name, for: .normal)
-				} else {
-					self.cardView.factorXButton.setTitle("", for: .normal)
-				}
-				if CardController.shared.activeCardFactorTypes.indices.contains(1) {
-					self.cardView.factorYButton.setTitle(CardController.shared.activeCardFactorTypes[1].name, for: .normal)
-				} else {
-					self.cardView.factorYButton.setTitle("", for: .normal)
-				}
-				if CardController.shared.activeCardFactorTypes.indices.contains(2) {
-					self.cardView.factorZButton.setTitle(CardController.shared.activeCardFactorTypes[2].name, for: .normal)
-				} else {
-					self.cardView.factorZButton.setTitle("", for: .normal)
-				}
-			} else {
-				self.cardView.factorXButton.setTitle("", for: .normal)
-				self.cardView.factorYButton.setTitle("", for: .normal)
-				self.cardView.factorZButton.setTitle("", for: .normal)
-			}
+			self.cardView.cardConfiguration = CardConfiguration(name: card.name!, factorsExpanded: false, factors: CardController.shared.activeCardFactorTypes.map{ ($0, false) })
 		}
-		self.cardView.updateViews()
-		self.cardView.resetUI()
 		self.showCard()
 	}
 	
@@ -218,38 +201,26 @@ extension MainViewController: CardViewDelegate {
 	}
 	
 	func saveButtonTapped() {
-		// If any of the buttons are active save the entry
-		if cardView.ratingButtons.contains(where: { $0.1 == true }) || cardView.factorButtons.contains(where: { $0.1 == true }) {
-			var rating = Double()
-			for button in cardView.ratingButtons {
-				switch button {
-				case (cardView.superBadButton, true):
-					rating = 1
-				case (cardView.mindBadButton, true):
-					rating = 2
-				case (cardView.mindNeutralButton, true):
-					rating = 3
-				case (cardView.mindGoodButton, true):
-					rating = 4
-				case (cardView.superGoodButton, true):
-					rating = 5
-				default:
-					break
-				}
+		guard let index = cardView.cardConfiguration?.activeRating,
+			let config = cardView.cardConfiguration else { cardView.shake() ; return }
+		let factors = config.factors.compactMap{ (factor, marked)  -> FactorType? in
+			if marked == true {
+				return factor
+			} else {
+				return nil
 			}
-			var factors = [FactorType]()
-			if cardView.factorButtons[cardView.factorXButton]! {
-				factors.append(CardController.shared.activeCardFactorTypes[0])
-			} else if cardView.factorButtons[cardView.factorYButton]! {
-				factors.append(CardController.shared.activeCardFactorTypes[1])
-			} else if cardView.factorButtons[cardView.factorZButton]! {
-				factors.append(CardController.shared.activeCardFactorTypes[2])
-			}
-			CardController.shared.createEntry(ofRating: rating, factorMarks: factors)
-			cardView.resetUI()
-		} else {
-			// If not say no
-			cardView.shake()
+		}
+		CardController.shared.createEntry(ofRating: Double(index) + 1, types: factors)
+		cardView.clear()
+		cardView.contractFactorList()
+	}
+	
+	func ratingTapped(index: Int?) {
+		let activeRating = cardView.cardConfiguration?.activeRating
+		if activeRating == nil || activeRating != index {
+			cardView.cardConfiguration?.activeRating = index
+		} else if activeRating == index {
+			cardView.cardConfiguration?.activeRating = nil
 		}
 	}
 }
