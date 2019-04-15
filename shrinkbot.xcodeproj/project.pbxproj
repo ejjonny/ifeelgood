@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		CA1016F4222B89E60066B2B5 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1016F3222B89E60066B2B5 /* NotificationManager.swift */; };
 		CA1036A9225E5E4200FC8E95 /* TopBottomRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1036A8225E5E4200FC8E95 /* TopBottomRoundedView.swift */; };
-		CA14DB802264F6F8005F86CA /* ifeelgoodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA14DB7F2264F6F8005F86CA /* ifeelgoodTests.swift */; };
+		CA14DB802264F6F8005F86CA /* shrinkbotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA14DB7F2264F6F8005F86CA /* shrinkbotTests.swift */; };
 		CA164FDE2216125300205AE9 /* FactorMark+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA164FDD2216125300205AE9 /* FactorMark+Convenience.swift */; };
 		CA1F71302205981F0094A12A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F712F2205981F0094A12A /* CardView.swift */; };
 		CA1F713222059A1A0094A12A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F713122059A1A0094A12A /* MainViewController.swift */; };
-		CA3ED4022258018500C5D8EF /* ifeelgood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CA3ED4002258018500C5D8EF /* ifeelgood.xcdatamodeld */; };
+		CA3ED4022258018500C5D8EF /* shrinkbot.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CA3ED4002258018500C5D8EF /* shrinkbot.xcdatamodeld */; };
 		CA3F5846220FA1000049752A /* AlertControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3F5845220FA1000049752A /* AlertControllers.swift */; };
 		CA4E437722041885002C329F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4E437622041885002C329F /* AppDelegate.swift */; };
 		CA4E437C22041885002C329F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4E437A22041885002C329F /* Main.storyboard */; };
@@ -64,15 +64,15 @@
 /* Begin PBXFileReference section */
 		CA1016F3222B89E60066B2B5 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		CA1036A8225E5E4200FC8E95 /* TopBottomRoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBottomRoundedView.swift; sourceTree = "<group>"; };
-		CA14DB7D2264F6F8005F86CA /* ifeelgoodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ifeelgoodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA14DB7F2264F6F8005F86CA /* ifeelgoodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ifeelgoodTests.swift; sourceTree = "<group>"; };
+		CA14DB7D2264F6F8005F86CA /* shrinkbotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shrinkbotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA14DB7F2264F6F8005F86CA /* shrinkbotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shrinkbotTests.swift; sourceTree = "<group>"; };
 		CA14DB812264F6F8005F86CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA164FDD2216125300205AE9 /* FactorMark+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactorMark+Convenience.swift"; sourceTree = "<group>"; };
 		CA1F712F2205981F0094A12A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA1F713122059A1A0094A12A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CA3ED4012258018500C5D8EF /* ifeelgood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ifeelgood.xcdatamodel; sourceTree = "<group>"; };
 		CA3F5845220FA1000049752A /* AlertControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllers.swift; sourceTree = "<group>"; };
-		CA4E437322041885002C329F /* ifeelgood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ifeelgood.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA4E437322041885002C329F /* shrinkbot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shrinkbot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4E437622041885002C329F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA4E437B22041885002C329F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CA4E437D22041886002C329F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -137,20 +137,20 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		CA14DB7E2264F6F8005F86CA /* ifeelgoodTests */ = {
+		CA14DB7E2264F6F8005F86CA /* shrinkbotTests */ = {
 			isa = PBXGroup;
 			children = (
-				CA14DB7F2264F6F8005F86CA /* ifeelgoodTests.swift */,
+				CA14DB7F2264F6F8005F86CA /* shrinkbotTests.swift */,
 				CA14DB812264F6F8005F86CA /* Info.plist */,
 			);
-			path = ifeelgoodTests;
+			path = shrinkbotTests;
 			sourceTree = "<group>";
 		};
 		CA4E436A22041885002C329F = {
 			isa = PBXGroup;
 			children = (
-				CA4E437522041885002C329F /* ifeelgood */,
-				CA14DB7E2264F6F8005F86CA /* ifeelgoodTests */,
+				CA4E437522041885002C329F /* shrinkbot */,
+				CA14DB7E2264F6F8005F86CA /* shrinkbotTests */,
 				CA4E437422041885002C329F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -158,13 +158,13 @@
 		CA4E437422041885002C329F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CA4E437322041885002C329F /* ifeelgood.app */,
-				CA14DB7D2264F6F8005F86CA /* ifeelgoodTests.xctest */,
+				CA4E437322041885002C329F /* shrinkbot.app */,
+				CA14DB7D2264F6F8005F86CA /* shrinkbotTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CA4E437522041885002C329F /* ifeelgood */ = {
+		CA4E437522041885002C329F /* shrinkbot */ = {
 			isa = PBXGroup;
 			children = (
 				CA4E438822041894002C329F /* Resources */,
@@ -172,13 +172,13 @@
 				CAE3F96D2204E926008625C4 /* Views */,
 				CAC306B6220D20F300C3229F /* Controllers */,
 			);
-			path = ifeelgood;
+			path = shrinkbot;
 			sourceTree = "<group>";
 		};
 		CA4E438822041894002C329F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CA3ED4002258018500C5D8EF /* ifeelgood.xcdatamodeld */,
+				CA3ED4002258018500C5D8EF /* shrinkbot.xcdatamodeld */,
 				CAE3F9732204F16D008625C4 /* CoreDataStack.swift */,
 				CA4E437622041885002C329F /* AppDelegate.swift */,
 				CA4E437D22041886002C329F /* Assets.xcassets */,
@@ -279,9 +279,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CA14DB7C2264F6F8005F86CA /* ifeelgoodTests */ = {
+		CA14DB7C2264F6F8005F86CA /* shrinkbotTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CA14DB862264F6F8005F86CA /* Build configuration list for PBXNativeTarget "ifeelgoodTests" */;
+			buildConfigurationList = CA14DB862264F6F8005F86CA /* Build configuration list for PBXNativeTarget "shrinkbotTests" */;
 			buildPhases = (
 				CA14DB792264F6F8005F86CA /* Sources */,
 				CA14DB7A2264F6F8005F86CA /* Frameworks */,
@@ -292,14 +292,14 @@
 			dependencies = (
 				CA14DB832264F6F8005F86CA /* PBXTargetDependency */,
 			);
-			name = ifeelgoodTests;
+			name = shrinkbotTests;
 			productName = ifeelgoodTests;
-			productReference = CA14DB7D2264F6F8005F86CA /* ifeelgoodTests.xctest */;
+			productReference = CA14DB7D2264F6F8005F86CA /* shrinkbotTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CA4E437222041885002C329F /* ifeelgood */ = {
+		CA4E437222041885002C329F /* shrinkbot */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CA4E438522041886002C329F /* Build configuration list for PBXNativeTarget "ifeelgood" */;
+			buildConfigurationList = CA4E438522041886002C329F /* Build configuration list for PBXNativeTarget "shrinkbot" */;
 			buildPhases = (
 				CA4E436F22041885002C329F /* Sources */,
 				CA4E437022041885002C329F /* Frameworks */,
@@ -309,9 +309,9 @@
 			);
 			dependencies = (
 			);
-			name = ifeelgood;
+			name = shrinkbot;
 			productName = ifeelgood;
-			productReference = CA4E437322041885002C329F /* ifeelgood.app */;
+			productReference = CA4E437322041885002C329F /* shrinkbot.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -347,8 +347,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CA4E437222041885002C329F /* ifeelgood */,
-				CA14DB7C2264F6F8005F86CA /* ifeelgoodTests */,
+				CA4E437222041885002C329F /* shrinkbot */,
+				CA14DB7C2264F6F8005F86CA /* shrinkbotTests */,
 			);
 		};
 /* End PBXProject section */
@@ -378,7 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA14DB802264F6F8005F86CA /* ifeelgoodTests.swift in Sources */,
+				CA14DB802264F6F8005F86CA /* shrinkbotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,7 +396,7 @@
 				CAE3F9762204F1B1008625C4 /* FactorType+Convenience.swift in Sources */,
 				CA1016F4222B89E60066B2B5 /* NotificationManager.swift in Sources */,
 				CAD16FFA222DE876000A881E /* CardTableViewCell.swift in Sources */,
-				CA3ED4022258018500C5D8EF /* ifeelgood.xcdatamodeld in Sources */,
+				CA3ED4022258018500C5D8EF /* shrinkbot.xcdatamodeld in Sources */,
 				CA716503221CD93A00C38029 /* EntryStats.swift in Sources */,
 				CA7D6CCB225E8F1B001C306B /* FactorTableViewCell.swift in Sources */,
 				CA8148EC22154D9B00AA7111 /* GraphFunction.swift in Sources */,
@@ -432,7 +432,7 @@
 /* Begin PBXTargetDependency section */
 		CA14DB832264F6F8005F86CA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CA4E437222041885002C329F /* ifeelgood */;
+			target = CA4E437222041885002C329F /* shrinkbot */;
 			targetProxy = CA14DB822264F6F8005F86CA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -463,18 +463,18 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8Z88H6B28;
-				INFOPLIST_FILE = ifeelgoodTests/Info.plist;
+				INFOPLIST_FILE = shrinkbotTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ethansapps.ifeelgoodTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethansapps.shrinkbotTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ifeelgood.app/ifeelgood";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/shrinkbot.app/shrinkbot";
 			};
 			name = Debug;
 		};
@@ -484,18 +484,18 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8Z88H6B28;
-				INFOPLIST_FILE = ifeelgoodTests/Info.plist;
+				INFOPLIST_FILE = shrinkbotTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ethansapps.ifeelgoodTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethansapps.shrinkbotTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ifeelgood.app/ifeelgood";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/shrinkbot.app/shrinkbot";
 			};
 			name = Release;
 		};
@@ -623,13 +623,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8Z88H6B28;
-				INFOPLIST_FILE = "$(SRCROOT)/ifeelgood/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/shrinkbot/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ethansapps.ifeelgood;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethansapps.shrinkbot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -642,13 +642,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8Z88H6B28;
-				INFOPLIST_FILE = "$(SRCROOT)/ifeelgood/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/shrinkbot/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ethansapps.ifeelgood;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethansapps.shrinkbot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -658,7 +658,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CA14DB862264F6F8005F86CA /* Build configuration list for PBXNativeTarget "ifeelgoodTests" */ = {
+		CA14DB862264F6F8005F86CA /* Build configuration list for PBXNativeTarget "shrinkbotTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CA14DB842264F6F8005F86CA /* Debug */,
@@ -676,7 +676,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CA4E438522041886002C329F /* Build configuration list for PBXNativeTarget "ifeelgood" */ = {
+		CA4E438522041886002C329F /* Build configuration list for PBXNativeTarget "shrinkbot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CA4E438622041886002C329F /* Debug */,
@@ -688,13 +688,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		CA3ED4002258018500C5D8EF /* ifeelgood.xcdatamodeld */ = {
+		CA3ED4002258018500C5D8EF /* shrinkbot.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				CA3ED4012258018500C5D8EF /* ifeelgood.xcdatamodel */,
 			);
 			currentVersion = CA3ED4012258018500C5D8EF /* ifeelgood.xcdatamodel */;
-			path = ifeelgood.xcdatamodeld;
+			path = shrinkbot.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

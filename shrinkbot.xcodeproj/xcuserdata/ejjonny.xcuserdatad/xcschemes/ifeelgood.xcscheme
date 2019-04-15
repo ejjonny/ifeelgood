@@ -14,8 +14,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CA4E437222041885002C329F"
-               BuildableName = "ifeelgood.app"
-               BlueprintName = "ifeelgood"
+               BuildableName = "shrinkbot.app"
+               BlueprintName = "shrinkbot"
                ReferencedContainer = "container:shrinkbot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,8 +32,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CA14DB7C2264F6F8005F86CA"
-               BuildableName = "ifeelgoodTests.xctest"
-               BlueprintName = "ifeelgoodTests"
+               BuildableName = "shrinkbotTests.xctest"
+               BlueprintName = "shrinkbotTests"
                ReferencedContainer = "container:shrinkbot.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,8 +42,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CA4E437222041885002C329F"
-            BuildableName = "ifeelgood.app"
-            BlueprintName = "ifeelgood"
+            BuildableName = "shrinkbot.app"
+            BlueprintName = "shrinkbot"
             ReferencedContainer = "container:shrinkbot.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,8 +65,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CA4E437222041885002C329F"
-            BuildableName = "ifeelgood.app"
-            BlueprintName = "ifeelgood"
+            BuildableName = "shrinkbot.app"
+            BlueprintName = "shrinkbot"
             ReferencedContainer = "container:shrinkbot.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -83,8 +83,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CA4E437222041885002C329F"
-            BuildableName = "ifeelgood.app"
-            BlueprintName = "ifeelgood"
+            BuildableName = "shrinkbot.app"
+            BlueprintName = "shrinkbot"
             ReferencedContainer = "container:shrinkbot.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -94,6 +94,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "shrinkbot"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
