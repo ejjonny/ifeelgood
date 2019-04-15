@@ -16,7 +16,7 @@
                BlueprintIdentifier = "CA4E437222041885002C329F"
                BuildableName = "ifeelgood.app"
                BlueprintName = "ifeelgood"
-               ReferencedContainer = "container:ifeelgood.xcodeproj">
+               ReferencedContainer = "container:shrinkbot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -27,7 +27,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CA14DB7C2264F6F8005F86CA"
+               BuildableName = "ifeelgoodTests.xctest"
+               BlueprintName = "ifeelgoodTests"
+               ReferencedContainer = "container:shrinkbot.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CA4E437222041885002C329F"
+            BuildableName = "ifeelgood.app"
+            BlueprintName = "ifeelgood"
+            ReferencedContainer = "container:shrinkbot.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -48,7 +67,7 @@
             BlueprintIdentifier = "CA4E437222041885002C329F"
             BuildableName = "ifeelgood.app"
             BlueprintName = "ifeelgood"
-            ReferencedContainer = "container:ifeelgood.xcodeproj">
+            ReferencedContainer = "container:shrinkbot.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -60,6 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CA4E437222041885002C329F"
+            BuildableName = "ifeelgood.app"
+            BlueprintName = "ifeelgood"
+            ReferencedContainer = "container:shrinkbot.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

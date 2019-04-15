@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ifeelgood.xcodeproj">
+      location = "self:/Users/ejjonny/Documents/NotMyDesktop/iOS/ifeelgood/shrinkbot.xcodeproj">
    </FileRef>
 </Workspace>
