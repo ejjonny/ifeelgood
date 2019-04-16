@@ -74,7 +74,6 @@ class MainViewController: UIViewController {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "toInsight" {
 			guard let destination = segue.destination as? InsightViewController else { return }
-			destination.delegate = self
 			insightContainer = destination
 		}
 	}
@@ -82,11 +81,6 @@ class MainViewController: UIViewController {
 	func loadInsight() {
 		insightContainer?.customizeInsightPageForActiveCard{}
 	}
-}
-
-// MARK: - InsightView delegate
-extension MainViewController: InsightViewControllerDelegate {
-	
 }
 
 // MARK: - CardView delegate
@@ -180,6 +174,7 @@ extension MainViewController: CardViewDelegate {
 		self.autoAnimate(view: self.cardView, edge: self.cardView.bounds.minY, to: target, insightAlphaTarget: 0) { (_) in
 			self.cardView.cardConfiguration = CardConfiguration(name: card.name!, factorsExpanded: false, factors: CardController.shared.activeCardFactorTypes.map{ ($0, false) })
 		}
+//		insightContainer?.refreshInsights()
 		self.showCard()
 	}
 	
@@ -211,6 +206,7 @@ extension MainViewController: CardViewDelegate {
 			}
 		}
 		CardController.shared.createEntry(ofRating: Double(index) + 1, types: factors)
+		insightContainer?.refreshInsights()
 		cardView.clear()
 		cardView.contractFactorList()
 	}

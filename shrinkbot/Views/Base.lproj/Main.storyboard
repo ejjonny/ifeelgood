@@ -13,7 +13,7 @@
         <!--Main View Controller-->
         <scene sceneID="ioD-V2-fBQ">
             <objects>
-                <viewController id="wjG-zT-1LP" customClass="MainViewController" customModule="ifeelgood" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="wjG-zT-1LP" customClass="MainViewController" customModule="shrinkbot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3Tz-HZ-9ZS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,7 +24,7 @@
                                     <segue destination="sTY-pb-gda" kind="embed" identifier="toInsight" id="z95-Qj-iqp"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wha-vi-MeG" userLabel="Card" customClass="CardView" customModule="ifeelgood" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wha-vi-MeG" userLabel="Card" customClass="CardView" customModule="shrinkbot" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="207.5" width="414" height="654.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JTc-Qd-jgN">
@@ -187,7 +187,7 @@
                                                                             <color key="backgroundColor" red="0.91269665960000002" green="0.94028264279999996" blue="0.99842876199999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </view>
                                                                         <prototypes>
-                                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="factorCell" rowHeight="63" id="VkP-eI-DxM" customClass="FactorTableViewCell" customModule="ifeelgood" customModuleProvider="target">
+                                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="factorCell" rowHeight="63" id="VkP-eI-DxM" customClass="FactorTableViewCell" customModule="shrinkbot" customModuleProvider="target">
                                                                                 <rect key="frame" x="0.0" y="28" width="394" height="63"/>
                                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VkP-eI-DxM" id="hWO-Nq-bs5">
@@ -380,7 +380,7 @@
         <!--Settings-->
         <scene sceneID="N9r-BO-fzB">
             <objects>
-                <tableViewController id="iIm-t4-M9Q" customClass="SettingsTableViewController" customModule="ifeelgood" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="iIm-t4-M9Q" customClass="SettingsTableViewController" customModule="shrinkbot" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" sectionIndexMinimumDisplayRowCount="2" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="G1G-hj-aFe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -544,7 +544,7 @@
         <!--Reminder View Controller-->
         <scene sceneID="kAl-m3-8X0">
             <objects>
-                <viewController id="PyQ-Um-FNi" customClass="ReminderViewController" customModule="ifeelgood" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="PyQ-Um-FNi" customClass="ReminderViewController" customModule="shrinkbot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rbt-hc-8Mg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -553,7 +553,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reminderCell" rowHeight="75" id="R3W-ge-ZpE" customClass="ReminderTableViewCell" customModule="ifeelgood" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reminderCell" rowHeight="75" id="R3W-ge-ZpE" customClass="ReminderTableViewCell" customModule="shrinkbot" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R3W-ge-ZpE" id="saJ-Z2-RQO">
@@ -684,7 +684,7 @@
         <!--Cards-->
         <scene sceneID="3i4-Fu-yzX">
             <objects>
-                <tableViewController id="ptW-EX-BRc" customClass="CardTableViewController" customModule="ifeelgood" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ptW-EX-BRc" customClass="CardTableViewController" customModule="shrinkbot" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Xf6-rq-b0r">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -692,7 +692,7 @@
                         <color key="tintColor" red="0.6355042423694649" green="0.74611038255736606" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.91492070999999997" green="0.94261030980000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cardCell" rowHeight="70" id="EdC-nO-HiY" customClass="CardTableViewCell" customModule="ifeelgood" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cardCell" rowHeight="70" id="EdC-nO-HiY" customClass="CardTableViewCell" customModule="shrinkbot" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EdC-nO-HiY" id="Gbt-2H-3Tv">
@@ -795,7 +795,7 @@
         <!--Entries-->
         <scene sceneID="9VO-LL-Aee">
             <objects>
-                <tableViewController id="Vmh-36-P5f" customClass="EntryTableViewController" customModule="ifeelgood" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Vmh-36-P5f" customClass="EntryTableViewController" customModule="shrinkbot" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="p03-rI-QJZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -845,7 +845,7 @@
         <!--Reminder Control View-->
         <scene sceneID="cyh-es-yHu">
             <objects>
-                <viewController id="r1Z-NJ-4sJ" customClass="ReminderControlView" customModule="ifeelgood" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="r1Z-NJ-4sJ" customClass="ReminderControlView" customModule="shrinkbot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tWh-Md-l2G">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="244"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -888,7 +888,7 @@
         <!--Insight View Controller-->
         <scene sceneID="tjS-x8-VJz">
             <objects>
-                <viewController id="sTY-pb-gda" customClass="InsightViewController" customModule="ifeelgood" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="sTY-pb-gda" customClass="InsightViewController" customModule="shrinkbot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3BF-sF-4Ao">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -900,7 +900,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="59"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="FWM-TY-gKG">
-                                                <rect key="frame" x="0.0" y="21.5" width="234.5" height="37.5"/>
+                                                <rect key="frame" x="0.0" y="19" width="234.5" height="40"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="cardName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qW-CK-PLd">
                                                         <rect key="frame" x="0.0" y="0.0" width="234.5" height="24"/>
@@ -909,9 +909,9 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Started: dateStarted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7U-5o-AC2">
-                                                        <rect key="frame" x="0.0" y="24" width="234.5" height="13.5"/>
+                                                        <rect key="frame" x="0.0" y="24" width="234.5" height="16"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -933,7 +933,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6Q-Fy-NE5">
                                         <rect key="frame" x="0.0" y="69" width="373" height="264"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6KC-If-e0U" customClass="GraphView" customModule="ifeelgood" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6KC-If-e0U" customClass="GraphView" customModule="shrinkbot" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="373" height="214"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not enough data..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cl3-3M-n6x">
@@ -1059,7 +1059,7 @@
                                     <constraint firstItem="tNk-MR-8bU" firstAttribute="width" secondItem="YuA-MN-AuS" secondAttribute="width" multiplier="0.35" id="FRo-Hh-tIf"/>
                                 </constraints>
                             </stackView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hfb-nn-Eve">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hfb-nn-Eve">
                                 <rect key="frame" x="0.0" y="417" width="414" height="184.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="nWD-8e-dGr">
@@ -1069,7 +1069,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="insightCell" id="gd2-r1-iTD" customClass="InsightCollectionViewCell" customModule="ifeelgood" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="insightCell" id="gd2-r1-iTD" customClass="InsightCollectionViewCell" customModule="shrinkbot" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="184.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -1111,7 +1111,7 @@
                                     <outlet property="delegate" destination="sTY-pb-gda" id="8lJ-hp-wru"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I don't have enough info to generate any insights yet... check back in soon!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KN9-sx-i3N">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I don't have enough info to generate any insights yet... check back in soon!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KN9-sx-i3N">
                                 <rect key="frame" x="83" y="479" width="248" height="61"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1128,7 +1128,6 @@
                             <constraint firstItem="xUZ-DR-5K1" firstAttribute="height" secondItem="C7M-vS-bkW" secondAttribute="height" multiplier="0.08" id="0Jn-ZS-BGj"/>
                             <constraint firstItem="tHV-vE-yfO" firstAttribute="centerX" secondItem="C7M-vS-bkW" secondAttribute="centerX" id="2dH-NM-YMH"/>
                             <constraint firstItem="YuA-MN-AuS" firstAttribute="width" secondItem="3BF-sF-4Ao" secondAttribute="width" multiplier="0.9" id="8sL-90-ACZ"/>
-                            <constraint firstItem="KN9-sx-i3N" firstAttribute="centerX" secondItem="hfb-nn-Eve" secondAttribute="centerX" id="CCY-e1-KrQ"/>
                             <constraint firstItem="YuA-MN-AuS" firstAttribute="centerX" secondItem="C7M-vS-bkW" secondAttribute="centerX" id="Cu6-mw-M1E"/>
                             <constraint firstItem="KN9-sx-i3N" firstAttribute="width" secondItem="C7M-vS-bkW" secondAttribute="width" multiplier="0.6" id="Cwi-DF-ByF"/>
                             <constraint firstItem="KN9-sx-i3N" firstAttribute="centerY" secondItem="hfb-nn-Eve" secondAttribute="centerY" id="Oqu-oJ-ikj"/>

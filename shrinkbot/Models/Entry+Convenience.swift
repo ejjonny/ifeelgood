@@ -20,11 +20,3 @@ extension Entry {
 		self.uuid = UUID()
 	}
 }
-
-extension Entry {
-	func getMarks() -> [FactorMark] {
-		guard let array = factorMarks?.array else { print("Unable to get mark objects from entry") ; return [] }
-		let marks = array.compactMap{ $0 as? FactorMark }
-		return marks
-	}
-}

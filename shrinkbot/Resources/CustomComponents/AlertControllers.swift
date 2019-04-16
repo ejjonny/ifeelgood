@@ -24,18 +24,17 @@ extension UIViewController {
 	}
 	
 	// Creates an alert controller with specified parameters and returns a string to use on completion.
-	func createDefaultAlert(withPrompt prompt: String?, message: String?, textFieldPlaceholder: String?, confirmActionName: String, completion: @escaping (String) -> Void){
+	func createDefaultAlert(withPrompt prompt: String?, message: String?, textFieldPlaceholder: String?, confirmActionName: String, textFieldText: String = "", completion: @escaping (String) -> Void){
 		let alertController = UIAlertController(title: prompt, message: message, preferredStyle: .alert)
 		// Confirm will complete with entered string.
 		let confirmAction = UIAlertAction(title: confirmActionName, style: .default) { (_) in
 			completion(alertController.textFields![0].text!)
 		}
-		
 		confirmAction.isEnabled = false
-		
 		// Configures text field (if text field is empty the confirm action will be disabled).
 		alertController.addTextField { textField in
 			textField.placeholder = textFieldPlaceholder
+			textField.text = textFieldText
 			NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main, using: { (_) in
 				guard let input = textField.text else { return }
 				confirmAction.isEnabled = input.count > 0 ? true : false
@@ -131,7 +130,7 @@ extension MainViewController {
 	func showEditFactorTypeOptions(for factor: FactorType) {
 		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		let renameFactor = UIAlertAction(title: "Rename factor", style: .default) { (_) in
-			self.createDefaultAlert(withPrompt: "Rename this factor", message: nil, textFieldPlaceholder: nil, confirmActionName: "Rename", completion: { (input) in
+			self.createDefaultAlert(withPrompt: "Rename this factor", message: nil, textFieldPlaceholder: "Something creative", confirmActionName: "Rename", textFieldText: factor.name ?? "", completion: { (input) in
 				CardController.shared.renameFactorType(factor, withName: input)
 				self.loadCard(card: CardController.shared.activeCard)
 			})
@@ -141,8 +140,6 @@ extension MainViewController {
 				if confirmed {
 					CardController.shared.deleteFactorType(factor)
 					self.loadCard(card: CardController.shared.activeCard)
-				} else {
-					
 				}
 			})
 		}
@@ -251,7 +248,7 @@ extension MainViewController {
 	}
 	
 	func showRenameCardAlert() {
-		createDefaultAlert(withPrompt: "Rename Card", message: "A specific aspect of your wellness", textFieldPlaceholder: "Name", confirmActionName: "Rename") { (input) in
+		createDefaultAlert(withPrompt: "Rename Card", message: "A specific aspect of your wellness", textFieldPlaceholder: "Name", confirmActionName: "Rename", textFieldText: CardController.shared.activeCard.name ?? "") { (input) in
 			CardController.shared.renameActiveCard(withName: input)
 			self.loadCard(card: CardController.shared.activeCard)
 		}

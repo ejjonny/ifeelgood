@@ -34,7 +34,6 @@ class InsightViewController: UIViewController {
 	@IBOutlet weak var insightNoDataLabel: UILabel!
 	
 	// MARK: - Params
-	weak var delegate: InsightViewControllerDelegate?
 	var card: Card {
 		return CardController.shared.activeCard
 	}
@@ -49,12 +48,8 @@ class InsightViewController: UIViewController {
         super.viewDidLoad()
 		setUpViews()
 		factorInfo = [(factorTypeOneColor, factorTypeOneLabel), (factorTypeTwoColor, factorTypeTwoLabel), (factorTypeThreeColor, factorTypeThreeLabel)]
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshInsights), name: Notification.Name(rawValue: "loadedFromCoreData"), object: nil)
     }
-	
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-		insightCollectionView.reloadData()
-	}
 	
 	// MARK: - Actions
 	@IBAction func graphStyleButtonTapped(_ sender: Any) {
@@ -151,24 +146,24 @@ class InsightViewController: UIViewController {
 		allFactors = CardController.shared.activeCardFactorTypes
 		self.factorPage = .first
 		displayFactors()
-		InsightGenerator.shared.generate { (insights) in
-			guard insights.count > 0 else {
-				self.insightNoDataLabel.text = "I don't have enough info to generate any insights yet... check back in soon!"
-				self.insightPageControl.numberOfPages = 0
-				return
-			}
-			self.insightNoDataLabel.text = ""
-			self.insights = insights
-			self.insightCollectionView.reloadData()
-			self.insightPageControl.numberOfPages = insights.count
+		guard insights.count > 0 else {
+			self.insightNoDataLabel.text = "I don't have enough info to generate any insights yet... check back in soon!"
+			self.insightPageControl.numberOfPages = 0
+			completion()
+			return
 		}
+		self.insightNoDataLabel.text = ""
+		self.insightCollectionView.reloadData()
+		self.insightPageControl.numberOfPages = insights.count
 		completion()
 	}
-}
-
-// MARK: - InsightVCDelegate
-protocol InsightViewControllerDelegate: class {
 	
+	@objc func refreshInsights() {
+		InsightGenerator.shared.generate { (insights) in
+			self.insights = insights
+			self.insightCollectionView.reloadData()
+		}
+	}
 }
 
 // MARK: - Collection View control

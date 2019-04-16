@@ -55,7 +55,7 @@ class CardController {
 		}
 		// Last resort
 		print("Error: active card computed property should cover all cases.")
-		return createCard(named: "My new card")
+		return createCard(named: "My Mood")
 	}
 	
 	var activeCardFactorTypes: [FactorType] {
@@ -96,31 +96,6 @@ class CardController {
 	}
 	
 	// MARK: - Factor control
-	
-//	func assignTypes() {
-//		activeCardEntries.forEach { (entry) in
-//			var marks = [Any]()
-//			for mark in entry.factorMarks! {
-//				marks.append(mark)
-//			}
-//			for mark in marks {
-//				let mark2 = mark as! FactorMark
-//				print("Checking mark name", mark2.name, mark2.type)
-//				switch mark2.name {
-//				case "Nic":
-//					mark2.type = activeCardFactorTypes.filter{ $0.name == "Nic" }.first!
-//				case "Alcohol":
-//					mark2.type = activeCardFactorTypes.filter{ $0.name == "Alcohol" }.first!
-//				case "Bad Sleep":
-//					mark2.type = activeCardFactorTypes.filter{ $0.name == "Bad Sleep" }.first!
-//				default:
-//					fatalError()
-//				}
-//			}
-//			CoreDataManager.saveToPersistentStore()
-//		}
-//	}
-
 	func createFactorType(withName name: String) {
 		guard let factorTypeCount = activeCard.factorTypes?.count else { print("Card does not have any factor types."); return }
 		if factorTypeCount < 6 {
@@ -148,6 +123,12 @@ class CardController {
 	}
 	
 	// MARK: - Entry control
+	func getMarks(entry: Entry) -> [FactorMark] {
+		guard let array = entry.factorMarks?.array else { print("Unable to get mark objects from entry") ; return [] }
+		let marks = array.compactMap{ $0 as? FactorMark }
+		return marks
+	}
+	
 	/// Should be used for getting the last day / week / month / year of entry statistics
 	func entriesWith(graphViewStyle: GraphRangeOptions) -> [EntryStats] {
 		var stats: [EntryStats] = []
@@ -267,7 +248,11 @@ class CardController {
 		return grouped
 	}
 	
-	func getRecentEntriesIn(interval: EntryDateStyles) -> [Entry] {
+	func getRecentEntriesIn(entries: [Entry] = [], interval: EntryDateStyles) -> [Entry] {
+		var entryArray = entries
+		if entryArray.isEmpty {
+			entryArray = activeCardEntries
+		}
 		var period = DateInterval()
 		switch interval {
 		case .year:
@@ -285,7 +270,7 @@ class CardController {
 		default:
 			break
 		}
-		return activeCardEntries.filter{
+		return entryArray.filter{
 			guard let date = $0.date else { print("An entry was missing a date") ; return false }
 			return period.contains(date)
 		}

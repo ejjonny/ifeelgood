@@ -35,6 +35,9 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
         super.viewDidLoad()
+		containerVC?.view.round(radius: 20)
+		reminderControlView.layer.cornerRadius = 20
+		reminderControlView.addMediumShadow()
     }
 	
 	// MARK: - TableView data source

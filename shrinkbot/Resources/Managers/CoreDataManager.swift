@@ -58,6 +58,7 @@ class CoreDataManager {
 				return
 			}
 			CardController.shared.cards = cardResults
+			NotificationCenter.default.post(Notification(name: Notification.Name("loadedFromCoreData")))
 		} catch {
 			print("Error fetching cards:", error, error.localizedDescription)
 			// If error set array as empty.

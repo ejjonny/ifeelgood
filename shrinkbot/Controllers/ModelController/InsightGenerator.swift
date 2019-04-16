@@ -7,21 +7,25 @@
 //
 
 import Foundation
+import CoreData
 
 class InsightGenerator {
 	
 	static let shared = InsightGenerator()
-	let allEntries = CardController.shared.activeCardEntries
+	var cardName = ""
 	
 	func generate(completion: @escaping ([Insight]) -> Void) {
-		guard allEntries.count > 10 else { completion([]) ; return  }
+		let mainEntries = CardController.shared.activeCardEntries
+		cardName = CardController.shared.activeCard.name ?? ""
+		guard mainEntries.count > 10 else { completion([]) ; return  }
 		DispatchQueue.global().async {
+			let tmpContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+			tmpContext.parent = CoreDataStack.context
+			let tmpEntries = mainEntries.map{ tmpContext.object(with: $0.objectID) as! Entry }
 			var insights = [Insight]()
-			insights.append(contentsOf: self.generateOverallAnalysis(entries: self.allEntries))
-			insights.append(contentsOf: self.averageFactorFrequency(entries: self.allEntries))
-			insights.append(contentsOf: self.getMainProgress(entries: self.allEntries))
-			// Time since last mark. Ex. It's been 18 days & 5 hours since you recorded (A)
-			// Progress. Ex. This week (Main) has improved by 20% / (Main) has gotten 8% worse. How to decide the interval to look at?
+			insights.append(contentsOf: self.generateOverallAnalysis(entries: tmpEntries))
+			insights.append(contentsOf: self.averageFactorFrequency(entries: tmpEntries))
+			insights.append(contentsOf: self.getMainProgress(entries: tmpEntries))
 			let filteredByScore = insights.filter{ $0.score > 20 }
 			DispatchQueue.main.async {
 				completion(filteredByScore)
@@ -29,19 +33,21 @@ class InsightGenerator {
 		}
 	}
 	
-	func getMainProgress(entries: [Entry]) -> [Insight] {
-		let week = CardController.shared.getRecentEntriesIn(interval: .week)
-		let month = CardController.shared.getRecentEntriesIn(interval: .month)
+	private func getMainProgress(entries: [Entry]) -> [Insight] {
+		let week = CardController.shared.getRecentEntriesIn(entries: entries, interval: .week)
+		let month = CardController.shared.getRecentEntriesIn(entries: entries, interval: .month)
 		let weekRatings = week.map{ $0.rating }
 		let monthRatings = month.map{ $0.rating }
-		let percentDifference = (weekRatings.average - monthRatings.average) / monthRatings.average
-		let rounded = ((percentDifference * 10000).rounded()) / 100
-		var description = "This week \(CardController.shared.activeCard.name ?? "Card") is \(abs(rounded))% \(rounded > 0 ? "better" : "worse") than this month's average"
-		if abs(percentDifference) == 0 {
-			description = "Looks like this week is about the same as the rest of the month for \(CardController.shared.activeCard.name ?? "Card")"
+		if weekRatings == monthRatings {
+			return []
 		}
-		print(description)
-		return [Insight(title: CardController.shared.activeCard.name ?? "Card", description: description, score: Double.random(in: 0...50))]
+		let percentDifference = percentChange(from: monthRatings.average, to: weekRatings.average)
+		let rounded = ((percentDifference * 10).rounded()) / 10
+		var description = "This week \(cardName) is \(abs(rounded))% \(rounded > 0 ? "better" : "worse") than this month's average"
+		if abs(percentDifference) == 0 {
+			description = "Looks like this week is about the same as the rest of the month for \(cardName)"
+		}
+		return [Insight(title: cardName, description: description, score: Double.random(in: 0...50))]
 	}
 	
 	private func averageFactorFrequency(entries: [Entry]) -> [Insight] {
@@ -52,14 +58,13 @@ class InsightGenerator {
 			let averageInterval = averageIntervalBetween(entries: entries)
 			let calendarInterval = closestCalendarIntervalWith(input: averageInterval)
 			guard let calendarIntervalSafe = calendarInterval else { continue }
-			let groups = CardController.shared.getEntries(groupedBy: calendarIntervalSafe)
+			let groups = CardController.shared.getEntries(entries: entries, groupedBy: calendarIntervalSafe)
 			let analyses = intervalAnalysesWith(groups: groups, type: type)
 			var recordedPerInterval = [Int]()
 			for analysis in analyses {
 				recordedPerInterval.append(analysis.factorRecorded)
 			}
-			let roundedRecorded = ((recordedPerInterval.average * 100).rounded()) / 100
-			print("On average you record \(type.name ?? "Name") \(roundedRecorded) times per \(calendarIntervalSafe.rawValue)")
+			let roundedRecorded = ((recordedPerInterval.average * 10).rounded()) / 10
 			insights.append(Insight(title: "\(type.name ?? "Name") Frequency", description: "On average you record \(type.name ?? "Name") \(roundedRecorded) times every \(calendarIntervalSafe.rawValue)", score: Double.random(in: 0...80)))
 		}
 		return insights
@@ -90,8 +95,7 @@ class InsightGenerator {
 			let percentage = withoutFactor.average / withFactor.average - 1
 			let percentageValue = (percentage * 100).rounded()
 			
-			print("\(CardController.shared.activeCard.name ?? "NaMe") is \(abs(percentageValue))% \(percentageValue > 0 ? "better" : "worse") without \(type.name ?? "NaME"). Reliability: \(analysisGroup.map{ $0.score }.reduce(0, +))")
-			insights.append(Insight(title: "\(type.name ?? "Name") / \(CardController.shared.activeCard.name ?? "Card") Correlation", description: "\(CardController.shared.activeCard.name ?? "Name") is \(abs(percentageValue))% \(percentageValue > 0 ? "better" : "worse") without \(type.name ?? "Name")", score: analysisGroup.map{ $0.score }.reduce(0, +)))
+			insights.append(Insight(title: "\(type.name ?? "Name") / \(cardName) Correlation", description: "\(cardName) is \(abs(percentageValue))% \(percentageValue > 0 ? "better" : "worse") without \(type.name ?? "Name")", score: analysisGroup.map{ $0.score }.reduce(0, +)))
 		}
 		return insights
 	}
@@ -99,7 +103,7 @@ class InsightGenerator {
 	private func sortIntoGroupsByFactorType(entries: [Entry]) -> [FactorType:[Entry]] {
 		var entriesByFactorType = [FactorType : [Entry]]()
 		for entry in entries {
-			let marks = entry.getMarks()
+			let marks = CardController.shared.getMarks(entry: entry)
 			for mark in marks {
 				guard let type = mark.type else { continue }
 				if entriesByFactorType[type] == nil {
@@ -142,6 +146,11 @@ class InsightGenerator {
 		return interval
 	}
 	
+	private func percentChange(from initialValue: Double, to changedValue: Double) -> Double {
+		let delta = changedValue - initialValue
+		return (delta / initialValue) * 100
+	}
+	
 	private func intervalAnalysesWith(groups: [[Entry]], type: FactorType) -> [IntervalAnalysis] {
 		var intervalAnalyses = [IntervalAnalysis]()
 		var reliability = Double()
@@ -149,7 +158,7 @@ class InsightGenerator {
 			var ratings = [Double]()
 			var factorRecorded = 0
 			for entry in group {
-				let marks = entry.getMarks()
+				let marks = CardController.shared.getMarks(entry: entry)
 				marks.forEach{
 					if $0.type == type {
 						factorRecorded += 1
@@ -166,3 +175,7 @@ class InsightGenerator {
 		return intervalAnalyses
 	}
 }
+
+// MARK: - Other ideas for insights
+// Time since last mark. Ex. It's been 18 days & 5 hours since you recorded (A)
+// Progress. Ex. This week (Main) has improved by 20% / (Main) has gotten 8% worse. How to decide the interval to look at?

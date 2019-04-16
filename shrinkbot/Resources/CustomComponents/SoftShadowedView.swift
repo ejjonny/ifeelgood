@@ -16,4 +16,11 @@ extension UIView {
 		self.layer.cornerRadius = 10
 		self.layer.shadowRadius = 5
 	}
+	
+	func addMediumShadow() {
+		self.layer.shadowColor = UIColor.black.cgColor
+		self.layer.shadowOpacity = 0.06
+		self.layer.shadowOffset = CGSize(width: 0.0, height: -10)
+		self.layer.shadowRadius = 5
+	}
 }
