@@ -42,6 +42,9 @@ class InsightViewController: UIViewController {
 	var factorInfo: [(UIView, UILabel)] = []
 	var allFactors = [FactorType]()
 	fileprivate var factorPage: FactorPage = .first
+	var propAnimator: UIViewPropertyAnimator?
+	var blurView = UIVisualEffectView()
+	let blurEffect = UIBlurEffect(style: .light)
 	
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
@@ -49,6 +52,11 @@ class InsightViewController: UIViewController {
 		setUpViews()
 		factorInfo = [(factorTypeOneColor, factorTypeOneLabel), (factorTypeTwoColor, factorTypeTwoLabel), (factorTypeThreeColor, factorTypeThreeLabel)]
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshInsights), name: Notification.Name(rawValue: "loadedFromCoreData"), object: nil)
+		addBlur()
+		propAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: {
+			self.blurView.effect = self.blurEffect
+		})
+		propAnimator?.isUserInteractionEnabled = true
     }
 	
 	// MARK: - Actions
@@ -86,6 +94,17 @@ class InsightViewController: UIViewController {
 		nameLabel.layer.cornerRadius = 5
 		dateStartedLabel.layer.cornerRadius = 5
 		updateDateStyleLabel()
+	}
+	
+	func addBlur() {
+		blurView = UIVisualEffectView()
+		blurView.frame = view.bounds
+		blurView.isUserInteractionEnabled = false
+		blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		self.view.addSubview(blurView)
+	}
+	
+	func removeBlur() {
 	}
 	
 	func displayFactors() {

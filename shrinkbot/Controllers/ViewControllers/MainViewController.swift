@@ -19,13 +19,14 @@ class MainViewController: UIViewController {
 	
 	// MARK: - Params
 	var insightContainer: InsightViewController?
+	var bottomOfCardShowTarget = CGFloat()
+	var topOfCardHideTarget = CGFloat()
 	
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
         super.viewDidLoad()
 		cardView.delegate = self
 		loadCard(card: CardController.shared.activeCard)
-		
 		topBarView.layer.cornerRadius = 20
 		topBarView.layer.shadowColor = UIColor.black.cgColor
 		topBarView.layer.shadowOpacity = 0.08
@@ -43,6 +44,12 @@ class MainViewController: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self.cardView.initializeUI()
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		bottomOfCardShowTarget = self.view.frame.maxY - self.view.safeAreaInsets.bottom
+		topOfCardHideTarget = self.view.frame.maxY - self.view.safeAreaInsets.bottom - (self.cardView.bounds.height / 5)
 	}
 	
 	func setWelcomePhrase() {
@@ -113,7 +120,7 @@ extension MainViewController: CardViewDelegate {
 	
 	func autoHide() {
 		// Sets target locations of views & then animates.
-		let cardTarget = self.view.frame.maxY - self.view.safeAreaInsets.bottom - (self.cardView.bounds.height / 5)
+		let cardTarget = topOfCardHideTarget
 		self.autoAnimate(view: self.cardView, edge: self.cardView.frame.minY, to: cardTarget, insightAlphaTarget: 1, completion: nil)
 		
 		let topBarTarget: CGFloat = 0
@@ -122,7 +129,7 @@ extension MainViewController: CardViewDelegate {
 	
 	func autoShow() {
 		// Sets target locations of views & then animates.
-		let cardTarget = self.view.frame.maxY - self.view.safeAreaInsets.bottom
+		let cardTarget = bottomOfCardShowTarget
 		self.autoAnimate(view: self.cardView, edge: self.cardView.frame.maxY, to: cardTarget, insightAlphaTarget: 0, completion: nil)
 		
 		let topBarTarget: CGFloat = self.view.safeAreaInsets.top - (self.topBarView.frame.height / 2)
@@ -132,7 +139,7 @@ extension MainViewController: CardViewDelegate {
 	func hideCard() {
 		cardView.contractFactorList()
 		// Sets target locations of views & then animates.
-		let cardTarget = self.view.frame.maxY - self.view.safeAreaInsets.bottom - (self.cardView.frame.height / 5)
+		let cardTarget = topOfCardHideTarget
 		self.userInteractionAnimate(view: self.cardView, edge: self.cardView.frame.minY, to: cardTarget, velocity: self.cardView.panGesture.velocity(in: self.cardView).y, insightAlphaTarget: 1)
 
 		let topBarTarget: CGFloat = 0
@@ -141,7 +148,7 @@ extension MainViewController: CardViewDelegate {
 	
 	func showCard() {
 		// Sets target locations of views & then animates.
-		let target = self.view.frame.maxY - self.view.safeAreaInsets.bottom
+		let target = bottomOfCardShowTarget
 		self.userInteractionAnimate(view: self.cardView, edge: self.cardView.frame.maxY, to: target, velocity: self.cardView.panGesture.velocity(in: self.cardView).y, insightAlphaTarget: 0)
 		
 		let topBarTarget: CGFloat = self.view.safeAreaInsets.top - (self.topBarView.frame.height / 2)
@@ -152,9 +159,7 @@ extension MainViewController: CardViewDelegate {
 		let distanceToTranslate = target - edge
 		UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.97, initialSpringVelocity: abs(velocity) * 0.01, options: .curveEaseOut , animations: {
 			view.frame =  view.frame.offsetBy(dx: 0, dy: distanceToTranslate)
-			if let alpha = insightAlphaTarget {
-				self.insightContainer?.view.alpha = alpha
-			}
+			self.updateContainerVisibility()
 		}, completion: nil)
 	}
 	
@@ -162,9 +167,7 @@ extension MainViewController: CardViewDelegate {
 		let distanceToTranslate = target - edge
 		UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
 			view.frame =  view.frame.offsetBy(dx: 0, dy: distanceToTranslate)
-			if let alpha = insightAlphaTarget {
-				self.insightContainer?.view.alpha = alpha
-			}
+			self.updateContainerVisibility()
 		}, completion: completion)
 	}
 	
@@ -174,11 +177,11 @@ extension MainViewController: CardViewDelegate {
 		self.autoAnimate(view: self.cardView, edge: self.cardView.bounds.minY, to: target, insightAlphaTarget: 0) { (_) in
 			self.cardView.cardConfiguration = CardConfiguration(name: card.name!, factorsExpanded: false, factors: CardController.shared.activeCardFactorTypes.map{ ($0, false) })
 		}
-//		insightContainer?.refreshInsights()
 		self.showCard()
 	}
 	
 	func panViews(withPanPoint panPoint: CGPoint) {
+		updateContainerVisibility()
 		// If user goes against necessary pan adjust reaction
 		if self.cardView.frame.maxY < self.view.bounds.maxY {
 			// Don't animate top bar with pan gesture
@@ -188,6 +191,14 @@ extension MainViewController: CardViewDelegate {
 			self.cardView.center.y += cardView.panGesture.translation(in: cardView).y
 			self.topBarView.center.y -= cardView.panGesture.translation(in: cardView).y / 3
 		}
+	}
+	
+	func updateContainerVisibility() {
+		let travelDistance = cardView.bounds.height - (cardView.bounds.height / 5)
+		let current = cardView.frame.minY - (view.bounds.height - cardView.bounds.height)
+		let percentHidden = current / travelDistance
+		let fraction = percentHidden < 0.01 ? 0 : percentHidden
+		insightContainer?.propAnimator?.fractionComplete =  1 - fraction
 	}
 	
 	// MARK: Card view controls
@@ -206,7 +217,6 @@ extension MainViewController: CardViewDelegate {
 			}
 		}
 		CardController.shared.createEntry(ofRating: Double(index) + 1, types: factors)
-		insightContainer?.refreshInsights()
 		cardView.clear()
 		cardView.contractFactorList()
 	}
