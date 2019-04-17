@@ -56,6 +56,11 @@ class InsightViewController: UIViewController {
 		addBlur()
     }
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		setUpBlur()
+	}
+	
 	// MARK: - Actions
 	@IBAction func graphStyleButtonTapped(_ sender: Any) {
 		graphRangeAlert { (range) -> (Void) in

@@ -198,7 +198,7 @@ extension MainViewController: CardViewDelegate {
 		let current = cardView.frame.minY - (view.bounds.height - cardView.bounds.height)
 		let percentHidden = current / travelDistance
 		let fraction = percentHidden < 0.01 ? 0 : percentHidden
-		insightContainer?.propAnimator?.fractionComplete =  fraction
+		insightContainer?.propAnimator?.fractionComplete = fraction + 0.10
 	}
 	
 	// MARK: Card view controls

@@ -23,28 +23,12 @@ class CardTableViewController: UITableViewController {
         return cell
     }
 	
-	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-		switch editingStyle {
-		case .delete:
-			createConfirmDeleteAlert(withPrompt: "Are you sure you want to delete the current active card & all of it's data?", message: nil, confirmActionName: "Yes, delete this card.", confirmActionStyle: .destructive) { (confirmed) in
-				if confirmed {
-					CardController.shared.deleteActiveCard(completion: { (_) in
-						tableView.deleteRows(at: [indexPath], with: .automatic)
-					})
-				}
-			}
-		default:
-			break
-		}
-	}
-		
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		dateStyleAlert { style in
 			self.dateStyle = style
 			self.performSegue(withIdentifier: "toEntries", sender: self)
 		}
 	}
-	
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -30,7 +30,7 @@ class CardController {
 		
 		// Make sure datasource has cards, if not make a default card.
 		if cards.isEmpty {
-			return createCard(named: "My New Card")
+			return createCard(named: "My Mood")
 		}
 
 		if activeArray.count > 1 || activeArray.count == 0 {
