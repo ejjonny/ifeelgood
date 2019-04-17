@@ -183,9 +183,9 @@ extension CardView: UITableViewDataSource, UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "factorCell", for: indexPath) as! FactorTableViewCell
-		cell.factor = cardConfiguration?.factors[indexPath.row]
-		cell.legendColor = legendColors[indexPath.row]
 		cell.delegate = self
+		cell.legendColor = legendColors[indexPath.row]
+		cell.factor = cardConfiguration?.factors[indexPath.row]
 		return cell
 	}
 	

@@ -34,6 +34,7 @@ class MainViewController: UIViewController {
 		topBarView.layer.shadowRadius = 5
 		topBarInsetView.layer.cornerRadius = 10
 		setWelcomePhrase()
+		NotificationCenter.default.addObserver(self, selector: #selector(updateContainerVisibility), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -193,7 +194,7 @@ extension MainViewController: CardViewDelegate {
 		}
 	}
 	
-	func updateContainerVisibility() {
+	@objc func updateContainerVisibility() {
 		let travelDistance = cardView.bounds.height - (cardView.bounds.height / 5)
 		let current = cardView.frame.minY - (view.bounds.height - cardView.bounds.height)
 		let percentHidden = current / travelDistance

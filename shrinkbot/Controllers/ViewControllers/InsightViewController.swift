@@ -107,6 +107,7 @@ class InsightViewController: UIViewController {
 	}
 	
 	@objc func setUpBlur() {
+		propAnimator?.stopAnimation(true)
 		blurView.effect = blurEffect
 		propAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: {
 			self.blurView.effect = nil
