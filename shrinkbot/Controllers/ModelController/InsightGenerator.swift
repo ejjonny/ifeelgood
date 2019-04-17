@@ -54,8 +54,8 @@ class InsightGenerator {
 		var insights = [Insight]()
 		let sorted = sortIntoGroupsByFactorType(entries: entries)
 		for type in sorted.keys {
-			guard let entries = sorted[type] else { continue }
-			let averageInterval = averageIntervalBetween(entries: entries)
+			guard let entriesWithType = sorted[type] else { continue }
+			let averageInterval = averageIntervalBetween(entries: entriesWithType)
 			let calendarInterval = closestCalendarIntervalWith(input: averageInterval)
 			guard let calendarIntervalSafe = calendarInterval else { continue }
 			let groups = CardController.shared.getEntries(entries: entries, groupedBy: calendarIntervalSafe)

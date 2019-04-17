@@ -44,7 +44,7 @@ class InsightViewController: UIViewController {
 	fileprivate var factorPage: FactorPage = .first
 	var propAnimator: UIViewPropertyAnimator?
 	var blurView = UIVisualEffectView()
-	let blurEffect = UIBlurEffect(style: .light)
+	let blurEffect = UIBlurEffect(style: .extraLight)
 	
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
@@ -52,11 +52,8 @@ class InsightViewController: UIViewController {
 		setUpViews()
 		factorInfo = [(factorTypeOneColor, factorTypeOneLabel), (factorTypeTwoColor, factorTypeTwoLabel), (factorTypeThreeColor, factorTypeThreeLabel)]
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshInsights), name: Notification.Name(rawValue: "loadedFromCoreData"), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(setUpBlur), name: UIApplication.didBecomeActiveNotification, object: nil)
 		addBlur()
-		propAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: {
-			self.blurView.effect = self.blurEffect
-		})
-		propAnimator?.isUserInteractionEnabled = true
     }
 	
 	// MARK: - Actions
@@ -104,7 +101,11 @@ class InsightViewController: UIViewController {
 		self.view.addSubview(blurView)
 	}
 	
-	func removeBlur() {
+	@objc func setUpBlur() {
+		blurView.effect = blurEffect
+		propAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear, animations: {
+			self.blurView.effect = nil
+		})
 	}
 	
 	func displayFactors() {

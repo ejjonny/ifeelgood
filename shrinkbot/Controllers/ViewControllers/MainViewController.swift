@@ -158,16 +158,16 @@ extension MainViewController: CardViewDelegate {
 	func userInteractionAnimate(view: UIView, edge: CGFloat, to target: CGFloat, velocity: CGFloat, insightAlphaTarget: CGFloat?) {
 		let distanceToTranslate = target - edge
 		UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.97, initialSpringVelocity: abs(velocity) * 0.01, options: .curveEaseOut , animations: {
-			view.frame =  view.frame.offsetBy(dx: 0, dy: distanceToTranslate)
 			self.updateContainerVisibility()
+			view.frame =  view.frame.offsetBy(dx: 0, dy: distanceToTranslate)
 		}, completion: nil)
 	}
 	
 	func autoAnimate(view: UIView, edge: CGFloat, to target: CGFloat, insightAlphaTarget: CGFloat?, completion: ((Bool) -> Void)?) {
 		let distanceToTranslate = target - edge
 		UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
-			view.frame =  view.frame.offsetBy(dx: 0, dy: distanceToTranslate)
 			self.updateContainerVisibility()
+			view.frame =  view.frame.offsetBy(dx: 0, dy: distanceToTranslate)
 		}, completion: completion)
 	}
 	
@@ -198,7 +198,7 @@ extension MainViewController: CardViewDelegate {
 		let current = cardView.frame.minY - (view.bounds.height - cardView.bounds.height)
 		let percentHidden = current / travelDistance
 		let fraction = percentHidden < 0.01 ? 0 : percentHidden
-		insightContainer?.propAnimator?.fractionComplete =  1 - fraction
+		insightContainer?.propAnimator?.fractionComplete =  fraction
 	}
 	
 	// MARK: Card view controls
