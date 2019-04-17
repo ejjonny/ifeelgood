@@ -13,7 +13,7 @@ import CoreData
 class CardController {
 	
 	var entryDateStyle: EntryDateStyles = .day
-		
+	
 	// Singleton
 	static var shared = CardController()
 	
@@ -30,7 +30,10 @@ class CardController {
 		
 		// Make sure datasource has cards, if not make a default card.
 		if cards.isEmpty {
-			return createCard(named: "My Mood")
+			let card = createCard(named: "My Mood")
+			createFactorType(withName: "Slept Bad", onCard: card)
+			createFactorType(withName: "Exercised", onCard: card)
+			return card
 		}
 
 		if activeArray.count > 1 || activeArray.count == 0 {
@@ -55,7 +58,10 @@ class CardController {
 		}
 		// Last resort
 		print("Error: active card computed property should cover all cases.")
-		return createCard(named: "My Mood")
+		let card = createCard(named: "My Mood")
+		createFactorType(withName: "Slept Bad", onCard: card)
+		createFactorType(withName: "Exercised", onCard: card)
+		return card
 	}
 	
 	var activeCardFactorTypes: [FactorType] {
@@ -96,10 +102,10 @@ class CardController {
 	}
 	
 	// MARK: - Factor control
-	func createFactorType(withName name: String) {
+	func createFactorType(withName name: String, onCard card: Card? = nil) {
 		guard let factorTypeCount = activeCard.factorTypes?.count else { print("Card does not have any factor types."); return }
 		if factorTypeCount < 6 {
-			FactorType(name: name, card: activeCard)
+			FactorType(name: name, card: card ?? activeCard)
 		} else {
 			print("ERROR: Tried to save a factor when all factors on active card were full. Factor was not saved.")
 		}
