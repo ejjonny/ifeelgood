@@ -10,25 +10,19 @@ import UIKit
 import CoreData
 
 class CoreDataManager {
-	
 	// MARK: - Persistence
 	static func saveToPersistentStore(completion: ((Bool) -> Void)? = { success in
-		
 		if (success) {
 			CoreDataManager.loadFromPersistentStore()
 		} else {
-			print("Error saving")
+			print("Did not load successfully when saving")
 		}}) {
 		do {
 			try CoreDataStack.context.save()
-			if let comp = completion {
-				comp(true)
-			}
+			completion?(true)
 		} catch {
 			print("Unable to save to persistent store. \(error): \(error.localizedDescription)")
-			if let comp = completion {
-				comp(false)
-			}
+			completion?(false)
 		}
 	}
 	
